@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\Symbols;
 use App\Exceptions\Cms\Handler;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use App\Services\Contracts\Symbols as SymbolsInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
                 app()->singleton(ExceptionHandler::class, Handler::class);
             }
         }
+        $this->app->singleton(SymbolsInterface::class, Symbols::class);
     }
 }

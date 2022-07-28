@@ -36,3 +36,25 @@ Route::group(
             ->middleware('bkscms-auth:admins');
     }
 );
+
+// Securities Symbols
+Route::group(
+    [
+        'prefix' => 'cms',
+        'middleware' => [
+            'bkscms-auth:admins',
+        ]
+    ],
+    function () {
+        Route::get('financial-statements', 'SymbolController@index')
+            ->name('cms.financial.statements.index')
+            ->middleware('bkscms-auth:admins');
+        Route::get('financial-statement/pull', function() {
+            return view('cms.symbols.pullfinancialstatement');
+        })->name('cms.financial.statements.pull')
+          ->middleware('bkscms-auth:admins');
+        Route::post('financial-statement/pull', 'SymbolController@pullFinancialStatement')
+            ->name('cms.financial.statements.pull')
+            ->middleware('bkscms-auth:admins');
+    }
+);

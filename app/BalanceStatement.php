@@ -5,7 +5,7 @@ namespace App;
 use App\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
 
-class IncomeStatement extends Model
+class BalanceStatement extends Model
 {
     /**
      * The attributes that are mass assignable.

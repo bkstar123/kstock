@@ -19,6 +19,8 @@ class CreateFinancialStatementsTable extends Migration
             $table->string('year');
             $table->tinyInteger('quarter')->unsigned();
             $table->bigInteger('admin_id')->unsigned()->index();
+            $table->timestamps();
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 

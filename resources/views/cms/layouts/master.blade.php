@@ -40,6 +40,26 @@
         </div><!-- ./wrapper -->
         <!-- flashing message -->
         @include('bkstar123_flashing::flashing')
+        <script type="text/javascript">
+            Echo.private('user-' + {{ auth()->user()->id }})
+                .listen('.a.job.failed', (data) => {
+                    $.notify('You may get incompleted outcome because KStock has failed to perform one of necessary jobs while proceeding the request', {
+                        position: "right bottom",
+                        className: "error",
+                        clickToHide: true,
+                        autoHide: false,
+                    })
+                });
+            Echo.private('user-' + {{ auth()->user()->id }})
+                .listen('.pull.financial.statement.completed', (data) => {
+                    $.notify('KStock has successfully completed the request', {
+                        position: "right bottom",
+                        className: "success",
+                        clickToHide: true,
+                        autoHide: false,
+                    })
+                });
+        </script>
         @stack('scriptBottom')
     </body>
 @endguest

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIncomeStatementsTable extends Migration
+class CreateBalanceStatementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIncomeStatementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('income_statements', function (Blueprint $table) {
+        Schema::create('balance_statements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content');
             $table->bigInteger('financial_statement_id')->unsigned()->index();
@@ -29,6 +29,6 @@ class CreateIncomeStatementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('income_statements');
+        Schema::dropIfExists('balance_statements');
     }
 }

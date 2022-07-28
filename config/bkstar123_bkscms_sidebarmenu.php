@@ -64,4 +64,22 @@ return [
             ]
         ]
     ],
+
+    [
+        'name' => 'Securities Symbols',
+        'path' => '#',
+        'icon' => 'fa fa-rss-square',
+        'children' => [
+            [
+                'name' => 'Finalcial Statements',
+                'path' => '/cms/financial-statements',
+                'icon' => 'fa fa-tint',
+            ],
+            [
+                'name' => 'Pull Financial Statement',
+                'path' => '/cms/financial-statement/pull',
+                'icon' => 'fa fa-plus',
+            ]
+        ]
+    ],
 ];

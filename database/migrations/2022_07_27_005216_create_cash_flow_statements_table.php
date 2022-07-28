@@ -17,6 +17,8 @@ class CreateCashFlowStatementsTable extends Migration
             $table->bigIncrements('id');
             $table->text('content');
             $table->bigInteger('financial_statement_id')->unsigned()->index();
+            $table->timestamps();
+            $table->foreign('financial_statement_id')->references('id')->on('financial_statements')->onDelete('cascade');
         });
     }
 
