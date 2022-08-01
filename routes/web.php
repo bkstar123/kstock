@@ -46,15 +46,27 @@ Route::group(
         ]
     ],
     function () {
+        // index
         Route::get('financial-statements', 'SymbolController@index')
             ->name('cms.financial.statements.index')
             ->middleware('bkscms-auth:admins');
+        // pull
         Route::get('financial-statement/pull', function() {
-            return view('cms.symbols.pullfinancialstatement');
+            return view('cms.symbols.statements.pull');
         })->name('cms.financial.statements.pull')
           ->middleware('bkscms-auth:admins');
         Route::post('financial-statement/pull', 'SymbolController@pullFinancialStatement')
             ->name('cms.financial.statements.pull')
             ->middleware('bkscms-auth:admins');
+        // show
+        Route::get('financial-statements/{financial-statement}', 'SymbolController@show')
+            ->name('cms.financial.statements.show');
+        // destroy
+        Route::delete('financial-statements/{financial_statement}/destroy', 'SymbolController@destroy')
+        ->name('cms.financial.statements.destroy')
+        ->middleware('can:financial.statements.destroy,financial-statement');
+        Route::delete('financial-statements', 'SymbolController@massiveDestroy')
+        ->name('cms.financial.statements.massiveDestroy')
+        ->middleware('can:financial.statements.massiveDestroy');
     }
 );

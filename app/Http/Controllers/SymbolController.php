@@ -14,6 +14,26 @@ use App\Jobs\PullFinancialStatement;
 
 class SymbolController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $searchText = request()->input('search');
+        try {
+            $financial_statements = FinancialStatement::search($searchText)
+                    ->simplePaginate(config('bkstar123_bkscms_adminpanel.pageSize'))
+                    ->appends([
+                        'search' => $searchText
+                    ]);
+        } catch (Exception $e) {
+            $financial_statements = [];
+        }
+        return view('cms.symbols.statements.index', compact('financial_statements'));
+    }
+
 	/**
 	 * Pull financial statement with the data given in the request
 	 *
@@ -40,5 +60,47 @@ class SymbolController extends Controller
             ->flash();
     	}
     	return back();
+    }
+
+    /**
+     * Destroy the selected financial statement
+     *
+     * @param \App\FinancialStatement $financial_statement
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(FinancialStatement $financial_statement)
+    {
+        try {
+            $financial_statement->delete();
+            flashing("The selected financial statement has been successfully removed")
+                ->success()
+                ->flash();
+        } catch (Exception $e) {
+            flashing("The submitted action failed to be executed due to some unknown error")
+                ->error()
+                ->flash();
+        }
+        return back();
+    }
+
+    /**
+     * Destroy multiple selected financial statements
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function massiveDestroy()
+    {
+        $Ids = explode(',', request()->input('Ids'));
+        try {
+            FinancialStatement::destroy($Ids);
+            flashing('All selected financial statements have been removed')
+                ->success()
+                ->flash();
+        } catch (Exception $e) {
+            flashing("The submitted action failed to be executed due to some unknown error")
+                ->error()
+                ->flash();
+        }
+        return back();
     }
 }

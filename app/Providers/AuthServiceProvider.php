@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Bkstar123\BksCMS\AdminPanel\Role;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('financial.statements.massiveDestroy', function ($user) {
+            return $user->hasRole(Role::SUPERADMINS);
+        });
+
+        Gate::define('financial.statements.destroy', function ($user, $financial_statement) {
+            return $user->hasRole(Role::SUPERADMINS) || $user->id == $financial_statement->admin_id;
+        });
     }
 }
