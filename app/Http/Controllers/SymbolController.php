@@ -15,11 +15,11 @@ use App\Jobs\PullFinancialStatement;
 class SymbolController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of financial statements
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function listFinancialStatements()
     {
         $searchText = request()->input('search');
         try {
@@ -68,7 +68,7 @@ class SymbolController extends Controller
      * @param \App\FinancialStatement $financial_statement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FinancialStatement $financial_statement)
+    public function destroyFinancialStatement(FinancialStatement $financial_statement)
     {
         try {
             $financial_statement->delete();
@@ -88,7 +88,7 @@ class SymbolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function massiveDestroy()
+    public function massiveDestroyFinancialStatements()
     {
         $Ids = explode(',', request()->input('Ids'));
         try {
@@ -102,5 +102,16 @@ class SymbolController extends Controller
                 ->flash();
         }
         return back();
+    }
+
+    /**
+     * Display a financial statement
+     *
+     * @param \App\FinancialStatement $financial_statement
+     * @return \Illuminate\Http\Response
+     */
+    public function showFinancialStatement(FinancialStatement $financial_statement)
+    {
+        return view('cms.symbols.statements.show', compact('financial_statement'));
     }
 }

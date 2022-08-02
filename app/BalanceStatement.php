@@ -25,4 +25,15 @@ class BalanceStatement extends Model
     {
         return $this->belongsTo(FinancialStatement::class);
     }
+
+    /**
+     * Render the statement content
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $items = collect(json_decode($this->attributes['content'], true));
+        dd($items->pluck('name'));
+    }
 }
