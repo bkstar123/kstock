@@ -33,7 +33,20 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="active tab-pane" id="balance-statement">
-                        {{ $financial_statement->balance_statement->render() }}
+                        <table>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Value</th>
+                            </tr>
+                            @foreach($financial_statement->balance_statement->getItems() as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->values[0]['value'] }}</td>
+                            </tr>
+                            @endforeach
+                        </table>
                     </div>
                     <div class="tab-pane" id="income-statement">
                         Income Statement

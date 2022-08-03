@@ -31,9 +31,12 @@ class BalanceStatement extends Model
      *
      * @return string
      */
-    public function render()
+    public function getItems()
     {
         $items = collect(json_decode($this->attributes['content'], true));
-        dd($items->pluck('name'));
+        $items = $items->map(function($item) {
+            return new StatementItem($item['id'], $item['name'], $item['parentID'], $item['expanded'], $item['level'], $item['field'], $item['values']);
+        });
+        return $items;
     }
 }
