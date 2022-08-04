@@ -51,6 +51,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/Functions/kstock_helpers.php"
         ]
     },
     "autoload-dev": {

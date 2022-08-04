@@ -37,13 +37,13 @@
                             <tr>
                                 <th>Code</th>
                                 <th>Name</th>
-                                <th>Value</th>
+                                <th>Value (Tỷ VND)</th>
                             </tr>
                             @foreach($financial_statement->balance_statement->getItems() as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->values[0]['value'] }}</td>
+                                <td>{{ readVietnameseDongForHuman($item->values[0]['value']) }}</td>
                             </tr>
                             @endforeach
                         </table>

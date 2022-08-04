@@ -29,7 +29,7 @@ class BalanceStatement extends Model
     /**
      * Render the statement content
      *
-     * @return string
+     * @return \Illuminate\Support\Collection
      */
     public function getItems()
     {
