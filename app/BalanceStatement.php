@@ -4,9 +4,12 @@ namespace App;
 
 use App\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Statements\StatementIterator;
 
 class BalanceStatement extends Model
 {
+    use StatementIterator;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -24,19 +27,5 @@ class BalanceStatement extends Model
     public function financialStatement()
     {
         return $this->belongsTo(FinancialStatement::class);
-    }
-
-    /**
-     * Render the statement content
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getItems()
-    {
-        $items = collect(json_decode($this->attributes['content'], true));
-        $items = $items->map(function($item) {
-            return new StatementItem($item['id'], $item['name'], $item['parentID'], $item['expanded'], $item['level'], $item['field'], $item['values']);
-        });
-        return $items;
     }
 }

@@ -56,9 +56,9 @@ class PullFinancialStatement implements ShouldQueue
      */
     public function __construct($data, $financialStatementID, $user)
     {
-        $this->symbol = $data['symbol'];
-        $this->year = $data['year'];
-        $this->quarter = $data['quarter'];
+        $this->symbol = trim($data['symbol']);
+        $this->year = trim($data['year']);
+        $this->quarter = trim($data['quarter']);
         $this->financialStatementID = $financialStatementID;
         $this->user = $user;
     }
@@ -72,14 +72,14 @@ class PullFinancialStatement implements ShouldQueue
     {
         $symbols = resolve(Symbols::class);
         $balanceStatement = $symbols->getFullFinancialStatement($this->symbol, 1, $this->year, $this->quarter);
-        if (!empty($balanceStatement) && $balanceStatement != 'null') {
+        if (!empty($balanceStatement) && $balanceStatement != 'null' && $this->validateStatement($balanceStatement)) {
             BalanceStatement::create([
                 'content' => $balanceStatement,
                 'financial_statement_id' => $this->financialStatementID
             ]);
         }
         $incomeStatement = $symbols->getFullFinancialStatement($this->symbol, 2, $this->year, $this->quarter);
-        if (!empty($incomeStatement) && $incomeStatement != 'null') {
+        if (!empty($incomeStatement) && $incomeStatement != 'null' && $this->validateStatement($incomeStatement)) {
             IncomeStatement::create([
                 'content' => $incomeStatement,
                 'financial_statement_id' => $this->financialStatementID
@@ -89,7 +89,7 @@ class PullFinancialStatement implements ShouldQueue
         if ($cashFlowStatement == 'null') {
             $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 4, $this->year, $this->quarter);
         } 
-        if (!empty($cashFlowStatement) && $cashFlowStatement != 'null') {
+        if (!empty($cashFlowStatement) && $cashFlowStatement != 'null' && $this->validateStatement($cashFlowStatement)) {
             CashFlowStatement::create([
                 'content' => $cashFlowStatement,
                 'financial_statement_id' => $this->financialStatementID
@@ -107,5 +107,17 @@ class PullFinancialStatement implements ShouldQueue
     public function failed(Exception $exception)
     {
         JobFailing::dispatch($this->user);
+    }
+    
+    /**
+     * Validate whether or not components of the requested financial statement do exist
+     *
+     * @param string $content
+     * @return boolean
+     */
+    protected function validateStatement($content)
+    {
+        $firstItem = array_first(json_decode($content, true));
+        return array_first($firstItem['values'])['year'] == $this->year && array_first($firstItem['values'])['quarter'] == $this->quarter;
     }
 }

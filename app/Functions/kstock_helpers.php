@@ -15,6 +15,6 @@ if (! function_exists('readVietnameseDongForHuman')) {
      */
     function readVietnameseDongForHuman($value)
     {
-        return $value/1000000000;
+        return round($value/1000000000, 2) != 0 ? round($value/1000000000, 3) : '';
     }
 }

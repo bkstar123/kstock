@@ -4,9 +4,12 @@ namespace App;
 
 use App\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Statements\StatementIterator;
 
 class IncomeStatement extends Model
 {
+    use StatementIterator;
+    
     /**
      * The attributes that are mass assignable.
      *

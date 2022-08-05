@@ -11,6 +11,11 @@
                 		Third party authentication
                 	</a>
                 </li>
+                <li class="nav-item">
+                	<a class="nav-link" href="#displayStatementItemCode" data-toggle="tab">
+                		Display Codes of Statement Items
+                	</a>
+                </li>
             </ul>
         </div>
 	</div>
@@ -40,6 +45,39 @@
 					        	          rows="10"
 					        	          id="api_token"
 					        	          name="api_token">{{ config('settings.api_token') }}</textarea>
+					        </div>
+					        <div class="col-12 text-right">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
+                                </button>
+                            </div>
+					    </form>
+					</div>
+				</div>
+            </div>
+            <div class="tab-pane" id="displayStatementItemCode">
+                <div class="card">
+				    <div class="card-header">
+					    <h3>Display Codes Of Statement Items</h3>
+					</div>
+					<div class="card-body">
+					    <form action="{{ route('cms.settings.update') }}" method="POST">
+					        @csrf
+					        <div class="form-group">
+					        	<label for="display_statement_item_true">YES</label>
+					        	<input class="form-control" 
+					        	       type="radio" 
+					        	       id="display_statement_item_code_true"
+					        	       name="display_statement_item_code"
+					        	       {{ config('settings.display_statement_item_code') != 'yes' ?: "checked"}}
+					        	       value="yes" />
+					        	<label for="display_statement_item_false">NO</label>
+					        	<input class="form-control" 
+					        	       type="radio" 
+					        	       id="display_statement_item_code_false"
+					        	       name="display_statement_item_code"
+					        	       {{ config('settings.display_statement_item_code') != 'no' ?: "checked"}}
+					        	       value="no" />
 					        </div>
 					        <div class="col-12 text-right">
                                 <button class="btn btn-success" type="submit">
