@@ -14,7 +14,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-    	return view('cms.settings.index');
+        return view('cms.settings.index');
     }
 
     /**
@@ -25,11 +25,12 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-    	$settings = $request->except('_token');;
-    	foreach ($settings as $key => $value) {
-    		Setting::set($key, $value);
-    	}
-    	flashing('Settings are successfully updated')->success()->flash();
-    	return back();
+        $settings = $request->except('_token');
+        ;
+        foreach ($settings as $key => $value) {
+            Setting::set($key, $value);
+        }
+        flashing('Settings are successfully updated')->success()->flash();
+        return back();
     }
 }

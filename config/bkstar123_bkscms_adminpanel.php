@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @author: tuanha
  * @last-mod: 02-Sept-2019

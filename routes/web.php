@@ -51,7 +51,7 @@ Route::group(
             ->name('cms.financial.statements.index')
             ->middleware('bkscms-auth:admins');
         // pull
-        Route::get('financial-statement/pull', function() {
+        Route::get('financial-statement/pull', function () {
             return view('cms.symbols.statements.pull');
         })->name('cms.financial.statements.pull')
           ->middleware('bkscms-auth:admins');

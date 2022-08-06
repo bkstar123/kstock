@@ -25,32 +25,32 @@ class StatementItem
 
     public function __construct($id, $name, $parent_id, $expanded, $level, $field, $values)
     {
-    	$this->id = $id;
-    	$this->name = $name;
-    	$this->parent_id = $parent_id;
-    	$this->expanded = $expanded;
-    	$this->level= $level;
-    	$this->field = $field;
-    	$this->values = $values;
+        $this->id = $id;
+        $this->name = $name;
+        $this->parent_id = $parent_id;
+        $this->expanded = $expanded;
+        $this->level= $level;
+        $this->field = $field;
+        $this->values = $values;
     }
 
     public function parent()
     {
-    	//
+        //
     }
 
     public function children()
     {
-    	//
+        //
     }
 
     public function ancestors()
     {
-    	//
+        //
     }
 
     public function descendants()
     {
-    	//
+        //
     }
 }

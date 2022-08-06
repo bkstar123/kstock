@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 
 class Base
 {
-	/**
+    /**
      * @var GuzzleHttp\Client $client
      */
     protected $client;

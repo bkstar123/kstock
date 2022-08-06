@@ -86,9 +86,9 @@ class PullFinancialStatement implements ShouldQueue
             ]);
         }
         $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 3, $this->year, $this->quarter);
-        if ($cashFlowStatement == 'null') {
+        if (empty($cashFlowStatement) || $cashFlowStatement == 'null' || $this->validateStatement($cashFlowStatement)) {
             $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 4, $this->year, $this->quarter);
-        } 
+        }
         if (!empty($cashFlowStatement) && $cashFlowStatement != 'null' && $this->validateStatement($cashFlowStatement)) {
             CashFlowStatement::create([
                 'content' => $cashFlowStatement,

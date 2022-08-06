@@ -34,32 +34,32 @@ class SymbolController extends Controller
         return view('cms.symbols.statements.index', compact('financial_statements'));
     }
 
-	/**
-	 * Pull financial statement with the data given in the request
-	 *
-	 * @param Illuminate\Http\Request
-	 * @return Illuminate\Http\Response
-	 */
+    /**
+     * Pull financial statement with the data given in the request
+     *
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     */
     public function pullFinancialStatement(Request $request)
     {
-    	$request->validate([
-    		'symbol' => 'required',
-    		'year' => 'required|integer|between:1900,2100',
-    		'quarter' => 'required|integer|between:1,4'
-    	]);
-    	$data = $request->except('_token');
-    	$data['admin_id'] = $request->user()->id;
-    	try {
-    		$financialStatement = FinancialStatement::create($data);
-    		PullFinancialStatement::dispatch($request->except('_token'), $financialStatement->id, $request->user());
-    		flashing('Your request is being processed')
-    		->flash();
-    	} catch (Exception $e) {
-    		flashing('Failed to proceed the requested action')
+        $request->validate([
+            'symbol' => 'required',
+            'year' => 'required|integer|between:1900,2100',
+            'quarter' => 'required|integer|between:1,4'
+        ]);
+        $data = $request->except('_token');
+        $data['admin_id'] = $request->user()->id;
+        try {
+            $financialStatement = FinancialStatement::create($data);
+            PullFinancialStatement::dispatch($request->except('_token'), $financialStatement->id, $request->user());
+            flashing('Your request is being processed')
+            ->flash();
+        } catch (Exception $e) {
+            flashing('Failed to proceed the requested action')
             ->error()
             ->flash();
-    	}
-    	return back();
+        }
+        return back();
     }
 
     /**
