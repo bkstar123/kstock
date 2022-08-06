@@ -11,6 +11,7 @@ use Exception;
 use App\FinancialStatement;
 use Illuminate\Http\Request;
 use App\Jobs\PullFinancialStatement;
+use Bkstar123\BksCMS\AdminPanel\Role;
 
 class SymbolController extends Controller
 {
@@ -23,11 +24,14 @@ class SymbolController extends Controller
     {
         $searchText = request()->input('search');
         try {
-            $financial_statements = FinancialStatement::search($searchText)
-                    ->simplePaginate(config('bkstar123_bkscms_adminpanel.pageSize'))
-                    ->appends([
-                        'search' => $searchText
-                    ]);
+            $financial_statements = FinancialStatement::search($searchText);
+            if (!auth()->user()->hasRole(Role::SUPERADMINS)) {
+                $financial_statements = $financial_statements->where('admin_id', auth()->user()->id);
+            }
+            $financial_statements = $financial_statements->simplePaginate(config('bkstar123_bkscms_adminpanel.pageSize'))
+                                                         ->appends([
+                                                            'search' => $searchText
+                                                        ]);
         } catch (Exception $e) {
             $financial_statements = [];
         }

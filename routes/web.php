@@ -60,7 +60,8 @@ Route::group(
             ->middleware('bkscms-auth:admins');
         // show
         Route::get('financial-statements/{financial_statement}', 'SymbolController@showFinancialStatement')
-            ->name('cms.financial.statements.show');
+            ->name('cms.financial.statements.show')
+            ->middleware('can:financial.statements.show,financial_statement');
         // destroy
         Route::delete('financial-statements/{financial_statement}/destroy', 'SymbolController@destroyFinancialStatement')
         ->name('cms.financial.statements.destroy')
