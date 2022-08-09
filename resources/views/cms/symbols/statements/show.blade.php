@@ -113,6 +113,37 @@
                     </div>
                     <div class="tab-pane" id="analysis-report">
                         @if(!empty($financial_statement->analysis_report))
+                            @foreach(array_pluck($financial_statement->analysis_report->getItems(),'group') as $group)
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">{{ $group }}</h3>
+                                            </div>
+                                            <div class="card-body table-responsive p-0">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Indicator</th>
+                                                            <th>Value</th>
+                                                            <th>Description</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach(Arr::where($financial_statement->analysis_report->getItems(), function ($item) use ($group) {return $item['group'] == $group;}) as $item)
+                                                            <tr>
+                                                                <td>{{ $item['name'] }}</td>
+                                                                <td>{{ $item['value'] }}</td>
+                                                                <td>{{ $item['description'] }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         @else
                         No analysis report found
                         @endif

@@ -15,6 +15,7 @@ use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
 use App\Services\Contracts\Symbols;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\AnalyzeFinancialStatement;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -95,6 +96,7 @@ class PullFinancialStatement implements ShouldQueue
                 'financial_statement_id' => $this->financialStatementID
             ]);
         }
+        AnalyzeFinancialStatement::dispatch($this->financialStatementID, $this->user); // Temporary dispatch here
         PullFinancialStatementCompleted::dispatch($this->user);
     }
 

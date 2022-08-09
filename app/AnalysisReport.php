@@ -25,4 +25,14 @@ class AnalysisReport extends Model
     {
         return $this->belongsTo(FinancialStatement::class);
     }
+    
+    /**
+     * Returns the analysis report content items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return json_decode($this->attributes['content'], true);
+    }
 }
