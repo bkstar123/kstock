@@ -2,6 +2,8 @@
 /**
  * StatementItem class
  *
+ * Supposed to be used by StatementRepository
+ *
  * @author: tuanha
  * @date: 03-Aug-2022
  */
@@ -23,6 +25,17 @@ class StatementItem
 
     public $values;
 
+    /**
+     * Initialize StatementItem instance
+     *
+     * @param integer $id,
+     * @param string $name
+     * @param integer $parentID
+     * @param bool $expanded
+     * @param integer $level
+     * @param string $field
+     * @param array $values
+     */
     public function __construct($id, $name, $parent_id, $expanded, $level, $field, $values)
     {
         $this->id = $id;
@@ -34,23 +47,20 @@ class StatementItem
         $this->values = $values;
     }
 
-    public function parent()
+    /**
+     * Get the value of an item by year and quarter
+     * 
+     * @param integer $year
+     * @param integer $quarter
+     * @return integer
+     */
+    function getValue($year, $quarter)
     {
-        //
-    }
-
-    public function children()
-    {
-        //
-    }
-
-    public function ancestors()
-    {
-        //
-    }
-
-    public function descendants()
-    {
-        //
+        $res = array_first(\Arr::where($this->values, 
+            function ($value) use ($year, $quarter) {
+                return $value['year'] == $year && $value['quarter'] == $quarter;
+            }
+        ));
+        return (int) ($res['value'] ?? '');
     }
 }

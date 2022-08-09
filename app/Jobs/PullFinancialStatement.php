@@ -71,23 +71,23 @@ class PullFinancialStatement implements ShouldQueue
     public function handle()
     {
         $symbols = resolve(Symbols::class);
-        $balanceStatement = $symbols->getFullFinancialStatement($this->symbol, 1, $this->year, $this->quarter);
+        $balanceStatement = $symbols->getFullFinancialStatement($this->symbol, 1, $this->year, $this->quarter, 2);
         if (!empty($balanceStatement) && $balanceStatement != 'null' && $this->validateStatement($balanceStatement)) {
             BalanceStatement::create([
                 'content' => $balanceStatement,
                 'financial_statement_id' => $this->financialStatementID
             ]);
         }
-        $incomeStatement = $symbols->getFullFinancialStatement($this->symbol, 2, $this->year, $this->quarter);
+        $incomeStatement = $symbols->getFullFinancialStatement($this->symbol, 2, $this->year, $this->quarter, 2);
         if (!empty($incomeStatement) && $incomeStatement != 'null' && $this->validateStatement($incomeStatement)) {
             IncomeStatement::create([
                 'content' => $incomeStatement,
                 'financial_statement_id' => $this->financialStatementID
             ]);
         }
-        $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 3, $this->year, $this->quarter);
+        $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 3, $this->year, $this->quarter, 2);
         if (empty($cashFlowStatement) || $cashFlowStatement == 'null' || !$this->validateStatement($cashFlowStatement)) {
-            $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 4, $this->year, $this->quarter);
+            $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 4, $this->year, $this->quarter, 2);
         }
         if (!empty($cashFlowStatement) && $cashFlowStatement != 'null' && $this->validateStatement($cashFlowStatement)) {
             CashFlowStatement::create([
@@ -118,6 +118,6 @@ class PullFinancialStatement implements ShouldQueue
     protected function validateStatement($content)
     {
         $firstItem = array_first(json_decode($content, true));
-        return array_first($firstItem['values'])['year'] == $this->year && array_first($firstItem['values'])['quarter'] == $this->quarter;
+        return in_array($this->year, \Arr::pluck($firstItem['values'], 'year')) && in_array($this->quarter, \Arr::pluck($firstItem['values'], 'quarter'));
     }
 }

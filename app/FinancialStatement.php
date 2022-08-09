@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\AnalysisReport;
 use App\IncomeStatement;
 use App\BalanceStatement;
 use App\CashFlowStatement;
@@ -18,7 +19,7 @@ class FinancialStatement extends Model
      *
      * @var array
      */
-    protected $with = ['admin', 'balance_statement', 'cash_flow_statement', 'income_statement'];
+    protected $with = ['admin', 'balance_statement', 'cash_flow_statement', 'income_statement', 'analysis_report'];
 
     /**
      * List of columns for search enabling
@@ -84,5 +85,15 @@ class FinancialStatement extends Model
     public function income_statement()
     {
         return $this->hasOne(IncomeStatement::class);
+    }
+
+    /**
+     * A financial statement has one analysis report
+     *
+     * @return @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function analysis_report()
+    {
+        return $this->hasOne(AnalysisReport::class);
     }
 }

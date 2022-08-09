@@ -4,12 +4,9 @@ namespace App;
 
 use App\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Statements\StatementRepository;
 
-class BalanceStatement extends Model
+class AnalysisReport extends Model
 {
-    use StatementRepository;
-    
     /**
      * The attributes that are mass assignable.
      *

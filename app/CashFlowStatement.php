@@ -4,11 +4,11 @@ namespace App;
 
 use App\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Statements\StatementIterator;
+use App\Traits\Statements\StatementRepository;
 
 class CashFlowStatement extends Model
 {
-    use StatementIterator;
+    use StatementRepository;
     
     /**
      * The attributes that are mass assignable.

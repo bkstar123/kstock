@@ -28,6 +28,13 @@
                             Cash Flow Statement
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" 
+                           href="#analysis-report" 
+                           data-toggle="tab">
+                            Analysis Report
+                        </a>
+                    </li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -48,7 +55,7 @@
                                     <td>{{ $item->id }}</td>
                                 @endif
                                 <td>{{ $item->name }}</td>
-                                <td>{{ readVietnameseDongForHuman(array_first($item->values)['value']) }}</td>
+                                <td>{{ readVietnameseDongForHuman($item->getValue($financial_statement->year, $financial_statement->quarter)) }}</td>
                             </tr>
                             @endforeach
                         </table>
@@ -72,7 +79,7 @@
                                     <td>{{ $item->id }}</td>
                                 @endif
                                 <td>{{ $item->name }}</td>
-                                <td>{{ readVietnameseDongForHuman(array_first($item->values)['value']) }}</td>
+                                <td>{{ readVietnameseDongForHuman($item->getValue($financial_statement->year, $financial_statement->quarter)) }}</td>
                             </tr>
                             @endforeach
                         </table>
@@ -96,12 +103,18 @@
                                     <td>{{ $item->id }}</td>
                                 @endif
                                 <td>{{ $item->name }}</td>
-                                <td>{{ readVietnameseDongForHuman(array_first($item->values)['value']) }}</td>
+                                <td>{{ readVietnameseDongForHuman($item->getValue($financial_statement->year, $financial_statement->quarter)) }}</td>
                             </tr>
                             @endforeach
                         </table>
                         @else
                         No Income statement found
+                        @endif
+                    </div>
+                    <div class="tab-pane" id="analysis-report">
+                        @if(!empty($financial_statement->analysis_report))
+                        @else
+                        No analysis report found
                         @endif
                     </div>
                 </div>
