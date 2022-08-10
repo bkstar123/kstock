@@ -52,7 +52,7 @@ class StatementItem
      * 
      * @param integer $year
      * @param integer $quarter
-     * @return integer
+     * @return float
      */
     function getValue($year, $quarter)
     {
@@ -61,6 +61,6 @@ class StatementItem
                 return $value['year'] == $year && $value['quarter'] == $quarter;
             }
         ));
-        return (int) ($res['value'] ?? '');
+        return (float) ($res['value'] ?? '');
     }
 }

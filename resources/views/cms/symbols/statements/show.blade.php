@@ -113,7 +113,7 @@
                     </div>
                     <div class="tab-pane" id="analysis-report">
                         @if(!empty($financial_statement->analysis_report))
-                            @foreach(array_pluck($financial_statement->analysis_report->getItems(),'group') as $group)
+                            @foreach(array_unique(array_pluck($financial_statement->analysis_report->getItems(),'group')) as $group)
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">

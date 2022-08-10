@@ -52,7 +52,16 @@
                 });
             Echo.private('user-' + {{ auth()->user()->id }})
                 .listen('.pull.financial.statement.completed', (data) => {
-                    $.notify('KStock has successfully completed the request', {
+                    $.notify('KStock has pulled the requested financial statement', {
+                        position: "right bottom",
+                        className: "success",
+                        clickToHide: true,
+                        autoHide: false,
+                    })
+                });
+            Echo.private('user-' + {{ auth()->user()->id }})
+                .listen('.analyze.financial.statement.completed', (data) => {
+                    $.notify('KStock has analyzed the requested financial statement', {
                         position: "right bottom",
                         className: "success",
                         clickToHide: true,
