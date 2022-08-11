@@ -130,7 +130,10 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach(Arr::where($financial_statement->analysis_report->getItems(), function ($item) use ($group) {return $item['group'] == $group;}) as $item)
+                                                        @foreach(Arr::where($financial_statement->analysis_report->getItems(), 
+                                                            function ($item) use ($group) {
+                                                                return $item['group'] == $group;
+                                                            }) as $item)
                                                             <tr>
                                                                 <td>{{ $item['name'] }}</td>
                                                                 <td>{{ $item['value'] }}</td>
