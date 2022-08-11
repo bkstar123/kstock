@@ -49,14 +49,15 @@ class StatementItem
 
     /**
      * Get the value of a statement content item by year and quarter
-     * 
+     *
      * @param integer $year
      * @param integer $quarter
      * @return float
      */
     public function getValue($year, $quarter)
     {
-        $res = array_first(\Arr::where($this->values, 
+        $res = array_first(\Arr::where(
+            $this->values,
             function ($value) use ($year, $quarter) {
                 return $value['year'] == $year && $value['quarter'] == $quarter;
             }
@@ -71,6 +72,6 @@ class StatementItem
      */
     public function getValues()
     {
-        return array_pluck($this->values,'value');
+        return array_pluck($this->values, 'value');
     }
 }

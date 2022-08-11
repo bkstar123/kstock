@@ -1,9 +1,9 @@
 <?php
 /**
  * StatementRepository trait
- * 
+ *
  * Supposed to be used with Statement models
- * 
+ *
  * @author: tuanha
  * @date: 09-Aug-2022
  */

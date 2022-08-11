@@ -56,8 +56,8 @@ class AnalyzeFinancialStatement implements ShouldQueue
     public function handle()
     {
         $financialStatement = FinancialStatement::find($this->financialStatementID);
-        if (!empty($financialStatement) && 
-            !empty($financialStatement->balance_statement) && 
+        if (!empty($financialStatement) &&
+            !empty($financialStatement->balance_statement) &&
             !empty($financialStatement->income_statement)) {
             // 1. ROAA
             $this->calculateROAA($financialStatement);

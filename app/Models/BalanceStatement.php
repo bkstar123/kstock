@@ -10,7 +10,7 @@ namespace App\Models;
 use App\Models\BaseStatement;
 
 class BalanceStatement extends BaseStatement
-{   
+{
     /**
      * The attributes that are mass assignable.
      *
