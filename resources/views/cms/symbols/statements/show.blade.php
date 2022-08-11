@@ -113,7 +113,7 @@
                     </div>
                     <div class="tab-pane" id="analysis-report">
                         @if(!empty($financial_statement->analysis_report))
-                            @foreach(array_unique(array_pluck($financial_statement->analysis_report->getItems(),'group')) as $group)
+                            @foreach(array_unique($financial_statement->analysis_report->getItems()->pluck('group')->toArray()) as $group)
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
@@ -130,14 +130,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach(Arr::where($financial_statement->analysis_report->getItems(), 
-                                                            function ($item) use ($group) {
-                                                                return $item['group'] == $group;
-                                                            }) as $item)
+                                                        @foreach($financial_statement->analysis_report->getItems()->where('group', $group) as $item)
                                                             <tr>
-                                                                <td>{{ $item['name'] }}</td>
-                                                                <td>{{ $item['value'] }}</td>
-                                                                <td>{{ $item['description'] }}</td>
+                                                                <td>{{ $item->name }}</td>
+                                                                <td>{{ $item->value }}</td>
+                                                                <td>{{ $item->description }}</td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>

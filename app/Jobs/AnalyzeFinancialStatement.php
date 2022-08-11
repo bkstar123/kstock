@@ -96,7 +96,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
             'name' => 'ROAA',
             'group' => 'Chỉ số sinh lời',
             'description' => 'Tỷ suất lợi nhuận trên tài sản bình quân. Chỉ số này cho biết tài sản của một doanh nghiệp đang được sử dụng tốt như thế nào để tạo ra lợi nhuận. ROAA được tính bằng Thu nhập ròng cùng kì với tài sản / Tổng tài sản trung bình. Với tổng tài sản trung bình được tính bằng (tài sản đầu kỳ + tài sản cuối kì)/2',
-            'value' => round(100 * $financialStatement->income_statement->getItem(19)->getValue($selectedYear, $selectedQuarter) / $average_assets, 2)
+            'value' => round(100 * $financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter) / $average_assets, 2)
         ]);
     }
 

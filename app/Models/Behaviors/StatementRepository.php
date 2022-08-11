@@ -42,7 +42,7 @@ trait StatementRepository
     /**
      * Return the statement specific content item
      *
-     * @return \App\StatementItem || null
+     * @return App\ContentObjects\StatementItem || null
      */
     public function getItem($itemID)
     {

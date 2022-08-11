@@ -11,26 +11,47 @@ namespace App\ContentObjects;
 
 class StatementItem
 {
+    /**
+     * @var string
+     */
     public $id;
 
+    /**
+     * @var string
+     */
     public $name;
 
+    /**
+     * @var string
+     */
     public $parent_id;
 
+    /**
+     * @var bool
+     */
     public $expanded;
 
+    /**
+     * @var integer
+     */
     public $level;
 
+    /**
+     * @var string
+     */
     public $field;
 
+    /**
+     * @var array
+     */
     public $values;
 
     /**
      * Initialize StatementItem instance
      *
-     * @param integer $id,
+     * @param string $id,
      * @param string $name
-     * @param integer $parentID
+     * @param string $parentID
      * @param bool $expanded
      * @param integer $level
      * @param string $field

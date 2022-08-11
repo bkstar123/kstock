@@ -9,9 +9,12 @@ namespace App\Models;
 
 use App\Models\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Behaviors\AnalysisReportRepository;
 
 class AnalysisReport extends Model
 {
+    use AnalysisReportRepository;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -29,15 +32,5 @@ class AnalysisReport extends Model
     public function financialStatement()
     {
         return $this->belongsTo(FinancialStatement::class);
-    }
-    
-    /**
-     * Returns the analysis report content items
-     *
-     * @return array
-     */
-    public function getItems()
-    {
-        return json_decode($this->attributes['content'], true);
     }
 }
