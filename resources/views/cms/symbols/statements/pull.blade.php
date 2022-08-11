@@ -21,7 +21,7 @@
 						       class="form-control" 
 						       id="symbol" 
 						       name="symbol"
-						       placeholder="Enter symbol"
+						       placeholder="Enter symbol (e.g: FPT, HPG, MWG, etc...)"
 						       value="{{ old('symbol') }}" />
 					</div>
 					<div class="form-group">
@@ -47,7 +47,7 @@
 						       class="form-control" 
 						       id="quarter" 
 						       name="quarter"
-						       placeholder="Quarter of the concerned year"
+						       placeholder="Quarter of the concerned year (e.g: 0 -> full year, 1 -> Q1, 2 -> Q2, etc...)"
 						       value="{{ old('quarter') }}" />
 					</div>
 					<div class="card-footer">

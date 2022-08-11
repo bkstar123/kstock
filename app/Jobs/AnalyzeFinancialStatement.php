@@ -8,10 +8,10 @@
 namespace App\Jobs;
 
 use Exception;
-use App\AnalysisReport;
 use App\Events\JobFailing;
-use App\FinancialStatement;
 use Illuminate\Bus\Queueable;
+use App\Models\AnalysisReport;
+use App\Models\FinancialStatement;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -91,7 +91,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
     {
         $selectedYear = $financialStatement->year;
         $selectedQuarter = $financialStatement->quarter;
-        $average_assets = array_sum(array_pluck($financialStatement->balance_statement->getItem('2')->values,'value'))/2;
+        $average_assets = array_sum($financialStatement->balance_statement->getItem('2')->getValues())/2;
         array_push($this->content, [
             'name' => 'ROAA',
             'group' => 'Chỉ số sinh lời',
@@ -110,8 +110,8 @@ class AnalyzeFinancialStatement implements ShouldQueue
     {
         $selectedYear = $financialStatement->year;
         $selectedQuarter = $financialStatement->quarter;
-        $average_assets = array_sum(array_pluck($financialStatement->balance_statement->getItem('2')->values,'value'))/2;
-        $average_short_liabilities = array_sum(array_pluck($financialStatement->balance_statement->getItem('30101')->values,'value'))/2;
+        $average_assets = array_sum($financialStatement->balance_statement->getItem('2')->getValues())/2;
+        $average_short_liabilities = array_sum($financialStatement->balance_statement->getItem('30101')->getValues())/2;
         $eBIT = $financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
         array_push($this->content, [
             'name' => 'ROCE',

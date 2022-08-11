@@ -8,11 +8,11 @@
 namespace App\Jobs;
 
 use Exception;
-use App\IncomeStatement;
-use App\BalanceStatement;
-use App\CashFlowStatement;
 use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
+use App\Models\IncomeStatement;
+use App\Models\BalanceStatement;
+use App\Models\CashFlowStatement;
 use App\Services\Contracts\Symbols;
 use Illuminate\Queue\SerializesModels;
 use App\Jobs\AnalyzeFinancialStatement;
@@ -112,7 +112,7 @@ class PullFinancialStatement implements ShouldQueue
     }
     
     /**
-     * Validate whether or not components of the requested financial statement do exist
+     * Validate whether or not the pulled contents are of the desired financial statement
      *
      * @param string $content
      * @return boolean
@@ -120,6 +120,9 @@ class PullFinancialStatement implements ShouldQueue
     protected function validateStatement($content)
     {
         $firstItem = array_first(json_decode($content, true));
-        return in_array($this->year, \Arr::pluck($firstItem['values'], 'year')) && in_array($this->quarter, \Arr::pluck($firstItem['values'], 'quarter'));
+        $data = \Arr::where($firstItem['values'], function ($value) {
+            return $value['year'] == $this->year && $value['quarter'] == $this->quarter;
+        });
+        return !empty($data);
     }
 }

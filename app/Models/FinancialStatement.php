@@ -1,11 +1,16 @@
 <?php
+/**
+ * FinancialStatement - A placeholder for IncomeStatement, CashFlowStatement, BalanceStatement
+ *
+ * @author: tuanha
+ * @date: 11-Aug-2022
+ */
+namespace App\Models;
 
-namespace App;
-
-use App\AnalysisReport;
-use App\IncomeStatement;
-use App\BalanceStatement;
-use App\CashFlowStatement;
+use App\Models\AnalysisReport;
+use App\Models\IncomeStatement;
+use App\Models\BalanceStatement;
+use App\Models\CashFlowStatement;
 use Bkstar123\BksCMS\AdminPanel\Admin;
 use Illuminate\Database\Eloquent\Model;
 use Bkstar123\MySqlSearch\Traits\MySqlSearch;

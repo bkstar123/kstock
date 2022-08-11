@@ -8,8 +8,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\FinancialStatement;
 use Illuminate\Http\Request;
+use App\Models\FinancialStatement;
 use App\Jobs\PullFinancialStatement;
 use Bkstar123\BksCMS\AdminPanel\Role;
 
@@ -49,7 +49,7 @@ class SymbolController extends Controller
         $request->validate([
             'symbol' => 'required',
             'year' => 'required|integer|between:1900,2100',
-            'quarter' => 'required|integer|between:1,4'
+            'quarter' => 'required|integer|between:0,4'
         ]);
         $data = $request->except('_token');
         $data['admin_id'] = $request->user()->id;

@@ -1,15 +1,17 @@
 <?php
+/**
+ * AnalysisReport
+ *
+ * @author: tuanha
+ * @date: 11-Aug-2022
+ */
+namespace App\Models;
 
-namespace App;
-
-use App\FinancialStatement;
+use App\Models\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Statements\StatementRepository;
 
-class BalanceStatement extends Model
+class AnalysisReport extends Model
 {
-    use StatementRepository;
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -27,5 +29,15 @@ class BalanceStatement extends Model
     public function financialStatement()
     {
         return $this->belongsTo(FinancialStatement::class);
+    }
+    
+    /**
+     * Returns the analysis report content items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return json_decode($this->attributes['content'], true);
     }
 }

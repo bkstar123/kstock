@@ -1,23 +1,19 @@
 <?php
+/**
+ * BalanceStatement
+ *
+ * @author: tuanha
+ * @date: 11-Aug-2022
+ */
+namespace App\Models;
 
-namespace App;
-
-use App\FinancialStatement;
+use App\Models\FinancialStatement;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Statements\StatementRepository;
+use App\Models\Behaviors\StatementRepository;
 
-class CashFlowStatement extends Model
+class BaseStatement extends Model
 {
     use StatementRepository;
-    
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'content', 'financial_statement_id'
-    ];
 
     /**
      * A balance statement belongs to a financial statement

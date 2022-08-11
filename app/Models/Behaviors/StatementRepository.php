@@ -7,14 +7,14 @@
  * @author: tuanha
  * @date: 09-Aug-2022
  */
-namespace App\Traits\Statements;
+namespace App\Models\Behaviors;
 
-use App\StatementItem;
+use App\ContentObjects\StatementItem;
 
 trait StatementRepository
 {
     /**
-     * Returns the statement content items
+     * Returns all items of the statement content
      *
      * @return \Illuminate\Support\Collection || null
      */

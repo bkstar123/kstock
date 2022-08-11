@@ -7,7 +7,7 @@
  * @author: tuanha
  * @date: 03-Aug-2022
  */
-namespace App;
+namespace App\ContentObjects;
 
 class StatementItem
 {
@@ -48,13 +48,13 @@ class StatementItem
     }
 
     /**
-     * Get the value of an item by year and quarter
+     * Get the value of a statement content item by year and quarter
      * 
      * @param integer $year
      * @param integer $quarter
      * @return float
      */
-    function getValue($year, $quarter)
+    public function getValue($year, $quarter)
     {
         $res = array_first(\Arr::where($this->values, 
             function ($value) use ($year, $quarter) {
@@ -62,5 +62,15 @@ class StatementItem
             }
         ));
         return (float) ($res['value'] ?? '');
+    }
+
+    /**
+     * Get all values of a statement content item
+     *
+     * @return array
+     */
+    public function getValues()
+    {
+        return array_pluck($this->values,'value');
     }
 }

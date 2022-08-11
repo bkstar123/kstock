@@ -49,7 +49,7 @@
                                 {{ $financial_statement->year }}
                             </td>
                             <td>
-                                {{ $financial_statement->quarter }}
+                                {{ !empty($financial_statement->quarter) ?: 'Yearly' }}
                             </td>
                             <td>
                                 {{ $financial_statement->admin->email }}
