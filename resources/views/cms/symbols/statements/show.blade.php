@@ -1,5 +1,9 @@
 @extends('cms.layouts.master')
-@section('title', "$financial_statement->symbol financial statement Q$financial_statement->quarter-$financial_statement->year")
+@if(!empty($financial_statement->quarter))
+    @section('title', "$financial_statement->symbol financial statement Q$financial_statement->quarter-$financial_statement->year")
+@else
+    @section('title', "$financial_statement->symbol financial statement $financial_statement->year (Yearly)")
+@endif
 
 @section('content')
 <div class="row">
