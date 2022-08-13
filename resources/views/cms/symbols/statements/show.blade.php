@@ -130,6 +130,7 @@
                                                         <tr>
                                                             <th>Indicator</th>
                                                             <th>Value</th>
+                                                            <th>Unit</th>
                                                             <th>Description</th>
                                                         </tr>
                                                     </thead>
@@ -138,6 +139,7 @@
                                                             <tr>
                                                                 <td>{{ $item->name }}</td>
                                                                 <td>{{ $item->value }}</td>
+                                                                <td>{{ $item->unit }}</td>
                                                                 <td>{{ $item->description }}</td>
                                                             </tr>
                                                         @endforeach

@@ -26,6 +26,7 @@ trait AnalysisReportRepository
                 return new AnalysisReportItem(
                     $item['name'],
                     $item['group'],
+                    $item['unit'],
                     $item['description'],
                     $item['value']
                 );
@@ -51,6 +52,7 @@ trait AnalysisReportRepository
             return new AnalysisReportItem(
                 $item['name'],
                 $item['group'],
+                $item['unit'],
                 $item['description'],
                 $item['value']
             );
