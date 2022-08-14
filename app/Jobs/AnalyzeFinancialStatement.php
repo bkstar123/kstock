@@ -12,6 +12,8 @@ use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
 use App\Models\AnalysisReport;
 use App\Models\FinancialStatement;
+use App\Services\Contracts\Symbols;
+use App\Jobs\Financials\Profitability;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,7 +22,7 @@ use App\Events\AnalyzeFinancialStatementCompleted;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -53,18 +55,25 @@ class AnalyzeFinancialStatement implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(Symbols $symbols)
     {
         $financialStatement = FinancialStatement::find($this->financialStatementID);
+        $fundamentals = $symbols->getFundamentals($financialStatement->symbol);
+        if (!empty($fundamentals)) {
+            $companyType = (int) json_decode($fundamentals, true)['companyType'];
+        }  
         if (!empty($financialStatement) &&
             !empty($financialStatement->balance_statement) &&
-            !empty($financialStatement->income_statement)) {
+            !empty($financialStatement->income_statement) &&
+            isset($companyType) && $companyType == 0) {
             // Profitability Indices
-            $this->calculateROAA($financialStatement);
-            $this->calculateROCE($financialStatement);
-            $this->calculateROEA($financialStatement);
-            $this->calculateROS($financialStatement);
-            $this->calculateEBITDAPerSales($financialStatement);
+            $this->calculateROAA($financialStatement)
+                 ->calculateROCE($financialStatement)
+                 ->calculateROEA($financialStatement)
+                 ->calculateROS($financialStatement)
+                 ->calculateEBITDAPerSales($financialStatement)
+                 ->calculateEBITPerSales($financialStatement)
+                 ->calculateGrossProfitMargin($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
@@ -82,117 +91,5 @@ class AnalyzeFinancialStatement implements ShouldQueue
     public function failed(Exception $exception)
     {
         JobFailing::dispatch($this->user);
-    }
-
-    /**
-     * Calculate ROAA
-     *
-     * @param  \App\FinancialStatement $financialStatement
-     * @return array
-     */
-    protected function calculateROAA($financialStatement)
-    {
-        $selectedYear = $financialStatement->year;
-        $selectedQuarter = $financialStatement->quarter;
-        $average_assets = array_sum($financialStatement->balance_statement->getItem('2')->getValues())/2;
-        array_push($this->content, [
-            'name' => 'ROAA',
-            'group' => 'Chỉ số sinh lời',
-            'unit' => '%',
-            'description' => 'Tỷ suất lợi nhuận trên tài sản bình quân (Return on Average Assets). Chỉ số này cho biết tài sản của một doanh nghiệp đang được sử dụng tốt như thế nào để tạo ra lợi nhuận. ROAA = 100% * Thu nhập ròng cùng kì với tài sản / Tổng tài sản trung bình. Với tổng tài sản trung bình = (tài sản đầu kỳ + tài sản cuối kì)/2',
-            'value' => round(100 * $financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter) / $average_assets, 2)
-        ]);
-    }
-
-    /**
-     * Calculate ROCE
-     *
-     * @param  \App\FinancialStatement $financialStatement
-     * @return array
-     */
-    protected function calculateROCE($financialStatement)
-    {
-        $selectedYear = $financialStatement->year;
-        $selectedQuarter = $financialStatement->quarter;
-        $average_assets = array_sum($financialStatement->balance_statement->getItem('2')->getValues())/2;
-        $average_short_liabilities = array_sum($financialStatement->balance_statement->getItem('30101')->getValues())/2;
-        $eBIT = $financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
-        array_push($this->content, [
-            'name' => 'ROCE',
-            'group' => 'Chỉ số sinh lời',
-            'unit' => '%',
-            'description' => 'Tỷ suất lợi nhuận trên vốn dài hạn bình quân (Return on Capital Employed), đo lường khả năng sinh lời và hiệu quả sử dụng vốn của doanh nghiệp, nó cho biết mức độ sinh lời của doanh nghiệp từ số vốn đầu tư ban đầu. Chỉ số ROCE có thể đặc biệt hữu ích khi so sánh hiệu quả hoạt động của các công ty trong các lĩnh vực sử dụng nhiều vốn. Chẳng hạn như các dịch vụ tiện ích và viễn thông. Điều này là do không giống như các nguyên tắc cơ bản khác như  lợi nhuận trên vốn chủ sở hữu  (ROE), vốn chỉ phân tích khả năng sinh lời liên quan đến vốn chủ sở hữu của cổ đông công ty, ROCE xem xét nợ và vốn chủ sở hữu . Điều này có thể giúp phân tích hiệu quả tài chính đối với các công ty có nợ đáng kể. ROCE = EBIT x 100% / (Tổng tài sản bình quân - nợ ngắn hạn bình quân). (Bình quân: tính trung bình con số đầu kì và cuối kì).',
-            'value' => round(100 * $eBIT / ($average_assets - $average_short_liabilities), 2)
-        ]);
-    }
-
-    /**
-     * Calculate ROEA
-     *
-     * @param  \App\FinancialStatement $financialStatement
-     * @return array
-     */
-    protected function calculateROEA($financialStatement)
-    {
-        $selectedYear = $financialStatement->year;
-        $selectedQuarter = $financialStatement->quarter;
-        $parent_company_net_profit = $financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
-        $equities = $financialStatement->balance_statement->getItem('30201')->getValues();
-        $uncontrolled_shareolders_benefits = $financialStatement->balance_statement->getItem('3020114')->getValues();
-        array_push($this->content, [
-            'name' => 'ROEA',
-            'group' => 'Chỉ số sinh lời',
-            'unit' => '%',
-            'description' => 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (Return on Equity Average), đo lường mức độ hiệu quả trong việc sử dụng vốn chủ sở hữu của doanh nghiệp, ROEA được dùng kết hợp với chỉ số ROE khi phân tích một doanh nghiệp có hiện tượng biến động vốn chủ sở hữu quá lớn trong kỳ phân tích. Chỉ số ROE được tính bằng tỷ lệ giữa lợi nhuận ròng và vốn chủ sở hữu. Lợi nhuận ròng khá dễ để xác định và ít bị ảnh hưởng từ bên ngoài. Tuy nhiên vốn chủ sở hữu thường chịu ảnh hưởng bởi các yếu tố: lợi nhuận giữ lại, sáp nhập; phát hành riêng lẻ để tăng vốn… Vì vậy xét trong 1 năm tài chính, nếu doanh nghiệp có sự biến động về vốn chủ sở hữu thì ROE sẽ không phản ánh chính xác khả năng sinh lời của việc sử dụng vốn của doanh nghiệp. ROEA đo lường chính xác hơn về hiệu quả sử dụng vốn của doanh nghiệp trong trường hợp  vốn chủ sở hữu đã có sự biến động trong năm tài chính nhờ việc tính bình quân vốn chủ sở hữu trong kỳ. ROEA = 100% x Lợi nhuận sau thuế của cổ đông công ty mẹ / Vốn chủ sở hữu bình quân không bao gồm lợi ích cổ đông thiểu số. (Bình quân: tính trung bình con số đầu kì và cuối kì).',
-            'value' => round(2* 100 * $parent_company_net_profit / (($equities[0] - $uncontrolled_shareolders_benefits[0]) + ($equities[1] - $uncontrolled_shareolders_benefits[1])), 2)
-        ]);
-    }
-
-    /**
-     * Calculate ROS
-     *
-     * @param  \App\FinancialStatement $financialStatement
-     * @return array
-     */
-    protected function calculateROS($financialStatement)
-    {
-        $selectedYear = $financialStatement->year;
-        $selectedQuarter = $financialStatement->quarter;
-        $net_profit = $financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter);
-        $net_revenue = $financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-        array_push($this->content, [
-            'name' => 'ROS',
-            'group' => 'Chỉ số sinh lời',
-            'unit' => '%',
-            'description' => 'Tỉ lệ lợi nhuận ròng trên doanh thu thuần (Return On Sales – ROS) là tỉ lệ thể hiện mối tương quan giữa lợi nhuận được tạo ra dựa trên mỗi đồng doanh số. Chỉ tiêu này cho biết với một đồng doanh thu thuần từ bán hàng và cung cấp dịch vụ sẽ tạo ra bao nhiêu đồng lợi nhuận. Tỷ suất này càng lớn thì hiệu quả hoạt động của doanh nghiệp càng cao. ROS = 100 * Lợi nhuận sau thuế/ Doanh thu thuần',
-            'value' => round(100 * $net_profit / $net_revenue, 2)
-        ]);
-    }
-
-    /**
-     * Calculate EBITDAPerSales
-     *
-     * @param  \App\FinancialStatement $financialStatement
-     * @return array
-     */
-    protected function calculateEBITDAPerSales($financialStatement)
-    {
-        $selectedYear = $financialStatement->year;
-        $selectedQuarter = $financialStatement->quarter;
-        $eBit = $financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
-        $tangibleStaticAssets = $financialStatement->balance_statement->getItem("102020102")->getValues();
-        $financialLendingStaticAssets = $financialStatement->balance_statement->getItem("102020202")->getValues();
-        $intangibleStaticAssets = $financialStatement->balance_statement->getItem("102020302")->getValues();
-        $investRealEstate = $financialStatement->balance_statement->getItem("1020302")->getValues();
-        $deprecation = abs($tangibleStaticAssets[1]) - abs($tangibleStaticAssets[0]) + abs($financialLendingStaticAssets[1]) - abs($financialLendingStaticAssets[0]) + abs($intangibleStaticAssets[1]) - abs($intangibleStaticAssets[0]) + abs($investRealEstate[1]) - abs($investRealEstate[0]);
-        $eBITDA = $eBit + $deprecation;
-        $net_revenue = $financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-        array_push($this->content, [
-            'name' => 'EBITDA/Sales',
-            'group' => 'Chỉ số sinh lời',
-            'unit' => '%',
-            'description' => 'Hệ số EBITDA/Doanh thu (EBITDA/Sales) là một thước đo tài chính được sử dụng để đánh giá lợi nhuận của công ty bằng cách so sánh doanh thu của công ty với thu nhập. Cụ thể hơn, số liệu này cho biết tỉ lệ phần trăm thu nhập của công ty còn lại sau chi phí hoạt động. Chi phí hoạt động bao gồm giá vốn hàng bán và chi phí bán hàng, chi phí quản lí chung, chi phí hành chính. Tỉ lệ này tập trung vào chi phí hoạt động trực tiếp khi loại trừ ảnh hưởng của cấu trúc vốn của công ty bằng cách bỏ lãi, chi phí khấu hao, khấu hao không dùng tiền mặt và thuế thu nhập. EBITDA/Sales = 100% * EBITDA / doanh thu thuần',
-            'value' => round(100 * $eBITDA / $net_revenue, 2)
-        ]);
     }
 }

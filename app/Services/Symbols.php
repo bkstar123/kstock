@@ -38,4 +38,26 @@ class Symbols extends Base implements SymbolsInterface
             return false;
         }
     }
+
+    /**
+     * Get fundamental information of a symbol
+     *
+     * @param string $symbol
+     *
+     * @return string | false | null
+     */
+    public function getFundamentals(string $symbol)
+    {
+        $path = "/symbols/$symbol/fundamental";
+        try {
+            $res = $this->client->request('GET', $path);
+            if ($res->getStatusCode() == '200') {
+                return $res->getBody()->getContents();
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
