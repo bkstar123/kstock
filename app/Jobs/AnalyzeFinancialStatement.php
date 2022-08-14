@@ -11,6 +11,7 @@ use Exception;
 use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
 use App\Models\AnalysisReport;
+use App\Jobs\Financials\Liquidity;
 use App\Models\FinancialStatement;
 use App\Services\Contracts\Symbols;
 use App\Jobs\Financials\Profitability;
@@ -22,7 +23,7 @@ use App\Events\AnalyzeFinancialStatementCompleted;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -90,6 +91,9 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->calculateEBITDAPerSales($financialStatement)
                  ->calculateEBITPerSales($financialStatement)
                  ->calculateGrossProfitMargin($financialStatement);
+            // Liquidity Indices
+            $this->calculateLiquidityByCash($financialStatement);
+            $this->calculateQuickRatio($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
