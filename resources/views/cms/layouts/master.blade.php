@@ -43,7 +43,7 @@
         <script type="text/javascript">
             Echo.private('user-' + {{ auth()->user()->id }})
                 .listen('.a.job.failed', (data) => {
-                    $.notify('You may get incompleted outcome because KStock has failed to perform one of necessary jobs while proceeding the request', {
+                    $.notify(data.error, {
                         position: "right bottom",
                         className: "error",
                         clickToHide: true,

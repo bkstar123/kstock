@@ -61,11 +61,27 @@ class AnalyzeFinancialStatement implements ShouldQueue
         $fundamentals = $symbols->getFundamentals($financialStatement->symbol);
         if (!empty($fundamentals)) {
             $companyType = (int) json_decode($fundamentals, true)['companyType'];
+            switch ($companyType) {
+                case 1:
+                    throw new Exception('Kstock does not support analyzing financial statements of banking institutions');
+                    break;
+                case 2:
+                    throw new Exception('Kstock does not support analyzing financial statements of securities companies');
+                    break;
+                case 3:
+                    throw new Exception('Kstock does not support analyzing financial statements of Fundings');
+                    break;
+                case 4:
+                    throw new Exception('Kstock does not support analyzing financial statements of Insurance companies');
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         }  
         if (!empty($financialStatement) &&
             !empty($financialStatement->balance_statement) &&
-            !empty($financialStatement->income_statement) &&
-            isset($companyType) && $companyType == 0) {
+            !empty($financialStatement->income_statement)) {
             // Profitability Indices
             $this->calculateROAA($financialStatement)
                  ->calculateROCE($financialStatement)
@@ -90,6 +106,6 @@ class AnalyzeFinancialStatement implements ShouldQueue
      */
     public function failed(Exception $exception)
     {
-        JobFailing::dispatch($this->user);
+        JobFailing::dispatch($this->user, $exception->getMessage());
     }
 }
