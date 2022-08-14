@@ -10,7 +10,7 @@ namespace App\Jobs\Financials;
 trait Profitability
 {
 	/**
-     * Calculate ROAA
+     * Calculate ROAA - Ty suat loi nhuan tren tong tai san binh quan
      *
      * @param  \App\FinancialStatement $financialStatement
      * @return $this
@@ -31,7 +31,7 @@ trait Profitability
     }
 
     /**
-     * Calculate ROCE
+     * Calculate ROCE - Ty suat loi nhuan tren von dai han binh quan
      *
      * @param  \App\FinancialStatement $financialStatement
      * @return array
@@ -54,7 +54,7 @@ trait Profitability
     }
 
     /**
-     * Calculate ROEA
+     * Calculate ROEA - Ty suat loi nhuan tren VCSH binh quan
      *
      * @param  \App\FinancialStatement $financialStatement
      * @return array
@@ -77,7 +77,7 @@ trait Profitability
     }
 
     /**
-     * Calculate ROS
+     * Calculate ROS - Ty suat loi nhuan rong
      *
      * @param  \App\FinancialStatement $financialStatement
      * @return array
@@ -149,7 +149,7 @@ trait Profitability
     }
 
     /**
-     * Calculate Gross profit margin
+     * Calculate Gross profit margin - Bien loi nhuan gop
      *
      * @param  \App\FinancialStatement $financialStatement
      * @return array

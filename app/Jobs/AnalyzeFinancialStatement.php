@@ -92,8 +92,11 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->calculateEBITPerSales($financialStatement)
                  ->calculateGrossProfitMargin($financialStatement);
             // Liquidity Indices
-            $this->calculateLiquidityByCash($financialStatement);
-            $this->calculateQuickRatio($financialStatement);
+            $this->calculateAssetsToLiabilitiesRatio($financialStatement)
+                 ->calculateCurrentRatio($financialStatement)
+                 ->calculateQuickRatio($financialStatement)
+                 ->calculateCashRatio($financialStatement)
+                 ->calculateInterestCoverageRatio($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
