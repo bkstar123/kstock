@@ -19,13 +19,19 @@ class JobFailing implements ShouldBroadcast
     public $user;
 
     /**
+     * @var string
+     */
+    public $exception;
+
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Admin $user)
+    public function __construct(Admin $user, $exception)
     {
         $this->user = $user;
+        $this->exception = $exception;
     }
 
     /**
@@ -46,5 +52,12 @@ class JobFailing implements ShouldBroadcast
     public function broadcastAs()
     {
         return 'a.job.failed';
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'error' => $this->exception
+        ];
     }
 }
