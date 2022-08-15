@@ -59,30 +59,28 @@ class AnalyzeFinancialStatement implements ShouldQueue
     public function handle(Symbols $symbols)
     {
         $financialStatement = FinancialStatement::find($this->financialStatementID);
-        $fundamentals = $symbols->getFundamentals($financialStatement->symbol);
-        if (!empty($fundamentals)) {
-            $companyType = (int) json_decode($fundamentals, true)['companyType'];
-            switch ($companyType) {
-                case 1:
-                    throw new Exception('Kstock does not support analyzing financial statements of banking institutions');
-                    break;
-                case 2:
-                    throw new Exception('Kstock does not support analyzing financial statements of securities companies');
-                    break;
-                case 3:
-                    throw new Exception('Kstock does not support analyzing financial statements of Fundings');
-                    break;
-                case 4:
-                    throw new Exception('Kstock does not support analyzing financial statements of Insurance companies');
-                    break;
-                default:
-                    # code...
-                    break;
-            }
-        }  
-        if (!empty($financialStatement) &&
-            !empty($financialStatement->balance_statement) &&
-            !empty($financialStatement->income_statement)) {
+        if (!empty($financialStatement)) {
+            $fundamentals = $symbols->getFundamentals($financialStatement->symbol);
+            if (!empty($fundamentals)) {
+                $companyType = (int) json_decode($fundamentals, true)['companyType'];
+                switch ($companyType) {
+                    case 1:
+                        throw new Exception('Kstock does not support analyzing financial statements of banking institutions');
+                        break;
+                    case 2:
+                        throw new Exception('Kstock does not support analyzing financial statements of securities companies');
+                        break;
+                    case 3:
+                        throw new Exception('Kstock does not support analyzing financial statements of Fundings');
+                        break;
+                    case 4:
+                        throw new Exception('Kstock does not support analyzing financial statements of Insurance companies');
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            }  
             // Profitability Indices
             $this->calculateROAA($financialStatement)
                  ->calculateROCE($financialStatement)
@@ -97,7 +95,10 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->calculateQuickRatio($financialStatement)
                  ->calculateQuickRatio2($financialStatement)
                  ->calculateCashRatio($financialStatement)
-                 ->calculateInterestCoverageRatio($financialStatement);
+                 ->calculateInterestCoverageRatio($financialStatement)
+                 ->calculateLiabilitiesCoverageCashFlowRatio($financialStatement)
+                 ->calculateLongLiabilitiesCoverageCashFlowRatio($financialStatement)
+                 ->calculateCurrentLiabilitiesCoverageCashFlowRatio($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
