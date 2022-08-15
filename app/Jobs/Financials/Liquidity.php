@@ -25,7 +25,7 @@ trait Liquidity
             'name' => 'A/D Ratio',
             'group' => 'Chỉ số thanh khoản/thanh toán',
             'unit' => 'scalar',
-            'description' => 'Hệ số thanh toán tổng quát,cChỉ số này phản ánh tổng quát nhất năng lực thanh toán của doanh nghiệp trong ngắn và dài hạn. Hệ số khả năng thanh toán tổng quát = Tổng tài sản/Nợ phải trả. Nếu tỉ lệ > 2 P\phản ánh khả năng thanh toán của doanh nghiệp rất tốt, tuy nhiên hiệu quả sử dụng vốn có thể không cao và đòn bẩy tài chính thấp. Doanh nghiệp sẽ khó có bước tăng trưởng vượt bậc. Nếu 1 < tỉ lệ < 2 phản ánh về cơ bản, với lượng tổng tài sản hiện có, doanh nghiệp hoàn toàn đáp ứng được các khoản nợ tới hạn. Tỉ lệ < 1 thể hiện khả năng thanh toán của doanh nghiệp thấp, khi chỉ số càng tiến dần về 0, doanh nghiệp sẽ mất dần khả năng thanh toán, việc phá sản có thể xảy ra nếu doanh nghiệp không có giải pháp thực sự phù hợp',
+            'description' => 'Hệ số khả năng thanh toán tổng quát, Chỉ số này phản ánh tổng quát nhất năng lực thanh toán của doanh nghiệp trong ngắn và dài hạn. Hệ số khả năng thanh toán tổng quát = Tổng tài sản/Nợ phải trả. Nếu tỉ lệ > 2 phản ánh khả năng thanh toán của doanh nghiệp rất tốt, tuy nhiên hiệu quả sử dụng vốn có thể không cao và đòn bẩy tài chính thấp. Doanh nghiệp sẽ khó có bước tăng trưởng vượt bậc. Nếu 1 < tỉ lệ < 2 phản ánh về cơ bản, với lượng tổng tài sản hiện có, doanh nghiệp hoàn toàn đáp ứng được các khoản nợ tới hạn. Tỉ lệ < 1 thể hiện khả năng thanh toán của doanh nghiệp thấp, khi chỉ số càng tiến dần về 0, doanh nghiệp sẽ mất dần khả năng thanh toán, việc phá sản có thể xảy ra nếu doanh nghiệp không có giải pháp thực sự phù hợp',
             'value' => round($assets / $liabilities, 2)
         ]);
         return $this;
@@ -70,8 +70,32 @@ trait Liquidity
             'name' => 'Quick Ratio',
             'group' => 'Chỉ số thanh khoản/thanh toán',
             'unit' => 'scalar',
-            'description' => 'Hệ số thanh khoản nhanh (Quick Ratio), thể hiện khả năng thanh toán của doanh nghiệp mà không cần thực hiện thanh lý gấp hàng tồn kho. Hệ số thanh khoản nhanh = (Tài sản ngắn hạn - hàng tồn kho) / Nợ ngắn hạn. Quick Ratio < 0.5 phản ánh doanh nghiệp đang gặp khó khăn trong việc chi trả nợ ngắn hạn, tính thanh khoản thấp, quick ratio > 0.5 phản ánh doanh nghiệp có khả năng thanh toán tốt, tính thanh khoản cao.',
+            'description' => 'Hệ số khả năng thanh toán nhanh (Quick Ratio), thể hiện khả năng thanh toán của doanh nghiệp mà không cần thực hiện thanh lý gấp hàng tồn kho, bộ phận có tính thanh khoản thấp nhất trong tài sản ngắn hạn. Hệ số khả năng thanh toán nhanh = (Tài sản ngắn hạn - hàng tồn kho) / Nợ ngắn hạn. Quick Ratio < 0.5 phản ánh doanh nghiệp đang gặp khó khăn trong việc chi trả nợ ngắn hạn, tính thanh khoản thấp, quick ratio > 0.5 phản ánh doanh nghiệp có khả năng thanh toán tốt, tính thanh khoản cao.',
             'value' => round(($currentAssets - $inventories) / $currentLiabilities, 2)
+        ]);
+        return $this;
+    }
+
+    /**
+     * Calculate Quick Ratio 2 - He so kha nang thanh toan nhanh 2 (giam hang ton kho va phai thu ngan han)
+     *
+     * @param  \App\FinancialStatement $financialStatement
+     * @return $this
+     */
+    protected function calculateQuickRatio2($financialStatement)
+    {
+        $selectedYear = $financialStatement->year;
+        $selectedQuarter = $financialStatement->quarter;
+        $currentAssets = $financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
+        $inventories = $financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter);
+        $currentReceivableAccounts = $financialStatement->balance_statement->getItem('10103')->getValue($selectedYear, $selectedQuarter);
+        $currentLiabilities = $financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter);
+        array_push($this->content, [
+            'name' => 'Quick Ratio 2',
+            'group' => 'Chỉ số thanh khoản/thanh toán',
+            'unit' => 'scalar',
+            'description' => 'Tương tự như quick ratio (hệ số khả năng thanh toán nhanh), nhưng loại trừ thêm các khoản phải thu ngắn hạn',
+            'value' => round(($currentAssets - $inventories - $currentReceivableAccounts) / $currentLiabilities, 2)
         ]);
         return $this;
     }
@@ -92,7 +116,7 @@ trait Liquidity
             'name' => 'Cash Ratio',
             'group' => 'Chỉ số thanh khoản/thanh toán',
             'unit' => 'scalar',
-            'description' => 'Hệ số thanh khoản bằng tiền mặt (Cash Ratio), hay còn gọi là hệ số thanh toán tức thời, cho biết doanh nghiệp có bao nhiêu đồng vốn bằng tiền để sẵn sàng thanh toán cho một đồng nợ ngắn hạn, đây là thước đo khả năng thanh khoản của công ty. Hệ số này tính toán khả năng trả nợ ngắn hạn bằng tiền mặt hoặc tương đương tiền mặt. Hệ số thanh khoản bằng tiền mặt nhỏ hơn 0.5 thường được xem là rủi ro. Hệ số thanh toán tức thời = Tiền & tương đương tiền / Nợ ngắn hạn. Hệ số này đặc biệt hữu ích khi đánh giá tính thanh khoản của một doanh nghiệp trong giai đoạn nền kinh tế đang gặp khủng hoảng (khi mà hàng tồn kho không tiêu thụ được, các khoản phải thu khó thu hồi). Tuy nhiên, trong nền kinh tế ổn định, dùng tỷ số khả năng thanh toán tức thời đánh giá tính thanh khoản của một doanh nghiệp có thể xảy ra sai sót. Bởi lẽ, một doanh nghiệp có một lượng lớn nguồn tài chính không được sử dụng đồng nghĩa do doanh nghiệp đó sử dụng không hiệu quả nguồn vốn.',
+            'description' => 'Hệ số khả năng thanh toán bằng tiền mặt (Cash Ratio), hay còn gọi là hệ số khả năng thanh toán tức thời, cho biết doanh nghiệp có bao nhiêu đồng vốn bằng tiền để sẵn sàng thanh toán cho một đồng nợ ngắn hạn, đây là thước đo khả năng thanh khoản của công ty. Hệ số này tính toán khả năng trả nợ ngắn hạn bằng tiền mặt hoặc tương đương tiền mặt. Hệ số thanh khoản bằng tiền mặt nhỏ hơn 0.5 thường được xem là rủi ro. Hệ số thanh toán tức thời = Tiền & tương đương tiền / Nợ ngắn hạn. Hệ số này đặc biệt hữu ích khi đánh giá tính thanh khoản của một doanh nghiệp trong giai đoạn nền kinh tế đang gặp khủng hoảng (khi mà hàng tồn kho không tiêu thụ được, các khoản phải thu khó thu hồi). Tuy nhiên, trong nền kinh tế ổn định, dùng tỷ số khả năng thanh toán tức thời đánh giá tính thanh khoản của một doanh nghiệp có thể xảy ra sai sót. Bởi lẽ, một doanh nghiệp có một lượng lớn nguồn tài chính không được sử dụng đồng nghĩa do doanh nghiệp đó sử dụng không hiệu quả nguồn vốn.',
             'value' => round($cashAndEquivalents / $currentLiabilities, 2)
         ]);
         return $this;
