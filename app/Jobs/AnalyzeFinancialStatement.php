@@ -95,6 +95,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $this->calculateAssetsToLiabilitiesRatio($financialStatement)
                  ->calculateCurrentRatio($financialStatement)
                  ->calculateQuickRatio($financialStatement)
+                 ->calculateQuickRatio2($financialStatement)
                  ->calculateCashRatio($financialStatement)
                  ->calculateInterestCoverageRatio($financialStatement);
             AnalysisReport::create([
