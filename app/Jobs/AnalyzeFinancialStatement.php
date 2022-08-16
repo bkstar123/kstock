@@ -11,6 +11,7 @@ use Exception;
 use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
 use App\Models\AnalysisReport;
+use App\Jobs\Financials\CashFlow;
 use App\Jobs\Financials\Liquidity;
 use App\Models\FinancialStatement;
 use App\Services\Contracts\Symbols;
@@ -23,7 +24,7 @@ use App\Events\AnalyzeFinancialStatementCompleted;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity, CashFlow;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -81,7 +82,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
                         break;
                 }
             }  
-            // Profitability Indices
+            // Profitability Ratios
             $this->calculateROAA($financialStatement)
                  ->calculateROCE($financialStatement)
                  ->calculateROEA($financialStatement)
@@ -89,16 +90,24 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->calculateEBITDAPerSales($financialStatement)
                  ->calculateEBITPerSales($financialStatement)
                  ->calculateGrossProfitMargin($financialStatement);
-            // Liquidity Indices
+            // Liquidity/Solvency Ratios
             $this->calculateAssetsToLiabilitiesRatio($financialStatement)
                  ->calculateCurrentRatio($financialStatement)
                  ->calculateQuickRatio($financialStatement)
                  ->calculateQuickRatio2($financialStatement)
                  ->calculateCashRatio($financialStatement)
-                 ->calculateInterestCoverageRatio($financialStatement)
-                 ->calculateLiabilitiesCoverageCashFlowRatio($financialStatement)
-                 ->calculateLongLiabilitiesCoverageCashFlowRatio($financialStatement)
-                 ->calculateCurrentLiabilitiesCoverageCashFlowRatio($financialStatement);
+                 ->calculateInterestCoverageRatio($financialStatement);
+            // Cash Flow Ratios
+            $this->calculateLiabilityCoverageRatioByCFO($financialStatement)
+                 ->calculateCurrentLiabilityCoverageRatioByCFO($financialStatement)
+                 ->calculateLongTermLiabilityCoverageRatioByCFO($financialStatement)
+                 ->calculateCFOPerRevenue($financialStatement)
+                 ->calculateFCFPerRevenue($financialStatement)
+                 ->calculateLiabilityCoverageRatioByFCF($financialStatement)
+                 ->calculateCurrentLiabilityCoverageRatioByFCF($financialStatement)
+                 ->calculateLongTermLiabilityCoverageRatioByFCF($financialStatement)
+                 ->calculateInterestCoverageRatioByFCF($financialStatement)
+                 ->calculateAssetEfficencyForFCFRatio($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
