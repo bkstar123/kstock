@@ -27,8 +27,8 @@ trait Profitability
                     'name' => 'ROAA',
                     'group' => 'Chỉ số sinh lời',
                     'unit' => '%',
-                    'description' => 'Tỷ suất lợi nhuận trên tài sản bình quân (Return on Average Assets). Chỉ số này cho biết tài sản của một doanh nghiệp đang được sử dụng tốt như thế nào để tạo ra lợi nhuận. ROAA = 100% * Thu nhập ròng cùng kì với tài sản / Tổng tài sản trung bình. Với tổng tài sản trung bình = (tài sản đầu kỳ + tài sản cuối kì)/2',
-                    'value' => round(100 * $financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter) / $average_assets, 2)
+                    'description' => 'Tỷ suất lợi nhuận trên tài sản bình quân (Return on Average Assets). Chỉ số này cho biết tài sản của một doanh nghiệp đang được sử dụng tốt như thế nào để tạo ra lợi nhuận. ROAA = 100% * Lợi nhuận sau thuế của cổ đông của công ty mẹ cùng kì với tài sản / Tổng tài sản trung bình. Với tổng tài sản trung bình = (tài sản đầu kỳ + tài sản cuối kì)/2',
+                    'value' => round(100 * $financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter) / $average_assets, 2)
                 ]);
             }
         }
@@ -76,15 +76,16 @@ trait Profitability
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $parent_company_net_profit = $financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
-            $equities = $financialStatement->balance_statement->getItem('302')->getValues();
-            $uncontrolled_shareolders_benefits = $financialStatement->balance_statement->getItem('3020114')->getValues();
-            array_push($this->content, [
-                'name' => 'ROEA',
-                'group' => 'Chỉ số sinh lời',
-                'unit' => '%',
-                'description' => 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (Return on Equity Average), đo lường mức độ hiệu quả trong việc sử dụng vốn chủ sở hữu của doanh nghiệp, ROEA được dùng kết hợp với chỉ số ROE khi phân tích một doanh nghiệp có hiện tượng biến động vốn chủ sở hữu quá lớn trong kỳ phân tích. Chỉ số ROE được tính bằng tỷ lệ giữa lợi nhuận ròng và vốn chủ sở hữu. Lợi nhuận ròng khá dễ để xác định và ít bị ảnh hưởng từ bên ngoài. Tuy nhiên vốn chủ sở hữu thường chịu ảnh hưởng bởi các yếu tố: lợi nhuận giữ lại, sáp nhập; phát hành riêng lẻ để tăng vốn… Vì vậy xét trong 1 năm tài chính, nếu doanh nghiệp có sự biến động về vốn chủ sở hữu thì ROE sẽ không phản ánh chính xác khả năng sinh lời của việc sử dụng vốn của doanh nghiệp. ROEA đo lường chính xác hơn về hiệu quả sử dụng vốn của doanh nghiệp trong trường hợp  vốn chủ sở hữu đã có sự biến động trong năm tài chính nhờ việc tính bình quân vốn chủ sở hữu trong kỳ. ROEA = 100% x Lợi nhuận sau thuế của cổ đông công ty mẹ / Vốn chủ sở hữu bình quân không bao gồm lợi ích cổ đông thiểu số. (Bình quân: tính trung bình con số đầu kì và cuối kì).',
-                'value' => round(2* 100 * $parent_company_net_profit / (($equities[0] - $uncontrolled_shareolders_benefits[0]) + ($equities[1] - $uncontrolled_shareolders_benefits[1])), 2)
-            ]);
+            $average_equities = array_sum($financialStatement->balance_statement->getItem('302')->getValues())/2;
+            if ($average_equities != 0) {
+                array_push($this->content, [
+                    'name' => 'ROEA',
+                    'group' => 'Chỉ số sinh lời',
+                    'unit' => '%',
+                    'description' => 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (Return on Equity Average), đo lường mức độ hiệu quả trong việc sử dụng vốn chủ sở hữu của doanh nghiệp, ROEA được dùng kết hợp với chỉ số ROE khi phân tích một doanh nghiệp có hiện tượng biến động vốn chủ sở hữu quá lớn trong kỳ phân tích. Chỉ số ROE được tính bằng tỷ lệ giữa lợi nhuận ròng và vốn chủ sở hữu. Lợi nhuận ròng khá dễ để xác định và ít bị ảnh hưởng từ bên ngoài. Tuy nhiên vốn chủ sở hữu thường chịu ảnh hưởng bởi các yếu tố: lợi nhuận giữ lại, sáp nhập; phát hành riêng lẻ để tăng vốn… Vì vậy xét trong 1 năm tài chính, nếu doanh nghiệp có sự biến động về vốn chủ sở hữu thì ROE sẽ không phản ánh chính xác khả năng sinh lời của việc sử dụng vốn của doanh nghiệp. ROEA đo lường chính xác hơn về hiệu quả sử dụng vốn của doanh nghiệp trong trường hợp  vốn chủ sở hữu đã có sự biến động trong năm tài chính nhờ việc tính bình quân vốn chủ sở hữu trong kỳ. ROEA = 100% x Lợi nhuận sau thuế của cổ đông công ty mẹ / Vốn chủ sở hữu bình quân. (Bình quân: tính trung bình con số đầu kì và cuối kì).',
+                    'value' => round(100 * $parent_company_net_profit / $average_equities, 2)
+                ]);
+            }
         }
         return $this;
     }
