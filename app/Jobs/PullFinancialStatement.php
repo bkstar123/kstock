@@ -108,7 +108,7 @@ class PullFinancialStatement implements ShouldQueue
      */
     public function failed(Exception $exception)
     {
-        JobFailing::dispatch($this->user);
+        JobFailing::dispatch($this->user, $exception->getMessage());
     }
     
     /**

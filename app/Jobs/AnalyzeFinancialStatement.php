@@ -10,6 +10,7 @@ namespace App\Jobs;
 use Exception;
 use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
+use App\Jobs\Financials\Capex;
 use App\Models\AnalysisReport;
 use App\Jobs\Financials\CashFlow;
 use App\Jobs\Financials\Liquidity;
@@ -24,7 +25,7 @@ use App\Events\AnalyzeFinancialStatementCompleted;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity, CashFlow;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity, CashFlow, Capex;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -107,7 +108,12 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->calculateCurrentLiabilityCoverageRatioByFCF($financialStatement)
                  ->calculateLongTermLiabilityCoverageRatioByFCF($financialStatement)
                  ->calculateInterestCoverageRatioByFCF($financialStatement)
-                 ->calculateAssetEfficencyForFCFRatio($financialStatement);
+                 ->calculateAssetEfficencyForFCFRatio($financialStatement)
+                 ->calculateCashGeneratingPowerRatio($financialStatement)
+                 ->calculateExternalFinancingRatio($financialStatement);
+            // CAPEX
+            $this->calculateCfoToCapexRatio($financialStatement)
+                 ->calculateCapexToNetProfitRatio($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
