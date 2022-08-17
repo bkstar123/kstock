@@ -282,14 +282,41 @@ trait CashFlow
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $investingInflows = $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('204')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('208')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('209')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
-            if ($average_assets != 0) {
+            $investingInflows = $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('204')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('208')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('209')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('210')->getValue($selectedYear, $selectedQuarter);
+            $financingInflows = $financialStatement->cash_flow_statement->getItem('301')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('303')->getValue($selectedYear, $selectedQuarter);
+            if ($cfo > 0) {
                 array_push($this->content, [
-                    'name' => 'Asset Efficency For FCF Ratio',
+                    'name' => 'Cash Generating Power Ratio',
                     'group' => 'Chỉ số dòng tiền',
                     'unit' => '%',
-                    'description' => 'Hệ số hiệu quả tạo dòng tiền tự do từ tài sản đánh giá hiệu quả chuyển đổi từ tài sản thành dòng tiền tự do cho doanh nghiệp. Asset Efficiency For FCF Ratio = FCF / Average Assets',
-                    'value' => round(100 * $fcf / $average_assets, 2)
+                    'description' => 'Hệ số đánh giá khả năng tạo ra tiền mặt của doanh nghiệp hoàn toàn dựa trên hoạt động kinh doanh, so sánh trên tổng dòng tiền vào của doanh nghiệp, Cash Generating Power Ratio = CFO / (CFO + Cash from Investing Inflows + Cash from Financing Inflows)',
+                    'value' => round(100 * $cfo / ($cfo + $investingInflows + $financingInflows), 2)
+                ]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate External Financing Ratio - He so phu thuoc tai chinh ngoai
+     *
+     * @param  \App\FinancialStatement $financialStatement
+     * @return $this
+     */
+    protected function calculateExternalFinancingRatio($financialStatement)
+    {
+        if (!empty($financialStatement->cash_flow_statement)) {
+            $selectedYear = $financialStatement->year;
+            $selectedQuarter = $financialStatement->quarter;
+            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
+            $cff = $financialStatement->cash_flow_statement->getItem('311')->getValue($selectedYear, $selectedQuarter);
+            if ($cfo != 0) {
+                array_push($this->content, [
+                    'name' => 'External Financing Ratio',
+                    'group' => 'Chỉ số dòng tiền',
+                    'unit' => 'scalar',
+                    'description' => 'Hệ số phụ thuộc tài chính bên ngoài, External Financing Ratio = Cash flows from financing / CFO. Hệ số này so sánh giữa dòng tiền thuần từ hoạt động tài chính với dòng tiền thuần từ hoạt động kinh doanh để đánh giá sự phụ thuộc của doanh nghiệp vào hoạt động tài chính. Hệ số này càng cao chứng tỏ doanh nghiệp phụ thuộc nhiều vào dòng tiền, dòng vốn đến từ bên ngoài (nợ vay hoặc phát hành thêm cổ phiếu). Thông thường, những doanh nghiệp có tài chính ổn định và hoạt động kinh doanh tốt thường có tỷ lệ External Finacing Ratio âm (nhỏ hơn 0) & CFO > 0',
+                    'value' => round($cff/$cfo, 2)
                 ]);
             }
         }
