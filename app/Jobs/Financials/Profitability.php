@@ -7,6 +7,8 @@
  */
 namespace App\Jobs\Financials;
 
+use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
+
 trait Profitability
 {
 	/**
@@ -15,8 +17,9 @@ trait Profitability
      * @param  \App\FinancialStatement $financialStatement
      * @return $this
      */
-    protected function calculateROAA($financialStatement)
+    protected function calculateROAA(ProfitabilityCalculator $calculator)
     {
+        
         if (!empty($financialStatement->balance_statement) &&
             !empty($financialStatement->income_statement)) {
             $selectedYear = $financialStatement->year;
