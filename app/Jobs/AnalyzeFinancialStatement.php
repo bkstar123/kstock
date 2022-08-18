@@ -23,6 +23,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Financials\OperatingEffectiveness;
 use App\Events\AnalyzeFinancialStatementCompleted;
+use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
@@ -31,12 +32,12 @@ class AnalyzeFinancialStatement implements ShouldQueue
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
      */
-    public $user;
+    protected $user;
 
     /**
      * @var integer
      */
-    public $financialStatementID;
+    protected $financialStatementID;
 
     /**
      * @var array
@@ -85,13 +86,14 @@ class AnalyzeFinancialStatement implements ShouldQueue
                 }
             }  
             // Profitability Ratios
-            $this->calculateROAA($financialStatement)
-                 ->calculateROCE($financialStatement)
-                 ->calculateROEA($financialStatement)
-                 ->calculateROS($financialStatement)
-                 ->calculateEBITDAPerSales($financialStatement)
-                 ->calculateEBITPerSales($financialStatement)
-                 ->calculateGrossProfitMargin($financialStatement);
+            $profitabilityCalculator = (new ProfitabilityCalculator($financialStatement))->execute();
+            $this->writeROAA($profitabilityCalculator)
+                 ->writeROCE($profitabilityCalculator)
+                 ->writeROEA($profitabilityCalculator)
+                 ->writeROS($profitabilityCalculator)
+                 ->writeEBITDAMargin($profitabilityCalculator)
+                 ->writeEBITMargin($profitabilityCalculator)
+                 ->writeGrossProfitMargin($profitabilityCalculator);
             // Liquidity/Solvency Ratios
             $this->calculateAssetsToLiabilitiesRatio($financialStatement)
                  ->calculateCurrentRatio($financialStatement)

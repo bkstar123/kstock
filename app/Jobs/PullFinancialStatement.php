@@ -28,27 +28,27 @@ class PullFinancialStatement implements ShouldQueue
     /**
      * @var string
      */
-    public $symbol;
+    protected $symbol;
     
     /**
      * @var integer
      */
-    public $year;
+    protected $year;
     
     /**
      * @var integer
      */
-    public $quarter;
+    protected $quarter;
     
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
      */
-    public $user;
+    protected $user;
 
     /**
      * @var integer
      */
-    public $financialStatementID;
+    protected $financialStatementID;
 
     /**
      * Create a new job instance.
