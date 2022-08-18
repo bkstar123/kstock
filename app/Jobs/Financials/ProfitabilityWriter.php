@@ -9,7 +9,7 @@ namespace App\Jobs\Financials;
 
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 
-trait Profitability
+trait ProfitabilityWriter
 {
 	/**
      * Write ROAA - Ty suat loi nhuan tren tong tai san binh quan

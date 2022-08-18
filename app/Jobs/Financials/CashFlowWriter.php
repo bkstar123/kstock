@@ -7,177 +7,131 @@
  */
 namespace App\Jobs\Financials;
 
-trait CashFlow
+use App\Jobs\Financials\Calculators\CashFlowCalculator;
+
+trait CashFlowWriter
 {
     /**
      * Calculate Liability Coverage Ratio By CFO - He so kha nang thanh toan no cua dong tien kinh doanh
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateLiabilityCoverageRatioByCFO($financialStatement)
+    protected function writeLiabilityCoverageRatioByCFO(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $average_liabilities = array_sum($financialStatement->balance_statement->getItem('301')->getValues())/2;
-            if ($average_liabilities != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán nợ bằng dòng tiền hoạt động kinh doanh',
-                    'alias' => 'Liability Coverage Ratio By CFO',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán nợ của dòng tiền kinh doanh, Liability Coverage Ratio by CFO = CFO / Average Liabilities. Hệ số này cho biết với dòng tiền thuần từ  HĐKD trong kỳ, DN có đảm bảo khả năng đáp ứng được nợ phải trả hay không. Nói cách khác, một đồng nợ phải trả bình quân trong kỳ được đảm bảo bởi mấy đồng tiền và tương đương tiền lưu chuyển thuàn từ HĐKD. Khi trị số của chỉ tiêu này lớn hơn hoặc bằng một(>= 1), dòng tiền lưu chuyển thuần từ HĐKD trong kỳ bảo đảm đáp ứng đủ và thừa khả năng thanh toán nợ phải trả trong kỳ và ngược lại',
-                    'value' => round($cfo / $average_liabilities, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán nợ bằng dòng tiền hoạt động kinh doanh',
+            'alias' => 'Liability Coverage Ratio By CFO',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán nợ của dòng tiền kinh doanh, Liability Coverage Ratio by CFO = CFO / Average Liabilities. Hệ số này cho biết với dòng tiền thuần từ  HĐKD trong kỳ, DN có đảm bảo khả năng đáp ứng được nợ phải trả hay không. Nói cách khác, một đồng nợ phải trả bình quân trong kỳ được đảm bảo bởi mấy đồng tiền và tương đương tiền lưu chuyển thuàn từ HĐKD. Khi trị số của chỉ tiêu này lớn hơn hoặc bằng một(>= 1), dòng tiền lưu chuyển thuần từ HĐKD trong kỳ bảo đảm đáp ứng đủ và thừa khả năng thanh toán nợ phải trả trong kỳ và ngược lại',
+            'value' => $calculator->liabilityCoverageRatioByCFO
+        ]);
         return $this;
     }
 
     /**
      * Calculate Current Liabilities Coverage Ratio By CFO - He so kha nang thanh toan no ngan han cua dong tien kinh doanh
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateCurrentLiabilityCoverageRatioByCFO($financialStatement)
+    protected function writeCurrentLiabilityCoverageRatioByCFO(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $average_current_liabilities = array_sum($financialStatement->balance_statement->getItem('30101')->getValues())/2;
-            if ($average_current_liabilities != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh',
-                    'alias' => 'Current Liability Coverage Ratio By CFO',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán nợ ngắn hạn của dòng tiền kinh doanh, Current Liability Coverage Ratio By CFO = CFO / Average Current Liabilities. Hệ số này cho biết dòng tiền lưu chuyển thuần từ hoạt động kinh doanh (HĐKD) trong kỳ có đảm bảo trang trải được các khoản nợ ngắn hạn (Kể cả nợ dài hạn đến hạn trả) hay không. Do dòng tiền lưu chuyển thuần tạo ra từ HĐKD là dòng tiền an ninh tài chính của doanh nghiệp nên khi chỉ số này lớn hơn hoặc bằng một (>=1), Doanh nghiệp có đủ khả năng thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh và ngược lại, dòng tiền HĐKD tạo ra không đủ để trả nợ ngắn hạn',
-                    'value' => round($cfo / $average_current_liabilities, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh',
+            'alias' => 'Current Liability Coverage Ratio By CFO',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán nợ ngắn hạn của dòng tiền kinh doanh, Current Liability Coverage Ratio By CFO = CFO / Average Current Liabilities. Hệ số này cho biết dòng tiền lưu chuyển thuần từ hoạt động kinh doanh (HĐKD) trong kỳ có đảm bảo trang trải được các khoản nợ ngắn hạn (Kể cả nợ dài hạn đến hạn trả) hay không. Do dòng tiền lưu chuyển thuần tạo ra từ HĐKD là dòng tiền an ninh tài chính của doanh nghiệp nên khi chỉ số này lớn hơn hoặc bằng một (>=1), Doanh nghiệp có đủ khả năng thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh và ngược lại, dòng tiền HĐKD tạo ra không đủ để trả nợ ngắn hạn',
+            'value' => $calculator->currentLiabilityCoverageRatioByCFO
+        ]);
         return $this;
     }
 
     /**
      * Calculate Long-term Liability Coverage Ratio By CFO - He so kha nang thanh toan no dai han cua dong tien kinh doanh
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateLongTermLiabilityCoverageRatioByCFO($financialStatement)
+    protected function writeLongTermLiabilityCoverageRatioByCFO(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $average_long_term_liabilitiess = array_sum($financialStatement->balance_statement->getItem('30102')->getValues())/2;
-            if ($average_long_term_liabilitiess != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán nợ dài hạn bằng dòng tiền hoạt động kinh doanh',
-                    'alias' => 'Long-term Liability Coverage Ratio By CFO',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán nợ dài hạn của dòng tiền kinh doanh, Long-term Liability Coverage Ratio By CFO = CFO / Average Long-term Liability. Hệ số này cho biết mức độ bảo đảm nợ dài hạn bằng dòng tiền lưu chuyển thuần từ HĐKD. Hay nói cách khác, cứ một đồng nợ dài hạn bình quân trong kỳ phải trả của DN được đảm bảo bởi mấy đồng tiền lưu chuyển thuần từ HĐKD. Khi trị số của chỉ tiêu lớn hơn hoặc bằng 1 (>=1), DN bảo đảm đủ và thừa khả năng thanh toán nợ dài hạn bằng dòng tiền HĐKD và ngược lại',
-                    'value' => round($cfo / $average_long_term_liabilitiess, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán nợ dài hạn bằng dòng tiền hoạt động kinh doanh',
+            'alias' => 'Long-term Liability Coverage Ratio By CFO',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán nợ dài hạn của dòng tiền kinh doanh, Long-term Liability Coverage Ratio By CFO = CFO / Average Long-term Liability. Hệ số này cho biết mức độ bảo đảm nợ dài hạn bằng dòng tiền lưu chuyển thuần từ HĐKD. Hay nói cách khác, cứ một đồng nợ dài hạn bình quân trong kỳ phải trả của DN được đảm bảo bởi mấy đồng tiền lưu chuyển thuần từ HĐKD. Khi trị số của chỉ tiêu lớn hơn hoặc bằng 1 (>=1), DN bảo đảm đủ và thừa khả năng thanh toán nợ dài hạn bằng dòng tiền HĐKD và ngược lại',
+            'value' => $calculator->longTermLiabilityCoverageRatioByCFO
+        ]);
         return $this;
     }
 
     /**
      * Calculate CFO/Revenue
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateCFOPerRevenue($financialStatement)
+    protected function writeCFOToRevenue(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->income_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $net_revenue = $financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            if ($net_revenue != 0) {
-                array_push($this->content, [
-                    'name' => 'CFO/Doanh thu thuần',
-                    'alias' => 'CFO/Revenue',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => '%',
-                    'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi từ một đồng doanh thu thuần sang dòng tiền hoạt động kinh doanh',
-                    'value' => round(100 * $cfo / $net_revenue, 2)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'CFO/Doanh thu thuần',
+            'alias' => 'CFO/Revenue',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => '%',
+            'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi từ một đồng doanh thu thuần sang dòng tiền hoạt động kinh doanh',
+            'value' => $calculator->cFOToRevenue
+        ]);
         return $this;
     }
 
     /**
      * Calculate FCF/Revenue
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateFCFPerRevenue($financialStatement)
+    protected function writeFCFToRevenue(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->income_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $fcf = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $net_revenue = $financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            if ($net_revenue != 0) {
-                array_push($this->content, [
-                    'name' => 'FCF/Doanh thu thuần',
-                    'alias' => 'FCF/Revenue',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => '%',
-                    'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi từ một đồng doanh thu thuần sang dòng tiền tự do, FCF = CFO - CAPEX',
-                    'value' => round(100 * $fcf / $net_revenue, 2)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'FCF/Doanh thu thuần',
+            'alias' => 'FCF/Revenue',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => '%',
+            'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi từ một đồng doanh thu thuần sang dòng tiền tự do, FCF = CFO - CAPEX',
+            'value' => $calculator->fCFToRevenue
+        ]);
         return $this;
     }
 
     /**
      * Calculate Liability Coverage Ratio By FCF - He so kha nang thanh toan no cua dong tien tu do
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateLiabilityCoverageRatioByFCF($financialStatement)
+    protected function writeLiabilityCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $fcf = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_liabilities = array_sum($financialStatement->balance_statement->getItem('301')->getValues())/2;
-            if ($average_liabilities != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán nợ bằng dòng tiền tự do',
-                    'alias' => 'Liability Coverage Ratio By FCF',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán nợ của dòng tiền tự do, Liability Coverage Ratio by FCF = FCF / Average Liabilities. Hệ số này cho biết với dòng tiền tự do trong kỳ, DN có đảm bảo khả năng đáp ứng được nợ phải trả hay không. Nói cách khác, một đồng nợ phải trả bình quân trong kỳ được đảm bảo bởi mấy đồng tiền tự do. Khi trị số của chỉ tiêu này lớn hơn hoặc bằng một(>= 1), dòng tiền tự do trong kỳ bảo đảm đáp ứng đủ và thừa khả năng thanh toán nợ phải trả trong kỳ và ngược lại',
-                    'value' => round($fcf / $average_liabilities, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán nợ bằng dòng tiền tự do',
+            'alias' => 'Liability Coverage Ratio By FCF',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán nợ của dòng tiền tự do, Liability Coverage Ratio by FCF = FCF / Average Liabilities. Hệ số này cho biết với dòng tiền tự do trong kỳ, DN có đảm bảo khả năng đáp ứng được nợ phải trả hay không. Nói cách khác, một đồng nợ phải trả bình quân trong kỳ được đảm bảo bởi mấy đồng tiền tự do. Khi trị số của chỉ tiêu này lớn hơn hoặc bằng một(>= 1), dòng tiền tự do trong kỳ bảo đảm đáp ứng đủ và thừa khả năng thanh toán nợ phải trả trong kỳ và ngược lại',
+            'value' => $calculator->liabilityCoverageRatioByFCF
+        ]);
         return $this;
     }
 
     /**
      * Calculate Current Liabilities Coverage Ratio By FCF - He so kha nang thanh toan no ngan han cua dong tien tu do
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateCurrentLiabilityCoverageRatioByFCF($financialStatement)
+    protected function writeCurrentLiabilityCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
         if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
             $selectedYear = $financialStatement->year;
@@ -201,10 +155,10 @@ trait CashFlow
     /**
      * Calculate Long-term Liability Coverage Ratio By FCF - He so kha nang thanh toan no dai han cua dong tien tu do
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateLongTermLiabilityCoverageRatioByFCF($financialStatement)
+    protected function writeLongTermLiabilityCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
         if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
             $selectedYear = $financialStatement->year;
@@ -228,10 +182,10 @@ trait CashFlow
     /**
      * Calculate Interest Coverage Ratio By FCF - He so kha nang thanh toan lai vay cua dong tien tu do
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateInterestCoverageRatioByFCF($financialStatement)
+    protected function writeInterestCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
         if (!empty($financialStatement->cash_flow_statement)) {
             $selectedYear = $financialStatement->year;
@@ -256,10 +210,10 @@ trait CashFlow
     /**
      * Calculate Asset Efficency For FCF Ratio - He so hieu qua tao dong tien tu do cua tai san
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateAssetEfficencyForFCFRatio($financialStatement)
+    protected function writeAssetEfficencyForFCFRatio(CashFlowCalculator $calculator)
     {
         if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
             $selectedYear = $financialStatement->year;
@@ -283,10 +237,10 @@ trait CashFlow
     /**
      * Calculate Cash Generating Power Ratio - He so suc manh tao tien
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateCashGeneratingPowerRatio($financialStatement)
+    protected function writeCashGeneratingPowerRatio(CashFlowCalculator $calculator)
     {
         if (!empty($financialStatement->cash_flow_statement)) {
             $selectedYear = $financialStatement->year;
@@ -311,10 +265,10 @@ trait CashFlow
     /**
      * Calculate External Financing Ratio - He so phu thuoc tai chinh ngoai
      *
-     * @param  \App\FinancialStatement $financialStatement
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
      */
-    protected function calculateExternalFinancingRatio($financialStatement)
+    protected function writeExternalFinancingRatio(CashFlowCalculator $calculator)
     {
         if (!empty($financialStatement->cash_flow_statement)) {
             $selectedYear = $financialStatement->year;

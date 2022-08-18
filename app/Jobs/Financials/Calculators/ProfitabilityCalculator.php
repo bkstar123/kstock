@@ -11,8 +11,6 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class ProfitabilityCalculator extends BaseCalculator
 {
-	protected $financialStatement;
-
 	public $roaa = null;
 
 	public $roce = null;
