@@ -13,21 +13,22 @@ use Illuminate\Bus\Queueable;
 use App\Jobs\Financials\Capex;
 use App\Models\AnalysisReport;
 use App\Jobs\Financials\CashFlow;
-use App\Jobs\Financials\Liquidity;
 use App\Models\FinancialStatement;
 use App\Services\Contracts\Symbols;
-use App\Jobs\Financials\Profitability;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\Financials\LiquidityWriter;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Jobs\Financials\ProfitabilityWriter;
 use App\Jobs\Financials\OperatingEffectiveness;
 use App\Events\AnalyzeFinancialStatementCompleted;
+use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity, CashFlow, Capex, OperatingEffectiveness;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlow, Capex, OperatingEffectiveness;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -95,12 +96,13 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeEBITMargin($profitabilityCalculator)
                  ->writeGrossProfitMargin($profitabilityCalculator);
             // Liquidity/Solvency Ratios
-            $this->calculateAssetsToLiabilitiesRatio($financialStatement)
-                 ->calculateCurrentRatio($financialStatement)
-                 ->calculateQuickRatio($financialStatement)
-                 ->calculateQuickRatio2($financialStatement)
-                 ->calculateCashRatio($financialStatement)
-                 ->calculateInterestCoverageRatio($financialStatement);
+            $liquidityCalculator = (new LiquidityCalculator($financialStatement))->execute();     
+            $this->writeOverallSolvencyRatio($liquidityCalculator)
+                 ->writeCurrentRatio($liquidityCalculator)
+                 ->writeQuickRatio($liquidityCalculator)
+                 ->writeQuickRatio2($liquidityCalculator)
+                 ->writeCashRatio($liquidityCalculator)
+                 ->writeInterestCoverageRatio($liquidityCalculator);
             // Cash Flow Ratios
             $this->calculateLiabilityCoverageRatioByCFO($financialStatement)
                  ->calculateCurrentLiabilityCoverageRatioByCFO($financialStatement)
