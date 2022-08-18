@@ -21,11 +21,12 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Jobs\Financials\OperatingEffectiveness;
 use App\Events\AnalyzeFinancialStatementCompleted;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity, CashFlow, Capex;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Profitability, Liquidity, CashFlow, Capex, OperatingEffectiveness;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -114,6 +115,11 @@ class AnalyzeFinancialStatement implements ShouldQueue
             // CAPEX
             $this->calculateCfoToCapexRatio($financialStatement)
                  ->calculateCapexToNetProfitRatio($financialStatement);
+            // Operating effectiveness
+            $this->calculateReceivableTurnoverRatio($financialStatement)
+                 ->calculateInventoryTurnoverRatio($financialStatement)
+                 ->calculateAccountsPayableTurnoverRatio($financialStatement)
+                 ->calculateCashConversionCycle($financialStatement);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID

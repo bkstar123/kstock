@@ -25,6 +25,7 @@ trait Capex
             if ($capex < 0) {
                 array_push($this->content, [
                     'name' => 'CFO/CAPEX',
+                    'alias' => 'CFO/CAPEX',
                     'group' => 'Chỉ số CAPEX',
                     'unit' => 'scalar',
                     'description' => 'Đánh giá xem hoạt động kinh doanh của doanh nghiệp có tạo ra đủ lượng tiền mặt để tài trợ cho hoạt động mua sắm sửa chữa tài sản cố định của doanh nghiệp hay không. Nếu chỉ số này < 1 điều đó đồng nghĩa với việc doanh nghiệp có thể cần phải vay thêm tiền để tài trợ cho hoạt động mua sắm TSCĐ của mình',
@@ -50,7 +51,8 @@ trait Capex
             $capex = $financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter); 
             if ($capex < 0) {
                 array_push($this->content, [
-                    'name' => 'CAPEX/NetProfit',
+                    'name' => 'CAPEX/Lợi nhuận ròng',
+                    'alias' => 'CAPEX/NetProfit',
                     'group' => 'Chỉ số CAPEX',
                     'unit' => '%',
                     'description' => 'Đánh giá mức độ tỉ lệ đầu tư vào tài sản cố định của doanh nghiệp trên lợi nhuận ròng (LNST) mà doanh nghiệp tạo ra. Nếu chỉ số < 50% ổn định trong nhiều năm, khả năng doanh nghiệp có lợi thế cạnh tranh, nếu chỉ số < 25% đó có thể là một doanh nghiệp có lợi thế cạnh tranh bền vững',
