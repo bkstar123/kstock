@@ -21,4 +21,13 @@ interface Symbols
      * @return string | false | null
      */
     public function getFullFinancialStatement(string $symbol, int $type, string $year, int $quarter, int $limit = 1);
+
+    /**
+     * Get fundamental information of a symbol
+     *
+     * @param string $symbol
+     *
+     * @return string | false | null
+     */
+    public function getFundamentals(string $symbol);
 }
