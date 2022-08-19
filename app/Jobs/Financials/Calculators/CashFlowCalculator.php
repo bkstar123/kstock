@@ -68,6 +68,7 @@ class CashFlowCalculator extends BaseCalculator
             $average_current_liabilities = array_sum($this->financialStatement->balance_statement->getItem('30101')->getValues())/2;
             if ($average_current_liabilities != 0) {
                 $this->currentLiabilityCoverageRatioByCFO = round($cfo / $average_current_liabilities, 4);
+            }
         }
         return $this;
     }

@@ -42,11 +42,11 @@ class LiquidityCalculator extends BaseCalculator
         return $this;
     }
     
-     /**
-     * Calculate Current ratio - He so kha nang thanh toan hien hanh (ngan han)
-     *
-     * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
-     */
+    /**
+    * Calculate Current ratio - He so kha nang thanh toan hien hanh (ngan han)
+    *
+    * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
+    */
     public function calculateCurrentRatio()
     {
         if (!empty($this->financialStatement->balance_statement)) {

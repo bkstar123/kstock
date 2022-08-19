@@ -21,7 +21,7 @@ trait Capex
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $capex = $financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter); 
+            $capex = $financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
             if ($capex < 0) {
                 array_push($this->content, [
                     'name' => 'CFO/CAPEX',
@@ -48,7 +48,7 @@ trait Capex
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $net_profit = $financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter);
-            $capex = $financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter); 
+            $capex = $financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
             if ($capex < 0) {
                 array_push($this->content, [
                     'name' => 'CAPEX/Lợi nhuận ròng',

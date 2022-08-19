@@ -21,7 +21,7 @@ trait OperatingEffectiveness
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $revenue = $financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            $averageCurrentCustomerReceivables = array_sum($financialStatement->balance_statement->getItem('1010301')->getValues())/2; 
+            $averageCurrentCustomerReceivables = array_sum($financialStatement->balance_statement->getItem('1010301')->getValues())/2;
             if ($averageCurrentCustomerReceivables != 0) {
                 array_push($this->content, [
                     'name' => 'Vòng quay các khoản phải thu khách hàng',
@@ -56,7 +56,7 @@ trait OperatingEffectiveness
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $cogs = $financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
-            $averageInventories = array_sum($financialStatement->balance_statement->getItem('10104')->getValues())/2; 
+            $averageInventories = array_sum($financialStatement->balance_statement->getItem('10104')->getValues())/2;
             if ($averageInventories != 0) {
                 array_push($this->content, [
                     'name' => 'Vòng quay hàng tồn kho',
@@ -91,7 +91,7 @@ trait OperatingEffectiveness
             $selectedYear = $financialStatement->year;
             $selectedQuarter = $financialStatement->quarter;
             $cogs = $financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
-            $averageCurrentAccountPayables = array_sum($financialStatement->balance_statement->getItem('3010103')->getValues())/2; 
+            $averageCurrentAccountPayables = array_sum($financialStatement->balance_statement->getItem('3010103')->getValues())/2;
             if ($averageCurrentAccountPayables != 0) {
                 array_push($this->content, [
                     'name' => 'Vòng quay phải trả nhà cung cấp',
@@ -129,7 +129,7 @@ trait OperatingEffectiveness
             $averageCurrentCustomerReceivables = array_sum($financialStatement->balance_statement->getItem('1010301')->getValues())/2;
             $cogs = $financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $averageInventories = array_sum($financialStatement->balance_statement->getItem('10104')->getValues())/2;
-            $averageCurrentAccountPayables = array_sum($financialStatement->balance_statement->getItem('3010103')->getValues())/2; 
+            $averageCurrentAccountPayables = array_sum($financialStatement->balance_statement->getItem('3010103')->getValues())/2;
             $dso = round(365 * $averageCurrentCustomerReceivables/$revenue, 0);
             $dpo = round(365 * $averageCurrentAccountPayables/$cogs, 0);
             $dio = round(365 * $averageInventories/$cogs, 0);

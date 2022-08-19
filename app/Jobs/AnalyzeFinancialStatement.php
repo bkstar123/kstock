@@ -12,10 +12,10 @@ use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
 use App\Jobs\Financials\Capex;
 use App\Models\AnalysisReport;
-use App\Jobs\Financials\CashFlow;
 use App\Models\FinancialStatement;
 use App\Services\Contracts\Symbols;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\Financials\CashFlowWriter;
 use App\Jobs\Financials\LiquidityWriter;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,12 +23,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Financials\ProfitabilityWriter;
 use App\Jobs\Financials\OperatingEffectiveness;
 use App\Events\AnalyzeFinancialStatementCompleted;
+use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlow, Capex, OperatingEffectiveness;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, Capex, OperatingEffectiveness;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -85,7 +86,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
                         # code...
                         break;
                 }
-            }  
+            }
             // Profitability Ratios
             $profitabilityCalculator = (new ProfitabilityCalculator($financialStatement))->execute();
             $this->writeROAA($profitabilityCalculator)
@@ -96,7 +97,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeEBITMargin($profitabilityCalculator)
                  ->writeGrossProfitMargin($profitabilityCalculator);
             // Liquidity/Solvency Ratios
-            $liquidityCalculator = (new LiquidityCalculator($financialStatement))->execute();     
+            $liquidityCalculator = (new LiquidityCalculator($financialStatement))->execute();
             $this->writeOverallSolvencyRatio($liquidityCalculator)
                  ->writeCurrentRatio($liquidityCalculator)
                  ->writeQuickRatio($liquidityCalculator)
@@ -104,18 +105,19 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeCashRatio($liquidityCalculator)
                  ->writeInterestCoverageRatio($liquidityCalculator);
             // Cash Flow Ratios
-            $this->calculateLiabilityCoverageRatioByCFO($financialStatement)
-                 ->calculateCurrentLiabilityCoverageRatioByCFO($financialStatement)
-                 ->calculateLongTermLiabilityCoverageRatioByCFO($financialStatement)
-                 ->calculateCFOPerRevenue($financialStatement)
-                 ->calculateFCFPerRevenue($financialStatement)
-                 ->calculateLiabilityCoverageRatioByFCF($financialStatement)
-                 ->calculateCurrentLiabilityCoverageRatioByFCF($financialStatement)
-                 ->calculateLongTermLiabilityCoverageRatioByFCF($financialStatement)
-                 ->calculateInterestCoverageRatioByFCF($financialStatement)
-                 ->calculateAssetEfficencyForFCFRatio($financialStatement)
-                 ->calculateCashGeneratingPowerRatio($financialStatement)
-                 ->calculateExternalFinancingRatio($financialStatement);
+            $cashFlowCalculator = (new CashFlowCalculator($financialStatement))->execute();
+            $this->writeLiabilityCoverageRatioByCFO($cashFlowCalculator)
+                 ->writeCurrentLiabilityCoverageRatioByCFO($cashFlowCalculator)
+                 ->writeLongTermLiabilityCoverageRatioByCFO($cashFlowCalculator)
+                 ->writeCFOToRevenue($cashFlowCalculator)
+                 ->writeFCFToRevenue($cashFlowCalculator)
+                 ->writeLiabilityCoverageRatioByFCF($cashFlowCalculator)
+                 ->writeCurrentLiabilityCoverageRatioByFCF($cashFlowCalculator)
+                 ->writeLongTermLiabilityCoverageRatioByFCF($cashFlowCalculator)
+                 ->writeInterestCoverageRatioByFCF($cashFlowCalculator)
+                 ->writeAssetEfficencyForFCFRatio($cashFlowCalculator)
+                 ->writeCashGeneratingPowerRatio($cashFlowCalculator)
+                 ->writeExternalFinancingRatio($cashFlowCalculator);
             // CAPEX
             $this->calculateCfoToCapexRatio($financialStatement)
                  ->calculateCapexToNetProfitRatio($financialStatement);
