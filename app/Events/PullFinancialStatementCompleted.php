@@ -16,7 +16,7 @@ class PullFinancialStatementCompleted implements ShouldBroadcast
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
      */
-    public $user;
+    protected $user;
 
     /**
      * Create a new event instance.

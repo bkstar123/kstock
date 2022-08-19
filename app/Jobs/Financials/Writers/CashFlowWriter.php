@@ -1,18 +1,18 @@
 <?php
 /**
- * CashFlow trait
+ * CashFlowWriter trait
  *
  * @author: tuanha
  * @date: 14-Aug-2022
  */
-namespace App\Jobs\Financials;
+namespace App\Jobs\Financials\Writers;
 
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 
 trait CashFlowWriter
 {
     /**
-     * Calculate Liability Coverage Ratio By CFO - He so kha nang thanh toan no cua dong tien kinh doanh
+     * Write Liability Coverage Ratio By CFO - He so kha nang thanh toan no cua dong tien kinh doanh
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -31,7 +31,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Current Liabilities Coverage Ratio By CFO - He so kha nang thanh toan no ngan han cua dong tien kinh doanh
+     * Write Current Liabilities Coverage Ratio By CFO - He so kha nang thanh toan no ngan han cua dong tien kinh doanh
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -50,7 +50,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Long-term Liability Coverage Ratio By CFO - He so kha nang thanh toan no dai han cua dong tien kinh doanh
+     * Write Long-term Liability Coverage Ratio By CFO - He so kha nang thanh toan no dai han cua dong tien kinh doanh
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -69,7 +69,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate CFO/Revenue
+     * Write CFO/Revenue
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -88,7 +88,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate FCF/Revenue
+     * Write FCF/Revenue
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -107,7 +107,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Liability Coverage Ratio By FCF - He so kha nang thanh toan no cua dong tien tu do
+     * Write Liability Coverage Ratio By FCF - He so kha nang thanh toan no cua dong tien tu do
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -126,7 +126,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Current Liabilities Coverage Ratio By FCF - He so kha nang thanh toan no ngan han cua dong tien tu do
+     * Write Current Liabilities Coverage Ratio By FCF - He so kha nang thanh toan no ngan han cua dong tien tu do
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -145,7 +145,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Long-term Liability Coverage Ratio By FCF - He so kha nang thanh toan no dai han cua dong tien tu do
+     * Write Long-term Liability Coverage Ratio By FCF - He so kha nang thanh toan no dai han cua dong tien tu do
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -164,7 +164,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Interest Coverage Ratio By FCF - He so kha nang thanh toan lai vay cua dong tien tu do
+     * Write Interest Coverage Ratio By FCF - He so kha nang thanh toan lai vay cua dong tien tu do
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -183,7 +183,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Asset Efficency For FCF Ratio - He so hieu qua tao dong tien tu do cua tai san
+     * Write Asset Efficency For FCF Ratio - He so hieu qua tao dong tien tu do cua tai san
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -202,7 +202,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate Cash Generating Power Ratio - He so suc manh tao tien
+     * Write Cash Generating Power Ratio - He so suc manh tao tien
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this
@@ -221,7 +221,7 @@ trait CashFlowWriter
     }
 
     /**
-     * Calculate External Financing Ratio - He so phu thuoc tai chinh ngoai
+     * Write External Financing Ratio - He so phu thuoc tai chinh ngoai
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
      * @return $this

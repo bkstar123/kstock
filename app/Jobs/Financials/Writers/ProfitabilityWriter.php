@@ -1,11 +1,11 @@
 <?php
 /**
- * Profitability trait
+ * ProfitabilityWriter trait
  *
  * @author: tuanha
  * @date: 14-Aug-2022
  */
-namespace App\Jobs\Financials;
+namespace App\Jobs\Financials\Writers;
 
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 
@@ -126,7 +126,7 @@ trait ProfitabilityWriter
     }
 
     /**
-     * Calculate Gross profit margin - Bien loi nhuan gop
+     * Write Gross profit margin - Bien loi nhuan gop
      *
      * @param  \App\Jobs\Financials\Calculators\ProfitabilityCalculator $calculator
      * @return array

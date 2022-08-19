@@ -10,26 +10,28 @@ namespace App\Jobs;
 use Exception;
 use App\Events\JobFailing;
 use Illuminate\Bus\Queueable;
-use App\Jobs\Financials\Capex;
 use App\Models\AnalysisReport;
 use App\Models\FinancialStatement;
 use App\Services\Contracts\Symbols;
 use Illuminate\Queue\SerializesModels;
-use App\Jobs\Financials\CashFlowWriter;
-use App\Jobs\Financials\LiquidityWriter;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Financials\ProfitabilityWriter;
-use App\Jobs\Financials\OperatingEffectiveness;
+use App\Jobs\Financials\Writers\CapexWriter;
+use App\Jobs\Financials\Writers\CashFlowWriter;
+use App\Jobs\Financials\Writers\LiquidityWriter;
 use App\Events\AnalyzeFinancialStatementCompleted;
+use App\Jobs\Financials\Calculators\CapexCalculator;
+use App\Jobs\Financials\Writers\ProfitabilityWriter;
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
+use App\Jobs\Financials\Writers\OperatingEffectivenessWriter;
+use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, Capex, OperatingEffectiveness;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -119,13 +121,15 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeCashGeneratingPowerRatio($cashFlowCalculator)
                  ->writeExternalFinancingRatio($cashFlowCalculator);
             // CAPEX
-            $this->calculateCfoToCapexRatio($financialStatement)
-                 ->calculateCapexToNetProfitRatio($financialStatement);
+            $capexCalculator = (new CapexCalculator($financialStatement))->execute();
+            $this->writeCfoToCapexRatio($capexCalculator)
+                 ->writeCapexToNetProfitRatio($capexCalculator);
             // Operating effectiveness
-            $this->calculateReceivableTurnoverRatio($financialStatement)
-                 ->calculateInventoryTurnoverRatio($financialStatement)
-                 ->calculateAccountsPayableTurnoverRatio($financialStatement)
-                 ->calculateCashConversionCycle($financialStatement);
+            $operatingEffectivenessCalculator = (new OperatingEffectivenessCalculator($financialStatement))->execute();
+            $this->writeReceivableTurnoverRatio($operatingEffectivenessCalculator)
+                 ->writeInventoryTurnoverRatio($operatingEffectivenessCalculator)
+                 ->writeAccountsPayableTurnoverRatio($operatingEffectivenessCalculator)
+                 ->writeCashConversionCycle($operatingEffectivenessCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
