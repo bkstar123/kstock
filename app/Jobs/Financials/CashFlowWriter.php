@@ -133,22 +133,14 @@ trait CashFlowWriter
      */
     protected function writeCurrentLiabilityCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $fcf = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_current_liabilities = array_sum($financialStatement->balance_statement->getItem('30101')->getValues())/2;
-            if ($average_current_liabilities != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán nợ ngắn hạn bằng dòng tiền tự do',
-                    'alias' => 'Current Liability Coverage Ratio By FCF',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán nợ ngắn hạn của dòng tiền tự do, Current Liability Coverage Ratio By FCF = FCF / Average Current Liabilities. Hệ số này cho biết dòng tiền tự do trong kỳ có đảm bảo trang trải được các khoản nợ ngắn hạn (Kể cả nợ dài hạn đến hạn trả) hay không, khi chỉ số này lớn hơn hoặc bằng một (>=1), Doanh nghiệp có đủ dòng tiền tự do để thanh toán nợ ngắn hạn và ngược lại, sdòng tiền tư do tạo ra không đủ để trả nợ ngắn hạn',
-                    'value' => round($fcf / $average_current_liabilities, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán nợ ngắn hạn bằng dòng tiền tự do',
+            'alias' => 'Current Liability Coverage Ratio By FCF',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán nợ ngắn hạn của dòng tiền tự do, Current Liability Coverage Ratio By FCF = FCF / Average Current Liabilities. Hệ số này cho biết dòng tiền tự do trong kỳ có đảm bảo trang trải được các khoản nợ ngắn hạn (Kể cả nợ dài hạn đến hạn trả) hay không, khi chỉ số này lớn hơn hoặc bằng một (>=1), Doanh nghiệp có đủ dòng tiền tự do để thanh toán nợ ngắn hạn và ngược lại, sdòng tiền tư do tạo ra không đủ để trả nợ ngắn hạn',
+            'value' => $calculator->currentLiabilityCoverageRatioByFCF
+        ]);
         return $this;
     }
 
@@ -160,22 +152,14 @@ trait CashFlowWriter
      */
     protected function writeLongTermLiabilityCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $fcf = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_long_term_liabilities = array_sum($financialStatement->balance_statement->getItem('30102')->getValues())/2;
-            if ($average_long_term_liabilities != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán nợ dài hạn bằng dòng tiền tự do',
-                    'alias' => 'Long-term Liability Coverage Ratio By FCF',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán nợ dài hạn của dòng tiền tự do, Long-term Liability Coverage Ratio By FCF = FCF / Average Long-term Liability. Hệ số này cho biết mức độ bảo đảm nợ dài hạn bằng dòng tiền tự do tạo ra. Hay nói cách khác, cứ một đồng nợ dài hạn bình quân trong kỳ phải trả của DN được đảm bảo bởi mấy đồng dòng tiền tự do. Khi trị số của chỉ tiêu lớn hơn hoặc bằng 1 (>=1), DN bảo đảm đủ và thừa khả năng thanh toán nợ dài hạn bằng dòng tiền tự do và ngược lại',
-                    'value' => round($fcf / $average_long_term_liabilities, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán nợ dài hạn bằng dòng tiền tự do',
+            'alias' => 'Long-term Liability Coverage Ratio By FCF',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán nợ dài hạn của dòng tiền tự do, Long-term Liability Coverage Ratio By FCF = FCF / Average Long-term Liability. Hệ số này cho biết mức độ bảo đảm nợ dài hạn bằng dòng tiền tự do tạo ra. Hay nói cách khác, cứ một đồng nợ dài hạn bình quân trong kỳ phải trả của DN được đảm bảo bởi mấy đồng dòng tiền tự do. Khi trị số của chỉ tiêu lớn hơn hoặc bằng 1 (>=1), DN bảo đảm đủ và thừa khả năng thanh toán nợ dài hạn bằng dòng tiền tự do và ngược lại',
+            'value' => $calculator->longTermLiabilityCoverageRatioByFCF
+        ]);
         return $this;
     }
 
@@ -187,23 +171,14 @@ trait CashFlowWriter
      */
     protected function writeInterestCoverageRatioByFCF(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $fcf = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $paidInterests = abs($financialStatement->cash_flow_statement->getItem('10306')->getValue($selectedYear, $selectedQuarter));
-            $paidTaxes = abs($financialStatement->cash_flow_statement->getItem('10307')->getValue($selectedYear, $selectedQuarter));
-            if ($paidInterests != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số thanh toán lãi vay bằng dòng tiền tự do',
-                    'alias' => 'Interest Coverage Ratio By FCF',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số khả năng thanh toán lãi vay của dòng tiền tự do, Interest Coverage Ratio By FCF = (FCF + Interest Paid + Taxes Paid)/ Interest Paid. Hệ số này đánh giá khả năng doanh nghiệp có thể hoàn trả lãi vay của các khoản vay nợ từ dòng tiền FCF trong kỳ của mình hay không. Doanh nghiệp sử dụng đòn bẩy càng cao thì tỷ lệ này càng thấp, doanh nghiệp có 1 bảng cân đối lành mạnh sẽ có tỷ lệ này rất cao. Đối với những doanh nghiệp sử dụng quá nhiều nợ vay (đòn bẩy cao), tỷ lệ này nhỏ hơn 1, khi đó doanh nghiệp sẽ có nhiều khả năng vỡ nợ',
-                    'value' => round(($fcf + $paidInterests + $paidTaxes) / $paidInterests, 4)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số thanh toán lãi vay bằng dòng tiền tự do',
+            'alias' => 'Interest Coverage Ratio By FCF',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số khả năng thanh toán lãi vay của dòng tiền tự do, Interest Coverage Ratio By FCF = (FCF + Interest Paid + Taxes Paid)/ Interest Paid. Hệ số này đánh giá khả năng doanh nghiệp có thể hoàn trả lãi vay của các khoản vay nợ từ dòng tiền FCF trong kỳ của mình hay không. Doanh nghiệp sử dụng đòn bẩy càng cao thì tỷ lệ này càng thấp, doanh nghiệp có 1 bảng cân đối lành mạnh sẽ có tỷ lệ này rất cao. Đối với những doanh nghiệp sử dụng quá nhiều nợ vay (đòn bẩy cao), tỷ lệ này nhỏ hơn 1, khi đó doanh nghiệp sẽ có nhiều khả năng vỡ nợ',
+            'value' => $calculator->interestCoverageRatioByFCF
+        ]);
         return $this;
     }
 
@@ -215,22 +190,14 @@ trait CashFlowWriter
      */
     protected function writeAssetEfficencyForFCFRatio(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement) && !empty($financialStatement->balance_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $fcf = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_assets = array_sum($financialStatement->balance_statement->getItem('2')->getValues())/2;
-            if ($average_assets != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số hiệu quả chuyển đổi tài sản thành dòng tiền tự do',
-                    'alias' => 'Asset Efficency For FCF Ratio',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => '%',
-                    'description' => 'Hệ số hiệu quả tạo dòng tiền tự do từ tài sản đánh giá hiệu quả chuyển đổi từ tài sản thành dòng tiền tự do cho doanh nghiệp. Asset Efficiency For FCF Ratio = FCF / Average Assets',
-                    'value' => round(100 * $fcf / $average_assets, 2)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số hiệu quả chuyển đổi tài sản thành dòng tiền tự do',
+            'alias' => 'Asset Efficency For FCF Ratio',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => '%',
+            'description' => 'Hệ số hiệu quả tạo dòng tiền tự do từ tài sản đánh giá hiệu quả chuyển đổi từ tài sản thành dòng tiền tự do cho doanh nghiệp. Asset Efficiency For FCF Ratio = FCF / Average Assets',
+            'value' => $calculator->assetEfficencyForFCFRatio
+        ]);
         return $this;
     }
 
@@ -242,23 +209,14 @@ trait CashFlowWriter
      */
     protected function writeCashGeneratingPowerRatio(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $investingInflows = $financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('204')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('208')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('209')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('210')->getValue($selectedYear, $selectedQuarter);
-            $financingInflows = $financialStatement->cash_flow_statement->getItem('301')->getValue($selectedYear, $selectedQuarter) + $financialStatement->cash_flow_statement->getItem('303')->getValue($selectedYear, $selectedQuarter);
-            if ($cfo > 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số hiệu quả tạo tiền từ hoạt động kinh doanh',
-                    'alias' => 'Cash Generating Power Ratio',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => '%',
-                    'description' => 'Hệ số đánh giá khả năng tạo ra tiền mặt của doanh nghiệp hoàn toàn dựa trên hoạt động kinh doanh, so sánh trên tổng dòng tiền vào của doanh nghiệp, Cash Generating Power Ratio = CFO / (CFO + Cash from Investing Inflows + Cash from Financing Inflows)',
-                    'value' => round(100 * $cfo / ($cfo + $investingInflows + $financingInflows), 2)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số hiệu quả tạo tiền từ hoạt động kinh doanh',
+            'alias' => 'Cash Generating Power Ratio',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => '%',
+            'description' => 'Hệ số đánh giá khả năng tạo ra tiền mặt của doanh nghiệp hoàn toàn dựa trên hoạt động kinh doanh, so sánh trên tổng dòng tiền vào của doanh nghiệp, Cash Generating Power Ratio = CFO / (CFO + Cash from Investing Inflows + Cash from Financing Inflows)',
+            'value' => $calculator->cashGeneratingPowerRatio
+        ]);
         return $this;
     }
 
@@ -270,22 +228,14 @@ trait CashFlowWriter
      */
     protected function writeExternalFinancingRatio(CashFlowCalculator $calculator)
     {
-        if (!empty($financialStatement->cash_flow_statement)) {
-            $selectedYear = $financialStatement->year;
-            $selectedQuarter = $financialStatement->quarter;
-            $cfo = $financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $cff = $financialStatement->cash_flow_statement->getItem('311')->getValue($selectedYear, $selectedQuarter);
-            if ($cfo != 0) {
-                array_push($this->content, [
-                    'name' => 'Hệ số phụ thuộc tài chính bên ngoài',
-                    'alias' => 'External Financing Ratio',
-                    'group' => 'Chỉ số dòng tiền',
-                    'unit' => 'scalar',
-                    'description' => 'Hệ số phụ thuộc tài chính bên ngoài, External Financing Ratio = Cash flows from financing / CFO. Hệ số này so sánh giữa dòng tiền thuần từ hoạt động tài chính với dòng tiền thuần từ hoạt động kinh doanh để đánh giá sự phụ thuộc của doanh nghiệp vào hoạt động tài chính. Hệ số này càng cao chứng tỏ doanh nghiệp phụ thuộc nhiều vào dòng tiền, dòng vốn đến từ bên ngoài (nợ vay hoặc phát hành thêm cổ phiếu). Thông thường, những doanh nghiệp có tài chính ổn định và hoạt động kinh doanh tốt thường có tỷ lệ External Finacing Ratio âm (nhỏ hơn 0) & CFO > 0',
-                    'value' => round($cff/$cfo, 2)
-                ]);
-            }
-        }
+        array_push($this->content, [
+            'name' => 'Hệ số phụ thuộc tài chính bên ngoài',
+            'alias' => 'External Financing Ratio',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => 'scalar',
+            'description' => 'Hệ số phụ thuộc tài chính bên ngoài, External Financing Ratio = Cash flows from financing / CFO. Hệ số này so sánh giữa dòng tiền thuần từ hoạt động tài chính với dòng tiền thuần từ hoạt động kinh doanh để đánh giá sự phụ thuộc của doanh nghiệp vào hoạt động tài chính. Hệ số này càng cao chứng tỏ doanh nghiệp phụ thuộc nhiều vào dòng tiền, dòng vốn đến từ bên ngoài (nợ vay hoặc phát hành thêm cổ phiếu). Thông thường, những doanh nghiệp có tài chính ổn định và hoạt động kinh doanh tốt thường có tỷ lệ External Finacing Ratio âm (nhỏ hơn 0) & CFO > 0',
+            'value' => $calculator->externalFinancingRatio
+        ]);
         return $this;
     }
 }

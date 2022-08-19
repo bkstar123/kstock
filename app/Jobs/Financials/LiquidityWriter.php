@@ -30,12 +30,12 @@ trait LiquidityWriter
         return $this;
     }
     
-     /**
-     * Calculate Current ratio - He so kha nang thanh toan hien hanh (ngan han)
-     *
-     * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
-     * @return $this
-     */
+    /**
+    * Calculate Current ratio - He so kha nang thanh toan hien hanh (ngan han)
+    *
+    * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
+    * @return $this
+    */
     protected function writeCurrentRatio(LiquidityCalculator $calculator)
     {
         array_push($this->content, [
@@ -87,7 +87,7 @@ trait LiquidityWriter
         return $this;
     }
 
-	/**
+    /**
      * Calculate CashRatio - He so kha nang thanh toan tuc thoi
      *
      * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator

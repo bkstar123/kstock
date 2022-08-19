@@ -12,27 +12,27 @@ class BaseCalculator
     /**
      * @var \App\Models\FinancialStatement
      */
-	protected $financialStatement;
+    protected $financialStatement;
 
     /**
      * Create a new instance
      */
-	public function __construct($financialStatement)
-	{
-		$this->financialStatement = $financialStatement;
-	}
+    public function __construct($financialStatement)
+    {
+        $this->financialStatement = $financialStatement;
+    }
 
     /**
      * Execute all calculation methods
      */
-	public function execute()
-	{
-		$methods = array_filter(get_class_methods($this), function ($method) {
-			return str_starts_with($method, 'calculate'); 
-		});
-		foreach ($methods as $method) {
-			call_user_func([$this, $method]);
-		}
-		return $this;
-	}
+    public function execute()
+    {
+        $methods = array_filter(get_class_methods($this), function ($method) {
+            return str_starts_with($method, 'calculate');
+        });
+        foreach ($methods as $method) {
+            call_user_func([$this, $method]);
+        }
+        return $this;
+    }
 }

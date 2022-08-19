@@ -11,21 +11,21 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class ProfitabilityCalculator extends BaseCalculator
 {
-	public $roaa = null;
+    public $roaa = null;
 
-	public $roce = null;
+    public $roce = null;
 
-	public $roea = null;
+    public $roea = null;
 
-	public $ros = null;
+    public $ros = null;
 
-	public $ebitdaMargin = null;
+    public $ebitdaMargin = null;
 
-	public $ebitMargin = null;
+    public $ebitMargin = null;
 
-	public $grossProfitMargin = null;
+    public $grossProfitMargin = null;
 
-	/**
+    /**
      * Calculate ROAA - Ty suat loi nhuan tren tong tai san binh quan
      *
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this

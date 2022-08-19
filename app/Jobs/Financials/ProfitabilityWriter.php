@@ -11,7 +11,7 @@ use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 
 trait ProfitabilityWriter
 {
-	/**
+    /**
      * Write ROAA - Ty suat loi nhuan tren tong tai san binh quan
      *
      * @param  \App\Jobs\Financials\Calculators\ProfitabilityCalculator $calculator
@@ -19,7 +19,6 @@ trait ProfitabilityWriter
      */
     protected function writeROAA(ProfitabilityCalculator $calculator)
     {
-
         array_push($this->content, [
             'name' => 'Tỷ suất lợi nhuận trên tài sản bình quân (ROAA)',
             'alias' => 'ROAA',
