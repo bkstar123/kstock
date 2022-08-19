@@ -25,13 +25,15 @@ use App\Jobs\Financials\Calculators\CapexCalculator;
 use App\Jobs\Financials\Writers\ProfitabilityWriter;
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
+use App\Jobs\Financials\Writers\FinancialLeverageWriter;
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 use App\Jobs\Financials\Writers\OperatingEffectivenessWriter;
+use App\Jobs\Financials\Calculators\FinancialLeverageCalculator;
 use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -133,6 +135,11 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeFixedAssetTurnoverRatio($operatingEffectivenessCalculator)
                  ->writeTotalAssetTurnoverRatio($operatingEffectivenessCalculator)
                  ->writeEquityTurnoverRatio($operatingEffectivenessCalculator);
+            // Financial Leverage
+            $financialLeverageCalculator = (new FinancialLeverageCalculator($financialStatement))->execute();
+            $this->writeShortTermToTotalLiabilitiesRatio($financialLeverageCalculator)
+                 ->writeTotalDebtToTotalAssetRatio($financialLeverageCalculator)
+                 ->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
