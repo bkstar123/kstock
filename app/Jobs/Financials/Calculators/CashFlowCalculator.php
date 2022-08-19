@@ -11,29 +11,29 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class CashFlowCalculator extends BaseCalculator
 {
-    public $liabilityCoverageRatioByCFO = null;
+    public $liabilityCoverageRatioByCFO = null; //Hệ số thanh toán nợ bằng dòng tiền hoạt động kinh doanh
 
-    public $currentLiabilityCoverageRatioByCFO = null;
+    public $currentLiabilityCoverageRatioByCFO = null; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh
 
-    public $longTermLiabilityCoverageRatioByCFO = null;
+    public $longTermLiabilityCoverageRatioByCFO = null; //Hệ số thanh toán nợ dài hạn bằng dòng tiền hoạt động kinh doanh
 
-    public $cFOToRevenue = null;
+    public $cFOToRevenue = null; //CFO/Doanh thu thuần
 
-    public $fCFToRevenue = null;
+    public $fCFToRevenue = null; //FCF/Doanh thu thuần
 
-    public $liabilityCoverageRatioByFCF = null;
+    public $liabilityCoverageRatioByFCF = null; //Hệ số thanh toán nợ bằng dòng tiền tự do
 
-    public $currentLiabilityCoverageRatioByFCF = null;
+    public $currentLiabilityCoverageRatioByFCF = null; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền tự do
 
-    public $longTermLiabilityCoverageRatioByFCF = null;
+    public $longTermLiabilityCoverageRatioByFCF = null; //Hệ số thanh toán nợ dài hạn bằng dòng tiền tự do
 
-    public $interestCoverageRatioByFCF = null;
+    public $interestCoverageRatioByFCF = null; //Hệ số thanh toán lãi vay bằng dòng tiền tự do
 
-    public $assetEfficencyForFCFRatio = null;
+    public $assetEfficencyForFCFRatio = null; //Hệ số hiệu quả chuyển đổi tài sản thành dòng tiền tự do
 
-    public $cashGeneratingPowerRatio = null;
+    public $cashGeneratingPowerRatio = null; //Hệ số hiệu quả tạo tiền từ hoạt động kinh doanh
 
-    public $externalFinancingRatio = null;
+    public $externalFinancingRatio = null; //Hệ số phụ thuộc tài chính bên ngoài
 
     /**
      * Calculate Liability Coverage Ratio By CFO - He so kha nang thanh toan no cua dong tien kinh doanh

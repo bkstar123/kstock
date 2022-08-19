@@ -1,18 +1,18 @@
 <?php
 /**
- * Liquidity trait
+ * LiquidityWriter trait
  *
  * @author: tuanha
  * @date: 14-Aug-2022
  */
-namespace App\Jobs\Financials;
+namespace App\Jobs\Financials\Writers;
 
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
 
 trait LiquidityWriter
 {
     /**
-     * Calculate AssetsToLiabilities ratio - He so kha nang thanh toan tong quat
+     * Write AssetsToLiabilities ratio - He so kha nang thanh toan tong quat
      *
      * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
      * @return $this
@@ -31,7 +31,7 @@ trait LiquidityWriter
     }
     
     /**
-    * Calculate Current ratio - He so kha nang thanh toan hien hanh (ngan han)
+    * Write Current ratio - He so kha nang thanh toan hien hanh (ngan han)
     *
     * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
     * @return $this
@@ -50,7 +50,7 @@ trait LiquidityWriter
     }
 
     /**
-     * Calculate Quick Ratio - He so kha nang thanh toan nhanh
+     * Write Quick Ratio - He so kha nang thanh toan nhanh
      *
      * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
      * @return $this
@@ -69,7 +69,7 @@ trait LiquidityWriter
     }
 
     /**
-     * Calculate Quick Ratio 2 - He so kha nang thanh toan nhanh 2 (loai bo hang ton kho va phai thu ngan han)
+     * Write Quick Ratio 2 - He so kha nang thanh toan nhanh 2 (loai bo hang ton kho va phai thu ngan han)
      *
      * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
      * @return $this
@@ -88,7 +88,7 @@ trait LiquidityWriter
     }
 
     /**
-     * Calculate CashRatio - He so kha nang thanh toan tuc thoi
+     * Write CashRatio - He so kha nang thanh toan tuc thoi
      *
      * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
      * @return $this
@@ -107,7 +107,7 @@ trait LiquidityWriter
     }
 
     /**
-     * Calculate Interest Coverage Ratio - He so kha nang chi tra lai vay
+     * Write Interest Coverage Ratio - He so kha nang chi tra lai vay
      *
      * @param  \App\Jobs\Financials\Calculators\LiquidityCalculator $calculator
      * @return $this

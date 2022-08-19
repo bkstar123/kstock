@@ -16,12 +16,12 @@ class JobFailing implements ShouldBroadcast
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
      */
-    public $user;
+    protected $user;
 
     /**
      * @var string
      */
-    public $exception;
+    protected $exception;
 
     /**
      * Create a new event instance.
