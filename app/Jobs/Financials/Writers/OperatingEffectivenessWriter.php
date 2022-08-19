@@ -110,4 +110,61 @@ trait OperatingEffectivenessWriter
         ]);
         return $this;
     }
+
+    /**
+     * Write Fixed Asset Turnover Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $calculator
+     * @return $this
+     */
+    protected function writeFixedAssetTurnoverRatio(OperatingEffectivenessCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Vòng quay tài sản cố định',
+            'alias' => 'Fixed Asset Turnover Ratio',
+            'group' => 'Chỉ số hiệu quả hoạt động',
+            'unit' => 'cycles',
+            'description' => 'Vòng quay tài sản cố định (Fixed asset turnover ratio - FAT) được sử dụng để đo lường hiệu suất hoạt động của công ty, đo lường khả năng của công ty để tạo doanh thu thuần từ các khoản đầu tư tài sản cố định, cụ thể là tài sản, nhà máy và thiết bị, FAT = doanh thu thuần / Tổng tài sản cố định bình quân',
+            'value' => $calculator->fixedAssetTurnoverRatio
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Total Asset Turnover Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $calculator
+     * @return $this
+     */
+    protected function writeTotalAssetTurnoverRatio(OperatingEffectivenessCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Vòng quay tổng tài sản',
+            'alias' => 'Total Asset Turnover Ratio',
+            'group' => 'Chỉ số hiệu quả hoạt động',
+            'unit' => 'cycles',
+            'description' => 'Vòng quay tổng tài sản (Total Asset Turnover Ratio). Là thước đo thể hiện mức độ hiệu quả trong việc điều hành, phát triển của doanh nghiệp. Khi doanh nghiệp đầu tư tài sản vào các hoạt động sản xuất, kinh doanh thì tỷ số này sẽ cho biết với mỗi dòng tiền doanh nghiệp đầu tư vào sẽ tạo ra bao nhiêu dòng tiền mang lại doanh thu. Vòng quay tài sản = Doanh thu thuần / Tông tài sản bình quân',
+            'value' => $calculator->totalAssetTurnoverRatio
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Equity Turnover Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $calculator
+     * @return $this
+     */
+    protected function writeEquityTurnoverRatio(OperatingEffectivenessCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Vòng quay VCSH',
+            'alias' => 'Equity Turnover Ratio',
+            'group' => 'Chỉ số hiệu quả hoạt động',
+            'unit' => 'cycles',
+            'description' => ' Chỉ số này đo lường mối quan hệ giữa doanh thu thuần và VCSH bình quân của doanh nghệp, cho biết 1 đồng VCSH tạo ra được bao nhiêu đồng doanh thu. Chỉ số này càng cao cho thấy hiệu quả sử dụng VCSH của doanh nghiệp càng cao và ngược lại. Vòng quay Vốn chủ sở hữu (Equity turnover) = Doanh thu thuần/Vốn chủ sở hữu bình quân ',
+            'value' => $calculator->equityTurnoverRatio
+        ]);
+        return $this;
+    }
 }

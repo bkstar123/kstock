@@ -129,7 +129,10 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $this->writeReceivableTurnoverRatio($operatingEffectivenessCalculator)
                  ->writeInventoryTurnoverRatio($operatingEffectivenessCalculator)
                  ->writeAccountsPayableTurnoverRatio($operatingEffectivenessCalculator)
-                 ->writeCashConversionCycle($operatingEffectivenessCalculator);
+                 ->writeCashConversionCycle($operatingEffectivenessCalculator)
+                 ->writeFixedAssetTurnoverRatio($operatingEffectivenessCalculator)
+                 ->writeTotalAssetTurnoverRatio($operatingEffectivenessCalculator)
+                 ->writeEquityTurnoverRatio($operatingEffectivenessCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID

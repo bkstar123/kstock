@@ -25,6 +25,12 @@ class OperatingEffectivenessCalculator extends BaseCalculator
 
     public $cashConversionCycle = null; //Chu kỳ chuyển đổi tiền mặt
 
+    public $fixedAssetTurnoverRatio = null; //Vòng quay tài sản cố định
+
+    public $totalAssetTurnoverRatio = null; //Vòng quay tổng tài sản
+
+    public $equityTurnoverRatio = null; //Vòng quay VCSH
+
     /**
       * Calculate Receivable Turn-over Ratio
       *
@@ -105,6 +111,63 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $dio = round(365 * $averageInventories/$cogs, 0);
             if ($averageCurrentAccountPayables != 0) {
                 $this->cashConversionCycle = $dso + $dio - $dpo;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Fixed Asset Turnover Ratio
+     *
+     * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
+     */
+    public function calculateFixedAssetTurnoverRatio()
+    {
+        if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            $averageFixedAssets = array_sum($this->financialStatement->balance_statement->getItem('10202')->getValues())/2;
+            if ($averageFixedAssets != 0) {
+                $this->fixedAssetTurnoverRatio = round($revenue/$averageFixedAssets, 4);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Total Asset Turnover Ratio
+     *
+     * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
+     */
+    public function calculateTotalAssetTurnoverRatio()
+    {
+        if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            $averageTotalAssets = array_sum($this->financialStatement->balance_statement->getItem('2')->getValues())/2;
+            if ($averageTotalAssets != 0) {
+                $this->totalAssetTurnoverRatio = round($revenue/$averageTotalAssets, 4);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Total Asset Turnover Ratio
+     *
+     * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
+     */
+    public function calculateEquityTurnoverRatio()
+    {
+        if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            $averageEquity = array_sum($this->financialStatement->balance_statement->getItem('302')->getValues())/2;
+            if ($averageEquity != 0) {
+                $this->equityTurnoverRatio = round($revenue/$averageEquity, 4);
             }
         }
         return $this;
