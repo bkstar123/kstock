@@ -1,8 +1,8 @@
 <?php
 /**
- * StatementRepository trait
+ * AnalysisReportRepository trait
  *
- * Supposed to be used with Statement models
+ * Supposed to be used with AnalysisReport model
  *
  * @author: tuanha
  * @date: 09-Aug-2022
@@ -25,6 +25,7 @@ trait AnalysisReportRepository
             $items = $items->map(function ($item) {
                 return new AnalysisReportItem(
                     $item['name'],
+                    $item['alias'],
                     $item['group'],
                     $item['unit'],
                     $item['description'],
@@ -42,15 +43,16 @@ trait AnalysisReportRepository
      *
      * @return App\ContentObjects\AnalysisReportItem || null
      */
-    public function getItem($itemName)
+    public function getItem($itemAlias)
     {
         $items = collect(json_decode($this->attributes['content'], true));
-        $item = array_first($items->filter(function ($item) use ($itemName) {
-            return $item['name'] == $itemName;
+        $item = array_first($items->filter(function ($item) use ($itemAlias) {
+            return $item['alias'] == $itemAlias;
         }));
         if (!empty($item)) {
             return new AnalysisReportItem(
                 $item['name'],
+                $item['alias'],
                 $item['group'],
                 $item['unit'],
                 $item['description'],
