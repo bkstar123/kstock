@@ -139,7 +139,10 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $financialLeverageCalculator = (new FinancialLeverageCalculator($financialStatement))->execute();
             $this->writeShortTermToTotalLiabilitiesRatio($financialLeverageCalculator)
                  ->writeTotalDebtToTotalAssetRatio($financialLeverageCalculator)
-                 ->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator);
+                 ->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator)
+                 ->writeTotalAssetToEquityRatio($financialLeverageCalculator)
+                 ->writeTotalDebtToTotalLiabilityRatio($financialLeverageCalculator)
+                 ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID

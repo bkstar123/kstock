@@ -15,7 +15,7 @@ class CreateBalanceStatementsTable extends Migration
     {
         Schema::create('balance_statements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('content');
+            $table->longText('content');
             $table->bigInteger('financial_statement_id')->unsigned()->index();
             $table->timestamps();
             $table->foreign('financial_statement_id')->references('id')->on('financial_statements')->onDelete('cascade');

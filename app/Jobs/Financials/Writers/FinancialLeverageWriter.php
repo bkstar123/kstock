@@ -66,4 +66,58 @@ trait FinancialLeverageWriter
         ]);
         return $this;
     }
+
+     /**
+     * Write total asset to equity ratio - Chỉ số Tổng tài sản / Vốn chủ sở hữu
+     *
+     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+     */
+    public function writeTotalAssetToEquityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => ' Tổng tài sản / Vốn chủ sở hữu (Hệ số đòn bẩy tài chính)',
+            'alias' => 'Equitites/Total Assets',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => 'scalar',
+            'description' => 'Hệ số đòn bẩy tài chính cho biết tài sản của công ty được tài trợ chính bởi vốn chủ sở hữu của các cổ đông hay là nguồn nợ bên ngoài. Hệ số đòn bẩy tài chính = Tổng tài sản / VCSH = 1 + Tổng nợ phải trả/VCSH',
+            'value' => $calculator->totalAssetToEquityRatio
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write total debts to total liabilities - Chỉ số tổng nợ vay / tổng nợ
+     *
+     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+     */
+    public function writeTotalDebtToTotalLiabilityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => ' Chỉ số tổng nợ vay / tổng nợ',
+            'alias' => 'Total Debts/Total Liabilities',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => '%',
+            'description' => 'Chỉ số này cho biết tỉ lệ nợ vay trong tổng nợ của doanh nghiệp, Total Debts/Total Liabilities = 100% * (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn) / Tổng nợ phải trả',
+            'value' => $calculator->totalDebtToTotalLiabilityRatio
+        ]);
+        return $this;
+    }
+
+     /**
+     * Write current debts to total debts - Chỉ số nợ vay ngắn hạn / tổng nợ vay
+     *
+     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+     */
+    public function writeCurrentDebtToTotalDebtRatio(FinancialLeverageCalculator $calculator)
+    {
+       array_push($this->content, [
+            'name' => ' Chỉ số nợ vay ngắn hạn / tổng nợ vay',
+            'alias' => 'Currrent Debts/Total Debts',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => '%',
+            'description' => 'Chỉ số này cho biết tỉ lệ nợ vay ngắn hạn trong tổng nợ vay của doanh nghiệp, Current Debts / Total Debts = 100% * Vay và nợ thuê tài chính ngắn hạn / (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn)',
+            'value' => $calculator->currentDebtToTotalDebtRatio
+        ]);
+        return $this;
+    }
 }
