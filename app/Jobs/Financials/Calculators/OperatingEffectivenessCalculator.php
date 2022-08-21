@@ -42,7 +42,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            $averageCurrentCustomerReceivables = array_sum($this->financialStatement->balance_statement->getItem('1010301')->getValues())/2;
+            $averageCurrentCustomerReceivables = $this->financialStatement->balance_statement->getItem('1010301')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageCurrentCustomerReceivables != 0) {
                 $this->receivableTurnoverRatio = round($revenue / $averageCurrentCustomerReceivables, 4);
                 $this->averageCollectionPeriod = round(365 * $averageCurrentCustomerReceivables/$revenue, 0);
@@ -62,7 +62,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
-            $averageInventories = array_sum($this->financialStatement->balance_statement->getItem('10104')->getValues())/2;
+            $averageInventories = $this->financialStatement->balance_statement->getItem('10104')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageInventories != 0) {
                 $this->inventoryTurnoverRatio = round($cogs / $averageInventories, 4);
                 $this->averageAgeOfInventory = round(365 * $averageInventories/$cogs, 0);
@@ -82,7 +82,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
-            $averageCurrentAccountPayables = array_sum($this->financialStatement->balance_statement->getItem('3010103')->getValues())/2;
+            $averageCurrentAccountPayables = $this->financialStatement->balance_statement->getItem('3010103')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageCurrentAccountPayables != 0) {
                 $this->accountsPayableTurnoverRatio = round($cogs / $averageCurrentAccountPayables, 4);
                 $this->averageAccountPayableDuration = round(365 * $averageCurrentAccountPayables/$cogs, 0);
@@ -102,10 +102,10 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            $averageCurrentCustomerReceivables = array_sum($this->financialStatement->balance_statement->getItem('1010301')->getValues())/2;
+            $averageCurrentCustomerReceivables = $this->financialStatement->balance_statement->getItem('1010301')->getAverageValue($selectedYear, $selectedQuarter);
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
-            $averageInventories = array_sum($this->financialStatement->balance_statement->getItem('10104')->getValues())/2;
-            $averageCurrentAccountPayables = array_sum($this->financialStatement->balance_statement->getItem('3010103')->getValues())/2;
+            $averageInventories = $this->financialStatement->balance_statement->getItem('10104')->getAverageValue($selectedYear, $selectedQuarter);
+            $averageCurrentAccountPayables = $this->financialStatement->balance_statement->getItem('3010103')->getAverageValue($selectedYear, $selectedQuarter);
             $dso = round(365 * $averageCurrentCustomerReceivables/$revenue, 0);
             $dpo = round(365 * $averageCurrentAccountPayables/$cogs, 0);
             $dio = round(365 * $averageInventories/$cogs, 0);
@@ -127,7 +127,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            $averageFixedAssets = array_sum($this->financialStatement->balance_statement->getItem('10202')->getValues())/2;
+            $averageFixedAssets = $this->financialStatement->balance_statement->getItem('10202')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageFixedAssets != 0) {
                 $this->fixedAssetTurnoverRatio = round($revenue/$averageFixedAssets, 4);
             }
@@ -146,7 +146,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            $averageTotalAssets = array_sum($this->financialStatement->balance_statement->getItem('2')->getValues())/2;
+            $averageTotalAssets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageTotalAssets != 0) {
                 $this->totalAssetTurnoverRatio = round($revenue/$averageTotalAssets, 4);
             }
@@ -165,7 +165,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            $averageEquity = array_sum($this->financialStatement->balance_statement->getItem('302')->getValues())/2;
+            $averageEquity = $this->financialStatement->balance_statement->getItem('302')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageEquity != 0) {
                 $this->equityTurnoverRatio = round($revenue/$averageEquity, 4);
             }
