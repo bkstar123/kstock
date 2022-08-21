@@ -95,4 +95,40 @@ class StatementItem
     {
         return array_pluck($this->values, 'value');
     }
+
+    /**
+     * Get the average value of a statement content item for the given period
+     *
+     * @param integer $year
+     * @param integer $quarter
+     * @return float
+     */
+    public function getAverageValue($year, $quarter)
+    {
+        $currentValue = $this->getValue($year, $quarter);
+        $previousPeriod = getPreviousPeriod($year, $quarter);
+        $lastValue = $this->getValue($previousPeriod['year'], $previousPeriod['quarter']);
+        if ($this->checkDataForPeriodExisted($previousPeriod['year'], $previousPeriod['quarter'])) {
+            return ($currentValue + $lastValue) / 2;
+        } else {
+            return $currentValue;
+        }
+    }
+
+    /**
+     * Check whether the data for the concern period existed or not
+     *
+     * @param integer $year
+     * @param integer $quarter
+     * @return boolean
+     */
+    private function checkDataForPeriodExisted($year, $quarter)
+    {
+        $concernPeriodData = \Arr::where($this->values,
+            function ($value) use ($year, $quarter) {
+                return $value['year'] == $year && $value['quarter'] == $quarter;
+            }
+        );
+        return !empty($concernPeriodData);
+    }
 }
