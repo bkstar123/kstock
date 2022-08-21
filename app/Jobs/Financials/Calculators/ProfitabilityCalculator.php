@@ -36,10 +36,10 @@ class ProfitabilityCalculator extends BaseCalculator
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
-            $average_assets = array_sum($this->financialStatement->balance_statement->getItem('2')->getValues())/2;
+            $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
-            if ($average_assets != 0) {
-                $this->roaa = round(100 * $parent_company_net_profit / $average_assets, 2);
+            if ($average_total_assets != 0) {
+                $this->roaa = round(100 * $parent_company_net_profit / $average_total_assets, 2);
             }
         }
         return $this;
@@ -56,11 +56,11 @@ class ProfitabilityCalculator extends BaseCalculator
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
-            $average_assets = array_sum($this->financialStatement->balance_statement->getItem('2')->getValues())/2;
-            $average_current_liabilities = array_sum($this->financialStatement->balance_statement->getItem('30101')->getValues())/2;
+            $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
+            $average_current_liabilities = $this->financialStatement->balance_statement->getItem('30101')->getAverageValue($selectedYear, $selectedQuarter);
             $eBIT = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
-            if ($average_assets != $average_current_liabilities) {
-                $this->roce = round(100 * $eBIT / ($average_assets - $average_current_liabilities), 2);
+            if ($average_total_assets != $average_current_liabilities) {
+                $this->roce = round(100 * $eBIT / ($average_total_assets - $average_current_liabilities), 2);
             }
         }
         return $this;
@@ -78,7 +78,7 @@ class ProfitabilityCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
-            $average_equities = array_sum($this->financialStatement->balance_statement->getItem('302')->getValues())/2;
+            $average_equities = $this->financialStatement->balance_statement->getItem('302')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_equities != 0) {
                 $this->roea = round(100 * $parent_company_net_profit / $average_equities, 2);
             }
@@ -116,12 +116,13 @@ class ProfitabilityCalculator extends BaseCalculator
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
+            $previousPeriod = getPreviousPeriod($selectedYear,  $selectedQuarter);
             $eBit = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
-            $tangibleStaticAssets = $this->financialStatement->balance_statement->getItem("102020102")->getValues();
-            $financialLendingStaticAssets = $this->financialStatement->balance_statement->getItem("102020202")->getValues();
-            $intangibleStaticAssets = $this->financialStatement->balance_statement->getItem("102020302")->getValues();
-            $investRealEstate = $this->financialStatement->balance_statement->getItem("1020302")->getValues();
-            $deprecation = abs($tangibleStaticAssets[1]) - abs($tangibleStaticAssets[0]) + abs($financialLendingStaticAssets[1]) - abs($financialLendingStaticAssets[0]) + abs($intangibleStaticAssets[1]) - abs($intangibleStaticAssets[0]) + abs($investRealEstate[1]) - abs($investRealEstate[0]);
+            $tangibleFixedAssets = $this->financialStatement->balance_statement->getItem("102020102");
+            $financialLendingStaticAssets = $this->financialStatement->balance_statement->getItem("102020202");
+            $intangibleFixedAssets = $this->financialStatement->balance_statement->getItem("102020302");
+            $investRealEstate = $this->financialStatement->balance_statement->getItem("1020302");
+            $deprecation = abs($tangibleFixedAssets->getValue($selectedYear, $selectedQuarter)) - abs($tangibleFixedAssets->getValue($previousPeriod['year'], $previousPeriod['quarter'])) + abs($financialLendingStaticAssets->getValue($selectedYear, $selectedQuarter)) - abs($financialLendingStaticAssets->getValue($previousPeriod['year'], $previousPeriod['quarter'])) + abs($intangibleFixedAssets->getValue($selectedYear, $selectedQuarter)) - abs($intangibleFixedAssets->getValue($previousPeriod['year'], $previousPeriod['quarter'])) + abs($investRealEstate->getValue($selectedYear, $selectedQuarter)) - abs($investRealEstate->getValue($previousPeriod['year'], $previousPeriod['quarter']));
             $eBITDA = $eBit + $deprecation;
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {

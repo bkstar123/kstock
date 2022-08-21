@@ -107,8 +107,8 @@ class StatementItem
     {
         $currentValue = $this->getValue($year, $quarter);
         $previousPeriod = getPreviousPeriod($year, $quarter);
-        $lastValue = $this->getValue($previousPeriod['year'], $previousPeriod['quarter']);
         if ($this->checkDataForPeriodExisted($previousPeriod['year'], $previousPeriod['quarter'])) {
+            $lastValue = $this->getValue($previousPeriod['year'], $previousPeriod['quarter']);
             return ($currentValue + $lastValue) / 2;
         } else {
             return $currentValue;

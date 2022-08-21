@@ -46,7 +46,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cfo = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $average_liabilities = array_sum($this->financialStatement->balance_statement->getItem('301')->getValues())/2;
+            $average_liabilities = $this->financialStatement->balance_statement->getItem('301')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_liabilities != 0) {
                 $this->liabilityCoverageRatioByCFO = round($cfo / $average_liabilities, 4);
             }
@@ -65,7 +65,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cfo = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $average_current_liabilities = array_sum($this->financialStatement->balance_statement->getItem('30101')->getValues())/2;
+            $average_current_liabilities = $this->financialStatement->balance_statement->getItem('30101')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_current_liabilities != 0) {
                 $this->currentLiabilityCoverageRatioByCFO = round($cfo / $average_current_liabilities, 4);
             }
@@ -84,7 +84,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cfo = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $average_long_term_liabilitiess = array_sum($this->financialStatement->balance_statement->getItem('30102')->getValues())/2;
+            $average_long_term_liabilitiess = $this->financialStatement->balance_statement->getItem('30102')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_long_term_liabilitiess != 0) {
                 $this->longTermLiabilityCoverageRatioByCFO = round($cfo / $average_long_term_liabilitiess, 4);
             }
@@ -141,7 +141,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_liabilities = array_sum($this->financialStatement->balance_statement->getItem('301')->getValues())/2;
+            $average_liabilities = $this->financialStatement->balance_statement->getItem('301')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_liabilities != 0) {
                 $this->liabilityCoverageRatioByFCF = round($fcf / $average_liabilities, 4);
             }
@@ -160,7 +160,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_current_liabilities = array_sum($this->financialStatement->balance_statement->getItem('30101')->getValues())/2;
+            $average_current_liabilities = $this->financialStatement->balance_statement->getItem('30101')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_current_liabilities != 0) {
                 $this->currentLiabilityCoverageRatioByFCF = round($fcf / $average_current_liabilities, 4);
             }
@@ -179,7 +179,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_long_term_liabilities = array_sum($this->financialStatement->balance_statement->getItem('30102')->getValues())/2;
+            $average_long_term_liabilities = $this->financialStatement->balance_statement->getItem('30102')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_long_term_liabilities != 0) {
                 $this->longTermLiabilityCoverageRatioByFCF = round($fcf / $average_long_term_liabilities, 4);
             }
@@ -218,7 +218,7 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
-            $average_assets = array_sum($this->financialStatement->balance_statement->getItem('2')->getValues())/2;
+            $average_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_assets != 0) {
                 $this->assetEfficencyForFCFRatio = round(100 * $fcf / $average_assets, 2);
             }

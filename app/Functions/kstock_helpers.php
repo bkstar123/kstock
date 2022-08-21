@@ -51,3 +51,23 @@ if (! function_exists('getPreviousPeriod')) {
         }
     }
 }
+
+if (! function_exists('getLastYearSamePeriod')) {
+    /**
+     * Get the last year same period to the current period given by year and quarter
+     * For instance, concern year 2022, concern quarter 1, then previous period is 2021 quarter 1
+     *
+     * @param integer $concernYear
+     * @param integer $concernQuarter
+     * @return array
+     */
+    function getLastYearSamePeriod($concernYear, $concernQuarter)
+    {
+        $concernYear = (int) $concernYear;
+        $concernQuarter = (int) $concernQuarter;
+        return [
+            'year' => $concernYear - 1,
+            'quarter' => $concernQuarter
+        ];
+    }
+}
