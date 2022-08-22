@@ -22,10 +22,12 @@ use App\Jobs\Financials\Writers\CashFlowWriter;
 use App\Jobs\Financials\Writers\LiquidityWriter;
 use App\Events\AnalyzeFinancialStatementCompleted;
 use App\Jobs\Financials\Calculators\CapexCalculator;
+use App\Jobs\Financials\Writers\CostStructureWriter;
 use App\Jobs\Financials\Writers\ProfitabilityWriter;
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Writers\FinancialLeverageWriter;
+use App\Jobs\Financials\Calculators\CostStructureCalculator;
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 use App\Jobs\Financials\Writers\OperatingEffectivenessWriter;
 use App\Jobs\Financials\Calculators\FinancialLeverageCalculator;
@@ -33,7 +35,7 @@ use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -143,6 +145,9 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeTotalAssetToEquityRatio($financialLeverageCalculator)
                  ->writeTotalDebtToTotalLiabilityRatio($financialLeverageCalculator)
                  ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator);
+            // Cost Structure
+            $costStructureCalculator = (new CostStructureCalculator($financialStatement))->execute();
+            $this->writeCOGSToRevenueRatio($costStructureCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
