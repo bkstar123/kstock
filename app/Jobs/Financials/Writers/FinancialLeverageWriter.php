@@ -93,7 +93,7 @@ trait FinancialLeverageWriter
     public function writeTotalDebtToTotalLiabilityRatio(FinancialLeverageCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => ' Chỉ số tổng nợ vay / tổng nợ',
+            'name' => 'Tổng nợ vay / tổng nợ',
             'alias' => 'Total Debts/Total Liabilities',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
@@ -111,7 +111,7 @@ trait FinancialLeverageWriter
     public function writeCurrentDebtToTotalDebtRatio(FinancialLeverageCalculator $calculator)
     {
        array_push($this->content, [
-            'name' => ' Chỉ số nợ vay ngắn hạn / tổng nợ vay',
+            'name' => 'Nợ vay ngắn hạn / tổng nợ vay',
             'alias' => 'Currrent Debts/Total Debts',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
