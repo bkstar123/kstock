@@ -37,5 +37,13 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('financial.statements.show', function ($user, $financial_statement) {
             return $user->hasRole(Role::SUPERADMINS) || $user->id == $financial_statement->admin_id;
         });
+
+        Gate::define('settings.index', function ($user) {
+            return $user->hasRole(Role::SUPERADMINS);
+        });
+
+        Gate::define('settings.update', function ($user) {
+            return $user->hasRole(Role::SUPERADMINS);
+        });
     }
 }

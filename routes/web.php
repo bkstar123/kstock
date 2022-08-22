@@ -30,10 +30,12 @@ Route::group(
     function () {
         Route::get('settings', 'SettingController@index')
             ->name('cms.settings.index')
-            ->middleware('bkscms-auth:admins');
+            ->middleware('bkscms-auth:admins')
+            ->middleware('can:settings.index');
         Route::post('settings', 'SettingController@update')
             ->name('cms.settings.update')
-            ->middleware('bkscms-auth:admins');
+            ->middleware('bkscms-auth:admins')
+            ->middleware('can:settings.update');
     }
 );
 
