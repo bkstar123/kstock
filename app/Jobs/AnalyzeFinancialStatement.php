@@ -29,13 +29,17 @@ use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Writers\FinancialLeverageWriter;
 use App\Jobs\Financials\Calculators\CostStructureCalculator;
 use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
+use App\Jobs\Financials\Writers\CurrentAssetStructureWriter;
+use App\Jobs\Financials\Writers\LongTermAssetStructureWriter;
 use App\Jobs\Financials\Writers\OperatingEffectivenessWriter;
 use App\Jobs\Financials\Calculators\FinancialLeverageCalculator;
+use App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator;
+use App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator;
 use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -147,7 +151,24 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator);
             // Cost Structure
             $costStructureCalculator = (new CostStructureCalculator($financialStatement))->execute();
-            $this->writeCOGSToRevenueRatio($costStructureCalculator);
+            $this->writeCOGSToRevenueRatio($costStructureCalculator)
+                 ->writeSellingExpenseToRevenueRatio($costStructureCalculator)
+                 ->writeAdministrationExpenseToRevenueRatio($costStructureCalculator)
+                 ->writeInterestCostToRevenueRatio($costStructureCalculator);
+            // Current Asset Structure
+            $currentAssetStructureCalculator = (new CurrentAssetStructureCalculator($financialStatement))->execute();
+            $this->writeCurrentAssetToTotalAssetRatio($currentAssetStructureCalculator)
+                 ->writeCashToCurrentAssetRatio($currentAssetStructureCalculator)
+                 ->writeCurrentFinancialInvestingToCurrentAssetRatio($currentAssetStructureCalculator)
+                 ->writeCurrentReceivableAccountToCurrentAssetRatio($currentAssetStructureCalculator)
+                 ->writeInventoryToCurrentAssetRatio($currentAssetStructureCalculator)
+                 ->calculateOtherCurrentAssetToCurrentAssetRatio($currentAssetStructureCalculator);
+            // Long Term Asset Structure
+            $longTermAssetStructureCalculator = (new LongTermAssetStructureCalculator($financialStatement))->execute();
+            $this->writeLongTermAssetToTotalAssetRatio($longTermAssetStructureCalculator)
+                 ->writeFixedAssetToTotalAssetRatio($longTermAssetStructureCalculator)
+                 ->writeTangibleFixedAssetToFixedAssetRatio($longTermAssetStructureCalculator)
+                 ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
