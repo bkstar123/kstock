@@ -116,7 +116,7 @@ class ProfitabilityCalculator extends BaseCalculator
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
-            $previousPeriod = getPreviousPeriod($selectedYear,  $selectedQuarter);
+            $previousPeriod = getPreviousPeriod($selectedYear, $selectedQuarter);
             $eBit = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $tangibleFixedAssets = $this->financialStatement->balance_statement->getItem("102020102");
             $financialLendingStaticAssets = $this->financialStatement->balance_statement->getItem("102020202");

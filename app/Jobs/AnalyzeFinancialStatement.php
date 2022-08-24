@@ -168,7 +168,9 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $this->writeLongTermAssetToTotalAssetRatio($longTermAssetStructureCalculator)
                  ->writeFixedAssetToTotalAssetRatio($longTermAssetStructureCalculator)
                  ->writeTangibleFixedAssetToFixedAssetRatio($longTermAssetStructureCalculator)
-                 ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator);
+                 ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator)
+                 ->writeIntangibleAssetToFixedAssetRatio($longTermAssetStructureCalculator)
+                 ->writeConstructionInProgressToFixedAssetRatio($longTermAssetStructureCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID

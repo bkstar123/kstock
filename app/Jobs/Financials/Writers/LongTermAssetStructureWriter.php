@@ -14,7 +14,7 @@ trait LongTermAssetStructureWriter
     /**
      * Write Long Term Asset / Total Asset Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
      * @return $this
      */
     public function writeLongTermAssetToTotalAssetRatio(LongTermAssetStructureCalculator $calculator)
@@ -33,7 +33,7 @@ trait LongTermAssetStructureWriter
     /**
      * Write Fixed Asset / Total Asset Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
      * @return $this
      */
     public function writeFixedAssetToTotalAssetRatio(LongTermAssetStructureCalculator $calculator)
@@ -52,7 +52,8 @@ trait LongTermAssetStructureWriter
     /**
      * Write Tangible Fixed Asset / Fixed Asset Ratio
      *
-     * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @return $this
      */
     public function writeTangibleFixedAssetToFixedAssetRatio(LongTermAssetStructureCalculator $calculator)
     {
@@ -70,7 +71,8 @@ trait LongTermAssetStructureWriter
     /**
      * Write Financial Lending Asset / Fixed Asset Ratio
      *
-     * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @return $this
      */
     public function writeFinancialLendingAssetToFixedAssetRatio(LongTermAssetStructureCalculator $calculator)
     {
@@ -81,6 +83,44 @@ trait LongTermAssetStructureWriter
             'unit' => '%',
             'description' => 'Phản ánh tỉ trọng tài sản cố định cho thuê tài chính trên tổng tài sản cố định của doanh nghiệp',
             'value' => $calculator->financialLendingAssetToFixedAssetRatio
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Intangible Asset / Fixed Asset Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @return $this
+     */
+    public function writeIntangibleAssetToFixedAssetRatio(LongTermAssetStructureCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tài sản cố định vô hình/Tài sản cố định',
+            'alias' => 'Intangible Fixed Assets/Fixed Assets',
+            'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
+            'unit' => '%',
+            'description' => 'Phản ánh tỉ trọng tài sản cố định vô hình trên tổng tài sản cố định của doanh nghiệp',
+            'value' => $calculator->intangibleAssetToFixedAssetRatio
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Construction In Progress / Fixed Asset Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @return $this
+     */
+    public function writeConstructionInProgressToFixedAssetRatio(LongTermAssetStructureCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Chi phí xây dựng cơ bản dở dang/Tài sản cố định',
+            'alias' => 'Construction in Progress/Fixed Assets',
+            'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
+            'unit' => '%',
+            'description' => 'Phản ánh tỉ trọng chi phí xây dựng cơ bản dở dang trên tổng tài sản cố định của doanh nghiệp',
+            'value' => $calculator->constructionInProgressToFixedAssetRatio
         ]);
         return $this;
     }

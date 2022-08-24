@@ -30,7 +30,8 @@ class CostStructureCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
-            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            ;
             if ($revenue != 0) {
                 $this->cOGSToRevenueRatio = round(100 * $cogs / $revenue, 2);
             }
@@ -49,7 +50,8 @@ class CostStructureCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $selling_expenses = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter);
-            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            ;
             if ($revenue != 0) {
                 $this->sellingExpenseToRevenueRatio = round(100 * $selling_expenses / $revenue, 2);
             }
@@ -68,7 +70,8 @@ class CostStructureCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $administration_expenses = $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
-            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            ;
             if ($revenue != 0) {
                 $this->administrationExpenseToRevenueRatio = round(100 * $administration_expenses / $revenue, 2);
             }
@@ -87,7 +90,8 @@ class CostStructureCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $interest_cost = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
-            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);;
+            $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            ;
             if ($revenue != 0) {
                 $this->interestCostToRevenueRatio = round(100 * $interest_cost / $revenue, 2);
             }

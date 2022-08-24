@@ -67,11 +67,11 @@ trait FinancialLeverageWriter
         return $this;
     }
 
-     /**
-     * Write total asset to equity ratio - Chỉ số Tổng tài sản / Vốn chủ sở hữu
-     *
-     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
-     */
+    /**
+    * Write total asset to equity ratio - Chỉ số Tổng tài sản / Vốn chủ sở hữu
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
     public function writeTotalAssetToEquityRatio(FinancialLeverageCalculator $calculator)
     {
         array_push($this->content, [
@@ -103,14 +103,14 @@ trait FinancialLeverageWriter
         return $this;
     }
 
-     /**
-     * Write current debts to total debts - Chỉ số nợ vay ngắn hạn / tổng nợ vay
-     *
-     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
-     */
+    /**
+    * Write current debts to total debts - Chỉ số nợ vay ngắn hạn / tổng nợ vay
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
     public function writeCurrentDebtToTotalDebtRatio(FinancialLeverageCalculator $calculator)
     {
-       array_push($this->content, [
+        array_push($this->content, [
             'name' => 'Nợ vay ngắn hạn / tổng nợ vay',
             'alias' => 'Currrent Debts/Total Debts',
             'group' => 'Chỉ số đòn bẩy tài chính',

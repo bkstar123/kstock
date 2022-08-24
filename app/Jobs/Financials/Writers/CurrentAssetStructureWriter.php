@@ -14,7 +14,7 @@ trait CurrentAssetStructureWriter
     /**
      * Write Current Assets / Total Assets Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator
      * @return $this
      */
     public function writeCurrentAssetToTotalAssetRatio(CurrentAssetStructureCalculator $calculator)
@@ -30,12 +30,12 @@ trait CurrentAssetStructureWriter
         return $this;
     }
 
-     /**
-     * write Cash / Current Assets Ratio
-     *
-     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator 
-     * @return $this
-     */
+    /**
+    * write Cash / Current Assets Ratio
+    *
+    * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator
+    * @return $this
+    */
     public function writeCashToCurrentAssetRatio(CurrentAssetStructureCalculator $calculator)
     {
         array_push($this->content, [
@@ -52,7 +52,7 @@ trait CurrentAssetStructureWriter
     /**
      * Write Current Financial Investing / Current Assets Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator
      * @return $this
      */
     public function writeCurrentFinancialInvestingToCurrentAssetRatio(CurrentAssetStructureCalculator $calculator)
@@ -71,7 +71,7 @@ trait CurrentAssetStructureWriter
     /**
      * Write Current Receivable Account / Current Assets Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator
      * @return $this
      */
     public function writeCurrentReceivableAccountToCurrentAssetRatio(CurrentAssetStructureCalculator $calculator)
@@ -90,7 +90,7 @@ trait CurrentAssetStructureWriter
     /**
      * Write Inventories / Current Assets Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator
      * @return $this
      */
     public function writeInventoryToCurrentAssetRatio(CurrentAssetStructureCalculator $calculator)
@@ -109,7 +109,7 @@ trait CurrentAssetStructureWriter
     /**
      * Write other Current Assets / Current Assets Ratio
      *
-     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator 
+     * @param \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator
      * @return $this
      */
     public function calculateOtherCurrentAssetToCurrentAssetRatio(CurrentAssetStructureCalculator $calculator)
