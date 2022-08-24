@@ -18,12 +18,14 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Financials\Writers\CapexWriter;
+use App\Jobs\Financials\Writers\GrowthWriter;
 use App\Jobs\Financials\Writers\CashFlowWriter;
 use App\Jobs\Financials\Writers\LiquidityWriter;
 use App\Events\AnalyzeFinancialStatementCompleted;
 use App\Jobs\Financials\Calculators\CapexCalculator;
 use App\Jobs\Financials\Writers\CostStructureWriter;
 use App\Jobs\Financials\Writers\ProfitabilityWriter;
+use App\Jobs\Financials\Calculators\GrowthCalculator;
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Writers\FinancialLeverageWriter;
@@ -39,7 +41,7 @@ use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter, GrowthWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -171,6 +173,11 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator)
                  ->writeIntangibleAssetToFixedAssetRatio($longTermAssetStructureCalculator)
                  ->writeConstructionInProgressToFixedAssetRatio($longTermAssetStructureCalculator);
+            // Growth
+            $growthCalculator = (new GrowthCalculator($financialStatement))->execute();
+            $this->writeRevenueGrowth($growthCalculator)
+                 ->writeGrossProfitGrowth($growthCalculator)
+                 ->writeEBTGrowth($growthCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
