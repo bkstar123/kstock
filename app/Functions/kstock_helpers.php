@@ -38,7 +38,7 @@ if (! function_exists('getPreviousPeriod')) {
                 'year' => $concernYear - 1,
                 'quarter' => 4
             ];
-        } else if ($concernQuarter == 0) {
+        } elseif ($concernQuarter == 0) {
             return [
                 'year' => $concernYear - 1,
                 'quarter' => 0

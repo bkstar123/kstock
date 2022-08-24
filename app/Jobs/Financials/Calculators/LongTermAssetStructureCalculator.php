@@ -110,7 +110,8 @@ class LongTermAssetStructureCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
-            $intangible_assets = $this->financialStatement->balance_statement->getItem('1020203')->getValue($selectedYear, $selectedQuarter);;
+            $intangible_assets = $this->financialStatement->balance_statement->getItem('1020203')->getValue($selectedYear, $selectedQuarter);
+            ;
             if ($fixed_assets != 0) {
                 $this->intangibleAssetToFixedAssetRatio = round(100 * $intangible_assets / $fixed_assets, 2);
             }

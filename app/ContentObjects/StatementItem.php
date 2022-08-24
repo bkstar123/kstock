@@ -124,7 +124,8 @@ class StatementItem
      */
     private function checkDataForPeriodExisted($year, $quarter)
     {
-        $concernPeriodData = \Arr::where($this->values,
+        $concernPeriodData = \Arr::where(
+            $this->values,
             function ($value) use ($year, $quarter) {
                 return $value['year'] == $year && $value['quarter'] == $quarter;
             }

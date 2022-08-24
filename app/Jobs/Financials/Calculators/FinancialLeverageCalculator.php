@@ -11,11 +11,11 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class FinancialLeverageCalculator extends BaseCalculator
 {
-	public $shortTermToTotalLiabilitiesRatio = null; //Chỉ số nợ ngắn hạn / tổng nợ phải trả
+    public $shortTermToTotalLiabilitiesRatio = null; //Chỉ số nợ ngắn hạn / tổng nợ phải trả
 
-	public $totalDebtToTotalAssetRatio = null; //Chỉ số Nợ vay / Tổng tài sản
+    public $totalDebtToTotalAssetRatio = null; //Chỉ số Nợ vay / Tổng tài sản
 
-	public $totalLiabilityToTotalAssetRatio = null;  //Chỉ số Tổng nợ / Tổng tài sản
+    public $totalLiabilityToTotalAssetRatio = null;  //Chỉ số Tổng nợ / Tổng tài sản
 
     public $totalAssetToEquityRatio = null;  //Chỉ số Tổng tài sản / Vốn chủ sở hữu
 
@@ -118,11 +118,11 @@ class FinancialLeverageCalculator extends BaseCalculator
         return $this;
     }
 
-     /**
-     * Calculate current debts to total debts - Chỉ số nợ vay ngắn hạn / tổng nợ vay
-     *
-     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
-     */
+    /**
+    * Calculate current debts to total debts - Chỉ số nợ vay ngắn hạn / tổng nợ vay
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
     public function calculateCurrentDebtToTotalDebtRatio()
     {
         if (!empty($this->financialStatement->balance_statement)) {
