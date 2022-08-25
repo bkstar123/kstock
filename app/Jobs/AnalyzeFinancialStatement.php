@@ -177,7 +177,9 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $growthCalculator = (new GrowthCalculator($financialStatement))->execute();
             $this->writeRevenueGrowth($growthCalculator)
                  ->writeGrossProfitGrowth($growthCalculator)
-                 ->writeEBTGrowth($growthCalculator);
+                 ->writeEBTGrowth($growthCalculator)
+                 ->writeNetProfitOfParentShareHolderGrowth($growthCalculator)
+                 ->writeTotalAssetGrowth($growthCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
