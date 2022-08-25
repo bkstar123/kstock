@@ -23,6 +23,14 @@ class GrowthCalculator extends BaseCalculator
 
     public $eBTGrowthYoY = null; //Tăng trưởng lợi nhuận trước thuế so với cùng kỳ năm tài chính trước
 
+    public $netProfitOfParentShareHolderGrowthQoQ = null; //Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với quý trước trong cùng năm tài chính
+
+    public $netProfitOfParentShareHolderGrowthYoY = null; //Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với cùng kỳ năm tài chính trước
+
+    public $totalAssetGrowthQoQ = null; //Tăng trưởng tổng tài sản so với quý trước trong cùng năm tài chính
+
+    public $totalAssetGrowthYoY = null; //Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước
+
     /**
      * Calculate Revenue Growth
      *
@@ -92,6 +100,56 @@ class GrowthCalculator extends BaseCalculator
                 $eBTQoQ = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter-1);
                 if ($eBTQoQ != 0) {
                     $this->eBTGrowthQoQ = round(100 * ($selectedPeriodEBT - $eBTQoQ) / abs($eBTQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Net Profit Of Parent Shareholders Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateNetProfitOfParentShareHolderGrowth()
+    {
+        if (!empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodNetProfitOfParentShareHolder = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+            $netProfitOfParentShareHolderYoY = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear-1, $selectedQuarter);
+            if ($netProfitOfParentShareHolderYoY != 0) {
+                $this->netProfitOfParentShareHolderGrowthYoY = round(100 * ($selectedPeriodNetProfitOfParentShareHolder - $netProfitOfParentShareHolderYoY) / abs($netProfitOfParentShareHolderYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $netProfitOfParentShareHolderQoQ = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter-1);
+                if ($netProfitOfParentShareHolderQoQ != 0) {
+                    $this->netProfitOfParentShareHolderGrowthQoQ = round(100 * ($selectedPeriodNetProfitOfParentShareHolder - $netProfitOfParentShareHolderQoQ) / abs($netProfitOfParentShareHolderQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Total Asset Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateTotalAssetGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodTotalAssets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
+            $totalAssetsYoY = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear-1, $selectedQuarter);
+            if ($totalAssetsYoY != 0) {
+                $this->totalAssetGrowthYoY = round(100 * ($selectedPeriodTotalAssets - $totalAssetsYoY) / abs($totalAssetsYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $totalAssetsQoQ = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter-1);
+                if ($totalAssetsQoQ != 0) {
+                    $this->totalAssetGrowthQoQ = round(100 * ($selectedPeriodTotalAssets - $totalAssetsQoQ) / abs($totalAssetsQoQ), 2);
                 }
             }
         }

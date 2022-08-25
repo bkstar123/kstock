@@ -91,4 +91,58 @@ trait GrowthWriter
         ]);
         return $this;
     }
+
+    /**
+     * Write Net Profit Of Parent Shareholders Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeNetProfitOfParentShareHolderGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ QoQ',
+            'alias' => 'Net Profit Of Parent ShareHolder Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->netProfitOfParentShareHolderGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ YoY',
+            'alias' => 'Net Profit Of Parent ShareHolder Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->netProfitOfParentShareHolderGrowthYoY
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Total Asset Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeTotalAssetGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng tổng tài sản QoQ',
+            'alias' => 'NTotal Asset Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng tổng tài sản so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->totalAssetGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng tổng tài sản YoY',
+            'alias' => 'Total Asset Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->totalAssetGrowthYoY
+        ]);
+        return $this;
+    }
 }
