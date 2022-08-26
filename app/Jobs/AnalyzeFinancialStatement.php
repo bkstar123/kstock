@@ -179,7 +179,11 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeGrossProfitGrowth($growthCalculator)
                  ->writeEBTGrowth($growthCalculator)
                  ->writeNetProfitOfParentShareHolderGrowth($growthCalculator)
-                 ->writeTotalAssetGrowth($growthCalculator);
+                 ->writeTotalAssetGrowth($growthCalculator)
+                 ->writeLongTermLiabilityGrowth($growthCalculator)
+                 ->writeLiabilityGrowth($growthCalculator)
+                 ->writeEquityGrowth($growthCalculator)
+                 ->writeCharterCapitalGrowth($growthCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID

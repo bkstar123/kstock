@@ -31,6 +31,22 @@ class GrowthCalculator extends BaseCalculator
 
     public $totalAssetGrowthYoY = null; //Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước
 
+    public $longTermLiabilityGrowthQoQ = null; //Tăng trưởng nợ dài hạn so với quý trước trong cùng năm tài chính
+
+    public $longTermLiabilityGrowthYoY = null; //Tăng trưởng nợ dài hạn so với cùng kỳ năm tài chính trước
+
+    public $liabilityGrowthQoQ = null; //Tăng trưởng nợ phải trả so với quý trước trong cùng năm tài chính
+
+    public $liabilityGrowthYoY = null; //Tăng trưởng nợ phải trả so với cùng kỳ năm tài chính trước
+
+    public $equityGrowthQoQ = null; //Tăng trưởng VCSH so với quý trước trong cùng năm tài chính
+
+    public $equityGrowthYoY = null; //Tăng trưởng VCSH so với cùng kỳ năm tài chính trước
+
+    public $charterCapitalGrowthQoQ = null; //Tăng trưởng vốn điều lệ so với quý trước trong cùng năm tài chính
+
+    public $charterCapitalGrowthYoY = null; //Tăng trưởng vốn điều lệ so với cùng kỳ năm tài chính trước
+
     /**
      * Calculate Revenue Growth
      *
@@ -150,6 +166,106 @@ class GrowthCalculator extends BaseCalculator
                 $totalAssetsQoQ = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter-1);
                 if ($totalAssetsQoQ != 0) {
                     $this->totalAssetGrowthQoQ = round(100 * ($selectedPeriodTotalAssets - $totalAssetsQoQ) / abs($totalAssetsQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Long Term Liability Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateLongTermLiabilityGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodLongTermLiability = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear, $selectedQuarter);
+            $longTermLiabilityYoY = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear-1, $selectedQuarter);
+            if ($longTermLiabilityYoY != 0) {
+                $this->longTermLiabilityGrowthYoY = round(100 * ($selectedPeriodLongTermLiability - $longTermLiabilityYoY) / abs($longTermLiabilityYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $longTermLiabilityQoQ = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear, $selectedQuarter-1);
+                if ($longTermLiabilityQoQ != 0) {
+                    $this->longTermLiabilityGrowthQoQ = round(100 * ($selectedPeriodLongTermLiability - $longTermLiabilityQoQ) / abs($longTermLiabilityQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Liability Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateLiabilityGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodLiability = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear, $selectedQuarter);
+            $liabilityYoY = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear-1, $selectedQuarter);
+            if ($liabilityYoY != 0) {
+                $this->liabilityGrowthYoY = round(100 * ($selectedPeriodLiability - $liabilityYoY) / abs($liabilityYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $liabilityQoQ = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear, $selectedQuarter-1);
+                if ($liabilityQoQ != 0) {
+                    $this->liabilityGrowthQoQ = round(100 * ($selectedPeriodLiability - $liabilityQoQ) / abs($liabilityQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Equity Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateEquityGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodEquity = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
+            $equityYoY = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear-1, $selectedQuarter);
+            if ($equityYoY != 0) {
+                $this->equityGrowthYoY = round(100 * ($selectedPeriodEquity - $equityYoY) / abs($equityYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $equityQoQ = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter-1);
+                if ($equityQoQ != 0) {
+                    $this->equityGrowthQoQ = round(100 * ($selectedPeriodEquity - $equityQoQ) / abs($equityQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Charter Capital Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateCharterCapitalGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodCharterCapital = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear, $selectedQuarter);
+            $charterCapitalYoY = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear-1, $selectedQuarter);
+            if ($charterCapitalYoY != 0) {
+                $this->charterCapitalGrowthYoY = round(100 * ($selectedPeriodCharterCapital - $charterCapitalYoY) / abs($charterCapitalYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $charterCapitalQoQ = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear, $selectedQuarter-1);
+                if ($charterCapitalQoQ != 0) {
+                    $this->charterCapitalGrowthQoQ = round(100 * ($selectedPeriodCharterCapital - $charterCapitalQoQ) / abs($charterCapitalQoQ), 2);
                 }
             }
         }

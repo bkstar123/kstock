@@ -74,7 +74,7 @@ trait GrowthWriter
     protected function writeEBTGrowth(GrowthCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tăng trưởng lợi nhuận gộp trước thuế QoQ',
+            'name' => 'Tăng trưởng lợi nhuận trước thuế QoQ',
             'alias' => 'Earnings Before Tax Growth QoQ',
             'group' => 'Chỉ số Tăng trưởng',
             'unit' => '%',
@@ -129,7 +129,7 @@ trait GrowthWriter
     {
         array_push($this->content, [
             'name' => 'Tăng trưởng tổng tài sản QoQ',
-            'alias' => 'NTotal Asset Growth QoQ',
+            'alias' => 'Total Asset Growth QoQ',
             'group' => 'Chỉ số Tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng tổng tài sản so với quý trước trong cùng năm tài chính',
@@ -142,6 +142,114 @@ trait GrowthWriter
             'unit' => '%',
             'description' => 'Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước',
             'value' => $calculator->totalAssetGrowthYoY
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Long Term Liability Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeLongTermLiabilityGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng nợ dài hạn QoQ',
+            'alias' => 'Long Term Liability Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng nợ dài hạn so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->longTermLiabilityGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng nợ dài hạn YoY',
+            'alias' => 'Long Term Liability Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng nợ dài hạn so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->longTermLiabilityGrowthYoY
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Liability Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeLiabilityGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng phải trả QoQ',
+            'alias' => 'Liability Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng nợ phải trả so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->liabilityGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng nợ phải trả YoY',
+            'alias' => 'Liability Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng nợ phải trả so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->liabilityGrowthYoY
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Equity Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeEquityGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng VCSH QoQ',
+            'alias' => 'Equity Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng VCSH so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->equityGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng VCSH YoY',
+            'alias' => 'Equity Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng VCSH so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->equityGrowthYoY
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Charter Capital Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeCharterCapitalGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng vốn điều lệ QoQ',
+            'alias' => 'Charter Capital Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng vốn điều lệ so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->charterCapitalGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng vốn điều lệ YoY',
+            'alias' => 'Charter Capital Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng vốn điều lệ so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->charterCapitalGrowthYoY
         ]);
         return $this;
     }
