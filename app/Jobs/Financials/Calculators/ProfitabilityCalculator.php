@@ -11,19 +11,25 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class ProfitabilityCalculator extends BaseCalculator
 {
-    public $roaa = null;
+    public $roaa = null; //Ty suat loi nhuan tren tong tai san binh quan
 
-    public $roce = null;
+    public $roce = null; //Ty suat loi nhuan tren von su dung dai han binh quan
 
-    public $roea = null;
+    public $roa = null; //Ty suat loi nhuan tren tong tai san trong ki
 
-    public $ros = null;
+    public $roe = null; //Ty suat loi nhuan tren VCSH trong ky
 
-    public $ebitdaMargin = null;
+    public $roea = null; //Ty suat loi nhuan tren VCSH binh quan
 
-    public $ebitMargin = null;
+    public $ros = null; //Ty suat loi nhuan rong (theo LNST)
 
-    public $grossProfitMargin = null;
+    public $ros2 = null; //Ty suat loi nhuan rong (theo LNST co dong cong ty me)
+
+    public $ebitdaMargin = null; //Bien loi nhuan truoc thue, lai vay va khau hao
+
+    public $ebitMargin = null; //Bien loi nhuan truoc thue va lai vay
+
+    public $grossProfitMargin = null; //Bien loi nhuan gop
 
     /**
      * Calculate ROAA - Ty suat loi nhuan tren tong tai san binh quan
@@ -40,6 +46,26 @@ class ProfitabilityCalculator extends BaseCalculator
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             if ($average_total_assets != 0) {
                 $this->roaa = round(100 * $parent_company_net_profit / $average_total_assets, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate ROA - Ty suat loi nhuan tren tong tai san trong ky
+     *
+     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
+     */
+    public function calculateROA()
+    {
+        if (!empty($this->financialStatement->balance_statement) &&
+            !empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
+            $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+            if ($total_assets != 0) {
+                $this->roa = round(100 * $parent_company_net_profit / $total_assets, 2);
             }
         }
         return $this;
@@ -87,6 +113,26 @@ class ProfitabilityCalculator extends BaseCalculator
     }
 
     /**
+     * Calculate ROE - Ty suat loi nhuan tren VCSH
+     *
+     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
+     */
+    public function calculateROE()
+    {
+        if (!empty($this->financialStatement->balance_statement) &&
+            !empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+            $equities = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
+            if ($equities != 0) {
+                $this->roe = round(100 * $parent_company_net_profit / $equities, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Calculate ROS - Ty suat loi nhuan rong
      *
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
@@ -100,6 +146,25 @@ class ProfitabilityCalculator extends BaseCalculator
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
                 $this->ros = round(100 * $net_profit / $net_revenue, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate ROS - Ty suat loi nhuan rong
+     *
+     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
+     */
+    public function calculateROS2()
+    {
+        if (!empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+            $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            if ($net_revenue != 0) {
+                $this->ros2 = round(100 * $net_profit / $net_revenue, 2);
             }
         }
         return $this;
