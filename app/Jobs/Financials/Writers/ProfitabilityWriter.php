@@ -39,11 +39,11 @@ trait ProfitabilityWriter
     protected function writeROA(ProfitabilityCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tỷ suất lợi nhuận trên tổng tài sản trong kỳ (ROA)',
+            'name' => 'Tỷ suất lợi nhuận trên tổng tài sản (ROA)',
             'alias' => 'ROA',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => 'Tỷ suất lợi nhuận trên tổng tài sản trong kỳ (Return on Assets). ROA = 100% * Lợi nhuận sau thuế của cổ đông của công ty mẹ / Tổng tài sản',
+            'description' => 'Tỷ suất lợi nhuận trên tổng tài sản (Return on Assets). ROA = 100% * Lợi nhuận sau thuế của cổ đông của công ty mẹ / Tổng tài sản',
             'value' => $calculator->roa
         ]);
         return $this;
@@ -96,11 +96,11 @@ trait ProfitabilityWriter
     protected function writeROE(ProfitabilityCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tỷ suất lợi nhuận trên vốn chủ sở trong kỳ (ROE)',
+            'name' => 'Tỷ suất lợi nhuận trên vốn chủ sở (ROE)',
             'alias' => 'ROE',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => 'Tỷ suất lợi nhuận trên vốn chủ sở hữu trong kỳ (Return on Equity). ROE = 100% x Lợi nhuận sau thuế của cổ đông công ty mẹ / Vốn chủ sở trong kỳ. ',
+            'description' => 'Tỷ suất lợi nhuận trên vốn chủ sở hữu (Return on Equity). ROE = 100% x Lợi nhuận sau thuế của cổ đông công ty mẹ / Vốn chủ sở hữu. ',
             'value' => $calculator->roe
         ]);
         return $this;
@@ -115,11 +115,11 @@ trait ProfitabilityWriter
     protected function writeROS(ProfitabilityCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tỉ suất lợi nhuận ròng (ROS) - theo LNST',
+            'name' => 'Tỉ suất lợi nhuận ròng (ROS)',
             'alias' => 'ROS',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => 'Tỉ suất lợi nhuận ròng trên doanh thu thuần (Return On Sales – ROS) là tỉ lệ thể hiện mối tương quan giữa lợi nhuận được tạo ra dựa trên mỗi đồng doanh số. Chỉ tiêu này cho biết với một đồng doanh thu thuần từ bán hàng và cung cấp dịch vụ sẽ tạo ra bao nhiêu đồng lợi nhuận. Tỷ suất này càng lớn thì hiệu quả hoạt động của doanh nghiệp càng cao. ROS = 100 * Lợi nhuận sau thuế/ Doanh thu thuần',
+            'description' => 'Tỉ suất lợi nhuận ròng trên doanh thu thuần (Return On Sales – ROS) là tỉ lệ thể hiện mối tương quan giữa lợi nhuận được tạo ra dựa trên mỗi đồng doanh số. Chỉ tiêu này cho biết với một đồng doanh thu thuần từ bán hàng và cung cấp dịch vụ sẽ tạo ra bao nhiêu đồng lợi nhuận ròng. Tỷ suất này càng lớn thì hiệu quả hoạt động của doanh nghiệp càng cao. ROS = 100 * Lợi nhuận sau thuế/ Doanh thu thuần',
             'value' => $calculator->ros
         ]);
         return $this;
@@ -134,11 +134,11 @@ trait ProfitabilityWriter
     protected function writeROS2(ProfitabilityCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tỉ suất lợi nhuận ròng (ROS) - theo LNST của cổ đông công ty mẹ',
+            'name' => 'Tỉ suất lợi nhuận ròng của cổ đông công ty mẹ (phiên bản chặt chẽ hơn của ROS)',
             'alias' => 'ROS2',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => 'Tỉ suất lợi nhuận ròng trên doanh thu thuần (Return On Sales – ROS), ROS = 100 * Lợi nhuận sau thuế của cổ đông công ty mẹ / Doanh thu thuần',
+            'description' => 'Tỉ suất lợi nhuận ròng của cổ đông công ty mẹ trên doanh thu thuần = 100 * Lợi nhuận sau thuế của cổ đông công ty mẹ / Doanh thu thuần',
             'value' => $calculator->ros2
         ]);
         return $this;

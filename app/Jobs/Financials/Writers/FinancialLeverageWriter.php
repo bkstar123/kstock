@@ -76,11 +76,29 @@ trait FinancialLeverageWriter
     {
         array_push($this->content, [
             'name' => ' Tổng tài sản / Vốn chủ sở hữu (Hệ số đòn bẩy tài chính)',
-            'alias' => 'Equitites/Total Assets',
+            'alias' => 'Total Assets / Equitites',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => 'scalar',
             'description' => 'Hệ số đòn bẩy tài chính cho biết tài sản của công ty được tài trợ chính bởi vốn chủ sở hữu của các cổ đông hay là nguồn nợ bên ngoài. Hệ số đòn bẩy tài chính = Tổng tài sản / VCSH = 1 + Tổng nợ phải trả/VCSH',
             'value' => $calculator->totalAssetToEquityRatio
+        ]);
+        return $this;
+    }
+
+    /**
+    * Write average total asset to average equity ratio - Chỉ số Tổng tài sản bình quân / Vốn chủ sở hữu bình quân
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeAverageTotalAssetToAverageEquityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => ' Tổng tài sản bình quân / Vốn chủ sở hữu bình quân (Hệ số đòn bẩy tài chính - phiên bản chặt chẽ hơn)',
+            'alias' => 'Average Total Assets / Average Equitites',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => 'scalar',
+            'description' => 'Hệ số đòn bẩy tài chính cho biết tài sản của công ty được tài trợ chính bởi vốn chủ sở hữu của các cổ đông hay là nguồn nợ bên ngoài. Hệ số đòn bẩy tài chính (phiên bản chặt chẽ) = Tổng tài sản bình quân / VCSH bình quân = 1 + Tổng nợ phải trả bình quân / VCSH bình quân',
+            'value' => $calculator->averageTotalAssetToAverageEquityRatio
         ]);
         return $this;
     }
