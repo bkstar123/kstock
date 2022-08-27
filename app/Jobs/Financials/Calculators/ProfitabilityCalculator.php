@@ -152,7 +152,7 @@ class ProfitabilityCalculator extends BaseCalculator
     }
 
     /**
-     * Calculate ROS - Ty suat loi nhuan rong
+     * Calculate ROS2 - Ty suat loi nhuan rong
      *
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
@@ -161,10 +161,10 @@ class ProfitabilityCalculator extends BaseCalculator
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
-            $net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+            $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
-                $this->ros2 = round(100 * $net_profit / $net_revenue, 2);
+                $this->ros2 = round(100 * $parent_company_net_profit / $net_revenue, 2);
             }
         }
         return $this;

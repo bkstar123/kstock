@@ -23,6 +23,8 @@ class FinancialLeverageCalculator extends BaseCalculator
 
     public $currentDebtToTotalDebtRatio = null; //Chỉ số nợ vay ngắn hạn / tổng nợ vay
 
+    public $averageTotalAssetToAverageEquityRatio = null; //Chỉ số Tổng tài sản bình quân / Vốn chủ sở hữu bình quân
+
     /**
      * Calculate short-term to total liabilities ratio - Tỷ số nợ ngắn hạn trên tổng nợ phải trả
      *
@@ -94,6 +96,25 @@ class FinancialLeverageCalculator extends BaseCalculator
             $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             if ($equity != 0) {
                 $this->totalAssetToEquityRatio = round($total_assets / $equity, 4);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate average total asset to average equity ratio - Chỉ số Tổng tài sản bình quân / Vốn chủ sở hữu bình quân
+     *
+     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+     */
+    public function calculateAverageTotalAssetToAverageEquityRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $average_equity = $this->financialStatement->balance_statement->getItem('302')->getAverageValue($selectedYear, $selectedQuarter);
+            $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
+            if ($average_equity != 0) {
+                $this->averageTotalAssetToAverageEquityRatio = round($average_total_assets / $average_equity, 4);
             }
         }
         return $this;
