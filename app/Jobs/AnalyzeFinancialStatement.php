@@ -102,9 +102,12 @@ class AnalyzeFinancialStatement implements ShouldQueue
             // Profitability Ratios
             $profitabilityCalculator = (new ProfitabilityCalculator($financialStatement))->execute();
             $this->writeROAA($profitabilityCalculator)
+                 ->writeROA($profitabilityCalculator)
                  ->writeROCE($profitabilityCalculator)
                  ->writeROEA($profitabilityCalculator)
+                 ->writeROE($profitabilityCalculator)
                  ->writeROS($profitabilityCalculator)
+                 ->writeROS2($profitabilityCalculator)
                  ->writeEBITDAMargin($profitabilityCalculator)
                  ->writeEBITMargin($profitabilityCalculator)
                  ->writeGrossProfitMargin($profitabilityCalculator);
