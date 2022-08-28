@@ -14,19 +14,23 @@ use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class DupontCalculator extends BaseCalculator
 {
-    public $roaa = null;
+    public $roaa = null; // Ti suat sinh loi cua tong tai san binh quan
 
-    public $averageFinancialLeverage = null;
+    public $averageFinancialLeverage = null; // He so don bay tai chinh binh quan
 
-    public $ros = null;
+    public $ros2 = null; // Ti suat loi nhuan rong co dong cong ty me
 
-    public $averageTotalAssetTurnOver = null;
+    public $averageTotalAssetTurnOver = null; // Vong quay tong tai san binh quan
 
-    public $earningAfterTaxToEarningBeforeTax = null;
+    public $earningAfterTaxParentCompanyToEarningBeforeTax = null; // LNST co dong cong ty me / LNTT
 
-    public $earningBeforeTaxToEBIT = null;
+     public $earningAfterTaxToEarningBeforeTax = null; // LNST / LNTT
 
-    public $ebitMargin = null;
+    public $earningBeforeTaxToEBIT = null; // Loi nhuan truoc thue / EBIT
+
+    public $ebitMargin = null; // Ti suat EBIT tren doanh thu thuan
+
+    public $roea = null; //Ti suat sinh loi tren VCSH binh quan
 
     /**
      * Calculate Dupont components
@@ -36,14 +40,28 @@ class DupontCalculator extends BaseCalculator
     public function calculateDupontComponents()
     {
         if (!empty($this->financialStatement->balance_statement) && !empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
             $profitabilityCalculator = new ProfitabilityCalculator($this->financialStatement);
             $financialLeverageCalculator = new FinancialLeverageCalculator($this->financialStatement);
             $operatingEffectivenessCalculator = new OperatingEffectivenessCalculator($this->financialStatement);
             $this->roaa = $profitabilityCalculator->calculateROAA()->roaa;
             $this->averageFinancialLeverage = $financialLeverageCalculator->calculateAverageTotalAssetToAverageEquityRatio()->averageTotalAssetToAverageEquityRatio;
-            $this->ros = $profitabilityCalculator->calculateROS2()->ros2;
+            $this->ros2 = $profitabilityCalculator->calculateROS2()->ros2;
             $this->ebitMargin = $profitabilityCalculator->calculateEBITMargin()->ebitMargin;
             $this->averageTotalAssetTurnOver = $operatingEffectivenessCalculator->calculateTotalAssetTurnoverRatio()->totalAssetTurnoverRatio;
+            $earningBeforeTax = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter);
+            $earningAfterTaxParentCompany = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+            $earningAfterTax = $this->financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter);
+            if ($earningBeforeTax != 0) {
+                $this->earningAfterTaxParentCompanyToEarningBeforeTax = round($earningAfterTaxParentCompany / $earningBeforeTax, 4);
+                $this->earningAfterTaxToEarningBeforeTax = round($earningAfterTax / $earningBeforeTax, 4);
+            }
+            $eBIT = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
+            if ($eBIT != 0) {
+                $this->earningBeforeTaxToEBIT = round($earningBeforeTax / $eBIT, 4);
+            }
+            $this->roea = round($this->roaa * $this->averageFinancialLeverage, 2);
         }
         return $this;
     }
