@@ -24,7 +24,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Receivable turnover ratio',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'cycles',
-            'description' => 'Vòng quay các khoản phải thu khách hàng (Receivable turnover ratio) = Doanh thu thuần / Phải thu ngắn hạn khách hàng bình quân',
+            'description' => 'Vòng quay các khoản phải thu khách hàng (<strong>Accounts receivable turnover ratio</strong>) kiểm tra mức độ hiệu quả của một doanh nghiệp khi thực hiện việc thu hồi các khoản phải thu và các khoản nợ của khách hàng, đưa ra đánh giá khách quanh về mức độ hiệu quả của doanh nghiệp khi cấp tín dụng cho khách hàng đồng thời thể hiện khả năng thu hồi các khoản nợ ngắn hạn. <strong style="color:#FF00FF;">Công thức tính = Doanh thu thuần / Phải thu ngắn hạn khách hàng bình quân</strong>',
             'value' => $calculator->receivableTurnoverRatio
         ]);
         array_push($this->content, [
@@ -32,7 +32,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Average Collection Period',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'days',
-            'description' => 'Thời gian thu tiền khách hàng bình quân = 365 / Vòng quay phải thu khách hàng',
+            'description' => 'Thời gian thu tiền khách hàng bình quâ (<strong>Average Collection Period</strong>) là dấu hiệu cho thấy hiệu quả của các hoạt động quản lí khoản phải thu. <strong style="color:#FF00FF;">Công thức tính = 365 / Vòng quay phải thu khách hàng</strong>',
             'value' => $calculator->averageCollectionPeriod
         ]);
         return $this;
@@ -51,7 +51,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Inventory turnover ratio',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'cycles',
-            'description' => 'Vòng quay hàng tồn kho (Inventory turnover ratio) = Giá vốn bán hàng / Tổng hàng tồn kho bình quân',
+            'description' => 'Vòng quay hàng tồn kho (<strong>Inventory turnover ratio</strong>) đo lường khả năng quản trị hàng tồn kho trong toàn bộ hoạt động của một doanh nghiệp. <strong style="color:#FF00FF;">Công thức tính = Giá vốn bán hàng / Tổng hàng tồn kho bình quân</strong>',
             'value' => $calculator->inventoryTurnoverRatio
         ]);
         array_push($this->content, [
@@ -59,7 +59,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Average Age of Inventory',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'days',
-            'description' => 'Thời gian tồn kho bình quân = 365 / Vòng quay hàng tồn kho',
+            'description' => 'Thời gian tồn kho bình quân (<strong>Average Age of Inventory</strong>) là số ngày của một vòng quay hàng tồn kho của một doanh nghiệp . <strong style="color:#FF00FF;">Công thức tính = 365 / Vòng quay hàng tồn kho</strong>',
             'value' => $calculator->averageAgeOfInventory
         ]);
         return $this;
