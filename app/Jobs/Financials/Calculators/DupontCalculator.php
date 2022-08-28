@@ -24,7 +24,7 @@ class DupontCalculator extends BaseCalculator
 
     public $earningAfterTaxParentCompanyToEarningBeforeTax = null; // LNST co dong cong ty me / LNTT
 
-     public $earningAfterTaxToEarningBeforeTax = null; // LNST / LNTT
+    public $earningAfterTaxToEarningBeforeTax = null; // LNST / LNTT
 
     public $earningBeforeTaxToEBIT = null; // Loi nhuan truoc thue / EBIT
 

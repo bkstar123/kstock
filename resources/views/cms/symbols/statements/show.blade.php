@@ -137,10 +137,10 @@
                                                     <tbody>
                                                         @foreach($financial_statement->analysis_report->getItems()->where('group', $group) as $item)
                                                             <tr>
-                                                                <td>{{ $item->name }}</td>
+                                                                <td>{!! $item->name !!}</td>
                                                                 <td>{{ $item->value }}</td>
                                                                 <td>{{ $item->unit }}</td>
-                                                                <td>{{ $item->description }}</td>
+                                                                <td>{!! $item->description !!}</td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
