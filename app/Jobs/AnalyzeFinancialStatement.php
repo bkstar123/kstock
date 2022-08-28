@@ -18,6 +18,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Financials\Writers\CapexWriter;
+use App\Jobs\Financials\Writers\DupontWriter;
 use App\Jobs\Financials\Writers\GrowthWriter;
 use App\Jobs\Financials\Writers\CashFlowWriter;
 use App\Jobs\Financials\Writers\LiquidityWriter;
@@ -25,6 +26,7 @@ use App\Events\AnalyzeFinancialStatementCompleted;
 use App\Jobs\Financials\Calculators\CapexCalculator;
 use App\Jobs\Financials\Writers\CostStructureWriter;
 use App\Jobs\Financials\Writers\ProfitabilityWriter;
+use App\Jobs\Financials\Calculators\DupontCalculator;
 use App\Jobs\Financials\Calculators\GrowthCalculator;
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
@@ -41,7 +43,7 @@ use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter, GrowthWriter;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter, GrowthWriter, DupontWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -188,6 +190,11 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeLiabilityGrowth($growthCalculator)
                  ->writeEquityGrowth($growthCalculator)
                  ->writeCharterCapitalGrowth($growthCalculator);
+            //Dupont Analysis
+            $dupontCalculator = (new DupontCalculator($financialStatement))->execute();
+            $this->writeDupontLevel2Components($dupontCalculator)
+                 ->writeDupontLevel3Components($dupontCalculator)
+                 ->writeDupontLevel5Components($dupontCalculator);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID
