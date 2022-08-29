@@ -78,7 +78,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Accounts payable turnover',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'cycles',
-            'description' => 'Chỉ số này cho biết doanh nghiệp đã sử dụng chính sách tín dụng của nhà cung cấp như thế nào. Chỉ số này quá thấp có nghĩa là doanh nghiệp đang tận dụng tín dụng của nhà cung cấp nhiều hơn. Ở khía cạnh tích cực, điều này cho thấy doanh nghiệp đang tận dụng nguồn vốn của nhà cung cấp và giảm áp lực thanh toán trong ngắn hạn. Ở khía cạnh tiêu cực, đây có thể là dấu hiệu của việc thiếu hụt dòng tiền và mất nhiều thời gian hơn để thanh toán cho nhà cung cấp; và điều này có thể ảnh hưởng không tốt đến xếp hạng tín dụng của doanh nghiệp. Vòng quay phải trả nhà cung cấp (Accounts payable turnover) = Giá vốn hàng bán/Phải trả người bán ngắn hạn bình quân',
+            'description' => 'Vòng quay phải trả nhà cung cấp (<strong>Accounts payable turnover</strong>) cho biết doanh nghiệp đã sử dụng chính sách tín dụng của nhà cung cấp như thế nào. Chỉ số này quá thấp có nghĩa là doanh nghiệp đang tận dụng tín dụng của nhà cung cấp nhiều hơn. Ở khía cạnh tích cực, điều này cho thấy doanh nghiệp đang tận dụng nguồn vốn của nhà cung cấp và giảm áp lực thanh toán trong ngắn hạn. Ở khía cạnh tiêu cực, đây có thể là dấu hiệu của việc thiếu hụt dòng tiền và mất nhiều thời gian hơn để thanh toán cho nhà cung cấp và điều này có thể ảnh hưởng không tốt đến xếp hạng tín dụng của doanh nghiệp. <strong style="color:#FF00FF;">Công thức tính = Giá vốn hàng bán/Phải trả người bán ngắn hạn bình quân</strong>',
             'value' => $calculator->accountsPayableTurnoverRatio
         ]);
         array_push($this->content, [
@@ -86,7 +86,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Average Account Payable Duration',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'days',
-            'description' => 'Thời gian trả tiền nhà cung cấp bình quân = 365 / Vòng quay phải trả nhà cung cấp',
+            'description' => 'Thời gian trả tiền nhà cung cấp bình quân (<strong>Average Account Payable Duration</strong>). <strong style="color:#FF00FF;">Công thức tính = 365 / Vòng quay phải trả nhà cung cấp</strong>',
             'value' => $calculator->averageAccountPayableDuration
         ]);
         return $this;
@@ -105,7 +105,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Cash Conversion Cycle',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'days',
-            'description' => 'Chỉ số này cho biết mất bao lâu kể từ khi doanh nghiệp trả tiền mua các nguyên liệu thô tới khi nhận được tiền mặt trong bán hàng, Casg conversion cycle (CCC) = thời gian tồn kho + thời gian phải thu khách hàng - thời gian trả tiền nhà cung cấp',
+            'description' => 'Chu kỳ chuyển đổi tiền mặt (<strong>Cash conversion cycle</strong>) cho biết mất bao lâu kể từ khi doanh nghiệp trả tiền mua các nguyên liệu thô tới khi nhận được tiền mặt trong bán hàng. <strong style="color:#FF00FF;">Công thức tính = thời gian tồn kho + thời gian phải thu khách hàng - thời gian trả tiền nhà cung cấp</strong>',
             'value' => $calculator->cashConversionCycle
         ]);
         return $this;
@@ -124,7 +124,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Fixed Asset Turnover Ratio',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'cycles',
-            'description' => 'Vòng quay tài sản cố định (Fixed asset turnover ratio - FAT) được sử dụng để đo lường hiệu suất hoạt động của công ty, đo lường khả năng của công ty để tạo doanh thu thuần từ các khoản đầu tư tài sản cố định, cụ thể là tài sản, nhà máy và thiết bị, FAT = doanh thu thuần / Tổng tài sản cố định bình quân',
+            'description' => 'Vòng quay tài sản cố định (<strong>Fixed Asset Turnover Ratio</strong>) được sử dụng để đo lường hiệu suất hoạt động của công ty, đo lường khả năng của công ty để tạo doanh thu thuần từ các khoản đầu tư tài sản cố định, cụ thể là tài sản, nhà máy và thiết bị. <strong style="color:#FF00FF;">Công thức tính = doanh thu thuần / Tổng tài sản cố định bình quân</strong>',
             'value' => $calculator->fixedAssetTurnoverRatio
         ]);
         return $this;
@@ -143,7 +143,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Total Asset Turnover Ratio',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'cycles',
-            'description' => 'Vòng quay tổng tài sản (Total Asset Turnover Ratio). Là thước đo thể hiện mức độ hiệu quả trong việc điều hành, phát triển của doanh nghiệp. Khi doanh nghiệp đầu tư tài sản vào các hoạt động sản xuất, kinh doanh thì tỷ số này sẽ cho biết với mỗi dòng tiền doanh nghiệp đầu tư vào sẽ tạo ra bao nhiêu dòng tiền mang lại doanh thu. Vòng quay tài sản = Doanh thu thuần / Tông tài sản bình quân',
+            'description' => 'Vòng quay tổng tài sản (<strong>Total Asset Turnover Ratio</strong>) là thước đo thể hiện mức độ hiệu quả trong việc điều hành, phát triển của doanh nghiệp. Khi doanh nghiệp đầu tư tài sản vào các hoạt động sản xuất, kinh doanh thì tỷ số này sẽ cho biết với mỗi dòng tiền doanh nghiệp đầu tư vào sẽ tạo ra bao nhiêu dòng tiền mang lại doanh thu. <strong style="color:#FF00FF;">Công thức tính = Doanh thu thuần / Tông tài sản bình quân</strong>',
             'value' => $calculator->totalAssetTurnoverRatio
         ]);
         return $this;
@@ -162,7 +162,7 @@ trait OperatingEffectivenessWriter
             'alias' => 'Equity Turnover Ratio',
             'group' => 'Chỉ số hiệu quả hoạt động',
             'unit' => 'cycles',
-            'description' => ' Chỉ số này đo lường mối quan hệ giữa doanh thu thuần và VCSH bình quân của doanh nghệp, cho biết 1 đồng VCSH tạo ra được bao nhiêu đồng doanh thu. Chỉ số này càng cao cho thấy hiệu quả sử dụng VCSH của doanh nghiệp càng cao và ngược lại. Vòng quay Vốn chủ sở hữu (Equity turnover) = Doanh thu thuần/Vốn chủ sở hữu bình quân ',
+            'description' => 'Vòng quay VCSH (<strong>Equity Turnover Ratio</strong>) đo lường mối quan hệ giữa doanh thu thuần và VCSH bình quân của doanh nghệp, cho biết 1 đồng VCSH tạo ra được bao nhiêu đồng doanh thu. Chỉ số này càng cao cho thấy hiệu quả sử dụng VCSH của doanh nghiệp càng cao và ngược lại. <strong style="color:#FF00FF;">Công thức tính = Doanh thu thuần/Vốn chủ sở hữu bình quân</strong>',
             'value' => $calculator->equityTurnoverRatio
         ]);
         return $this;
