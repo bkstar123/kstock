@@ -19,6 +19,8 @@ class CostStructureCalculator extends BaseCalculator
 
     public $interestCostToRevenueRatio = null; //Hệ số chi phí chi phí lãi vay / doanh thu thuần
 
+    public $sellingAndEnperpriseManagementToGrossProfitRatio = null; //He so chi phi ban hang va quan ly doanh nghiep / Loi nhuan gop
+
     /**
      * Calculate Cost of goods sale / Revenue Ratio
      *
@@ -91,9 +93,28 @@ class CostStructureCalculator extends BaseCalculator
             $selectedQuarter = $this->financialStatement->quarter;
             $interest_cost = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
-            ;
             if ($revenue != 0) {
                 $this->interestCostToRevenueRatio = round(100 * $interest_cost / $revenue, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Selling & Enterprise Management Expenses To Gross Profit Ratio
+     *
+     * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
+     */
+    public function calculateSellingAndEnperpriseManagementToGrossProfitnRatio()
+    {
+        if (!empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selling_expense = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter);
+            $enterprise_management_expense = $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
+            $grossProfit = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter);
+            if ($grossProfit != 0) {
+                $this->sellingAndEnperpriseManagementToGrossProfitRatio = round(100 * ($selling_expense + $enterprise_management_expense) / $grossProfit, 2);
             }
         }
         return $this;

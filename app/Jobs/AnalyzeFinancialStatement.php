@@ -110,7 +110,8 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeROE($profitabilityCalculator)
                  ->writeROS($profitabilityCalculator)
                  ->writeROS2($profitabilityCalculator)
-                 ->writeEBITDAMargin($profitabilityCalculator)
+                 ->writeEBITDAMargin1($profitabilityCalculator)
+                 ->writeEBITDAMargin2($profitabilityCalculator)
                  ->writeEBITMargin($profitabilityCalculator)
                  ->writeGrossProfitMargin($profitabilityCalculator);
             // Liquidity/Solvency Ratios
@@ -162,7 +163,8 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $this->writeCOGSToRevenueRatio($costStructureCalculator)
                  ->writeSellingExpenseToRevenueRatio($costStructureCalculator)
                  ->writeAdministrationExpenseToRevenueRatio($costStructureCalculator)
-                 ->writeInterestCostToRevenueRatio($costStructureCalculator);
+                 ->writeInterestCostToRevenueRatio($costStructureCalculator)
+                 ->writeSellingAndEnperpriseManagementToGrossProfitnRatio($costStructureCalculator);
             // Current Asset Structure
             $currentAssetStructureCalculator = (new CurrentAssetStructureCalculator($financialStatement))->execute();
             $this->writeCurrentAssetToTotalAssetRatio($currentAssetStructureCalculator)

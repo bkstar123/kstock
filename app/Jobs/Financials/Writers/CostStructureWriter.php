@@ -21,7 +21,7 @@ trait CostStructureWriter
     {
         array_push($this->content, [
             'name' => 'Giá vốn bán hàng / Doanh thu thuần',
-            'alias' => 'cogs/revenue',
+            'alias' => 'Cogs/Revenue',
             'group' => 'Chỉ số Cơ cấu chi phí',
             'unit' => '%',
             'description' => 'Chỉ số này cho biết giá vốn bán hàng chiếm tỉ trọng bao nhiêu trong doanh thu thuần',
@@ -40,7 +40,7 @@ trait CostStructureWriter
     {
         array_push($this->content, [
             'name' => 'Chi phí bán hàng / Doanh thu thuần',
-            'alias' => 'selling expense/revenue',
+            'alias' => 'Selling Expense/Revenue',
             'group' => 'Chỉ số Cơ cấu chi phí',
             'unit' => '%',
             'description' => 'Chỉ số này cho biết chi phí bán hàng chiếm tỉ trọng bao nhiêu trong doanh thu thuần',
@@ -59,7 +59,7 @@ trait CostStructureWriter
     {
         array_push($this->content, [
             'name' => 'Chi phí quản lý doanh nghiệp / doanh thu thuần',
-            'alias' => 'administration expense/revenue',
+            'alias' => 'Administration Expense/Revenue',
             'group' => 'Chỉ số Cơ cấu chi phí',
             'unit' => '%',
             'description' => 'Chỉ số này cho biết chi phí quản lý doanh nghiệp chiếm tỉ trọng bao nhiêu trong doanh thu thuần',
@@ -78,11 +78,30 @@ trait CostStructureWriter
     {
         array_push($this->content, [
             'name' => 'Chi phí lãi vay / doanh thu thuần',
-            'alias' => 'Interest cost/revenue',
+            'alias' => 'Interest cost/Revenue',
             'group' => 'Chỉ số Cơ cấu chi phí',
             'unit' => '%',
             'description' => 'Chỉ số này cho biết chi phí lãi vay chiếm tỉ trọng bao nhiêu trong doanh thu thuần',
             'value' => $calculator->interestCostToRevenueRatio
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Selling & Enterprise Management Expenses To Gross Profit Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\CostStructureCalculator $calculator
+     * @return $this
+     */
+    public function writeSellingAndEnperpriseManagementToGrossProfitnRatio(CostStructureCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => '(Chi phi ban hang & Chi phi QLDN) / Lợi nhuận gộp',
+            'alias' => 'Selling and Enterprise Management Expenses/Gross Profit',
+            'group' => 'Chỉ số Cơ cấu chi phí',
+            'unit' => '%',
+            'description' => 'Chỉ số này cho biết chi phí lãi vay chiếm tỉ trọng bao nhiêu trong doanh thu thuần. Chỉ số này cho biết chi phí bán hàng và quản lý doanh nghiệp chiếm tỷ trọng bao nhiêu trong lợi nhuận gộp. Theo Buffet nếu chỉ số này dưới 30% thì là tuyệt vời, một số công ty có lợi thế cạnh tranh bền vững cũng có thể có chỉ số này nằm trong khoảng 30%-80%. Nhưng nếu doanh nghiệp duy trì chi phí này ở mức gần 100% hoặc cao hơn trong nhiều năm thì đó có thể là một doanh nghiệp trong ngành có sự cạnh tranh gay gắt',
+            'value' => $calculator->sellingAndEnperpriseManagementToGrossProfitRatio
         ]);
         return $this;
     }
