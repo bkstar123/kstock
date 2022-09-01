@@ -25,7 +25,9 @@ class ProfitabilityCalculator extends BaseCalculator
 
     public $ros2 = null; //Ty suat loi nhuan rong (theo LNST co dong cong ty me)
 
-    public $ebitdaMargin = null; //Bien loi nhuan truoc thue, lai vay va khau hao
+    public $ebitdaMargin1 = null; //Bien loi nhuan truoc thue, lai vay va khau hao tinh theo CDKT va bao cao ket qua HDKD
+
+    public $ebitdaMargin2 = null; //Bien loi nhuan truoc thue, lai vay va khau hao tinh theo LCTT
 
     public $ebitMargin = null; //Bien loi nhuan truoc thue va lai vay
 
@@ -171,11 +173,11 @@ class ProfitabilityCalculator extends BaseCalculator
     }
 
     /**
-     * Calculate EBITDA Mergin
+     * Calculate EBITDA Mergin based on balance & income statements
      *
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateEBITDAMargin()
+    public function calculateEBITDAMargin1()
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
@@ -191,7 +193,27 @@ class ProfitabilityCalculator extends BaseCalculator
             $eBITDA = $eBit + $deprecation;
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
-                $this->ebitdaMargin = round(100 * $eBITDA / $net_revenue, 2);
+                $this->ebitdaMargin1 = round(100 * $eBITDA / $net_revenue, 2);
+            }
+        }
+        return $this;
+    }
+
+     /**
+     * Calculate EBITDA Mergin based on the cash flow statement
+     *
+     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
+     */
+    public function calculateEBITDAMargin2()
+    {
+        if (!empty($this->financialStatement->cash_flow_statement) && 
+            !empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $eBITDA = $this->financialStatement->cash_flow_statement->getItem('101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('10210')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('10201')->getValue($selectedYear, $selectedQuarter);
+            $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+            if ($net_revenue != 0) {
+                $this->ebitdaMargin2 = round(100 * $eBITDA / $net_revenue, 2);
             }
         }
         return $this;

@@ -94,7 +94,7 @@ trait DupontWriter
             'alias' => 'Dupont5-Earning After Tax To Earning Before Tax',
             'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
             'unit' => 'scalar',
-            'description' => 'Đánh giá sự ảnh hưởng của thuế TNDN lên lợi nhuận ròng của cổ đông công ty mẹ',
+            'description' => 'Còn được gọi là hệ số gánh nặng thuế (Tax Burden) phản ánh mức thuế mà doanh nghiệp phải chịu, và chính sách của doanh nghiệp sẽ là cố gắng tối thiểu hóa gánh nặng thuế',
             'value' => $calculator->earningAfterTaxToEarningBeforeTax
         ]);
         array_push($this->content, [
@@ -102,7 +102,7 @@ trait DupontWriter
             'alias' => 'Dupont5-Earning Before Tax To EBIT',
             'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
             'unit' => 'scalar',
-            'description' => 'Đánh giá sự ảnh hưởng của chi phí lãi vay lên lợi nhuận ròng của cổ đông công ty mẹ',
+            'description' => 'Hệ số Gánh nặng lãi vay (Interest Burden – IB) đánh giá sự ảnh hưởng của chi phí lãi vay lên lợi nhuận ròng của doanh nghiệp. LNTT/EBIT của doanh nghiệp lớn nhất khi không có các khoản thanh toán lãi vay cho chủ nợ (không vay nợ). Khi đó, giá trị cao nhất và tốt nhất mà hệ số này có thể có được là 1. Đòn bẩy tài chính càng thấp, hệ số IB sẽ càng cao, và rủi ro tài chính cho các cổ đông sẽ nhỏ.',
             'value' => $calculator->earningBeforeTaxToEBIT
         ]);
         array_push($this->content, [
@@ -110,7 +110,7 @@ trait DupontWriter
             'alias' => 'Dupont5-EBIT Margin',
             'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
             'unit' => '%',
-            'description' => 'Tỷ suất lợi nhuận trước thuế và lãi vay',
+            'description' => 'Chỉ tiêu này phản ánh khả năng kiểm soát các loại chi phí của doanh nghiệp tốt đến đâu như giá vốn hàng bán, chi phí bán hàng, chi phí QLDN',
             'value' => $calculator->ebitMargin
         ]);
         array_push($this->content, [
@@ -126,7 +126,7 @@ trait DupontWriter
             'alias' => 'Dupont5-FinancialLeverage',
             'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
             'unit' => 'scalar',
-            'description' => 'Phản ánh cơ cấu nguồn vốn của doanh nghiệp',
+            'description' => 'Thể hiện đòn bẩy tài chính doanh nghiệp, Với cùng 1 lượng tài sản, doanh nghiệp có đòn bẩy tài chính phù hợp trong cơ cấu tài sản có thể tạo ra 1 tỷ suất sinh lời ROE cao hơn 1 doanh nghiệp không dùng đòn bẩy. Tuy nhiên, đòn bẩy tài chính sẽ làm tăng rủi ro. Nợ vay làm cho doanh nghiệp dễ nhạy cảm hơn với chu kỳ kinh tế, nhất là trong giai đoạn khó khăn, doanh thu giảm',
             'value' => $calculator->averageFinancialLeverage
         ]);
         return $this;

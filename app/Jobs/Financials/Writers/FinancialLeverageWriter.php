@@ -21,10 +21,10 @@ trait FinancialLeverageWriter
     {
         array_push($this->content, [
             'name' => 'Nợ ngắn hạn/Tổng nợ phải trả',
-            'alias' => 'Short-term liabilities/total liabilities',
+            'alias' => 'Short-term liabilities/Total liabilities',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
-            'description' => 'Tỷ số Nợ ngắn hạn trên Tổng nợ phải trả (Short-term/Total liability) = Nợ ngắn hạn/Tổng nợ phải trả. Chỉ số này cho biết cấu trúc của Nợ ngắn hạn trong Tổng nợ phải trả. Một tỷ lệ nợ ngắn hạn cao thường là chỉ dấu cho thấy áp lực trả nợ lớn',
+            'description' => 'Chỉ số này cho biết cấu trúc của Nợ ngắn hạn trong Tổng nợ phải trả. Một tỷ lệ nợ ngắn hạn cao thường là chỉ dấu cho thấy áp lực trả nợ lớn',
             'value' => $calculator->shortTermToTotalLiabilitiesRatio
         ]);
         return $this;
@@ -43,7 +43,7 @@ trait FinancialLeverageWriter
             'alias' => 'Total Debts/Total Assets',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
-            'description' => 'Tỷ số nợ vay trên tổng tài sản (Total Debts/Total Assets) = (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn) / Tổng tài sản. Chỉ số này phản ánh bao nhiêu % tài sản của doanh nghiệp được tài trợ bởi nợ vay',
+            'description' => 'Chỉ số này phản ánh bao nhiêu % tài sản của doanh nghiệp được tài trợ bởi nợ vay. <strong style="color:#FF00FF;">Tổng nợ vay = Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn</strong>',
             'value' => $calculator->totalDebtToTotalAssetRatio
         ]);
         return $this;
@@ -57,11 +57,11 @@ trait FinancialLeverageWriter
     public function writeTotalLiabilityToTotalAssetRatio(FinancialLeverageCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tổng nợ  / Tổng tài sản',
+            'name' => 'Tổng nợ phải trả / Tổng tài sản',
             'alias' => 'Total Liabilities/Total Assets',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
-            'description' => 'Chỉ số tổng nợ tren tổng tài sản (Total liabilities / total assets) = Tổng nợ phải trả / Tông tài sản, cho biết cấu trúc hình thành nguồn vốn của doanh nghiệp, cho biết phần trăm tổng tài sản được tài trợ bởi các chủ nợ thay vì các nhà đầu tư',
+            'description' => 'Cho biết cấu trúc hình thành nguồn vốn của doanh nghiệp, cho biết phần trăm tổng tài sản được tài trợ bởi các chủ nợ thay vì các nhà đầu tư',
             'value' => $calculator->totalLiabilityToTotalAssetRatio
         ]);
         return $this;
@@ -79,7 +79,7 @@ trait FinancialLeverageWriter
             'alias' => 'Total Assets / Equitites',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => 'scalar',
-            'description' => 'Hệ số đòn bẩy tài chính cho biết tài sản của công ty được tài trợ chính bởi vốn chủ sở hữu của các cổ đông hay là nguồn nợ bên ngoài. Hệ số đòn bẩy tài chính = Tổng tài sản / VCSH = 1 + Tổng nợ phải trả/VCSH',
+            'description' => 'Hệ số đòn bẩy tài chính cho biết tài sản của công ty được tài trợ chính bởi vốn chủ sở hữu của các cổ đông hay là nguồn nợ bên ngoài. <strong style="color:#FF00FF;">Hệ số đòn bẩy tài chính = 1 + (Tổng nợ phải trả/VCSH)</strong>',
             'value' => $calculator->totalAssetToEquityRatio
         ]);
         return $this;
@@ -97,7 +97,7 @@ trait FinancialLeverageWriter
             'alias' => 'Average Total Assets / Average Equitites',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => 'scalar',
-            'description' => 'Hệ số đòn bẩy tài chính trung bình = Tổng tài sản bình quân / VCSH bình quân = 1 + Tổng nợ phải trả bình quân / VCSH bình quân',
+            'description' => '<strong style="color:#FF00FF;">Hệ số đòn bẩy tài chính trung bình = 1 + (Tổng nợ phải trả bình quân / VCSH bình quân)</strong>',
             'value' => $calculator->averageTotalAssetToAverageEquityRatio
         ]);
         return $this;
@@ -111,11 +111,11 @@ trait FinancialLeverageWriter
     public function writeTotalDebtToTotalLiabilityRatio(FinancialLeverageCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tổng nợ vay / tổng nợ',
+            'name' => 'Tổng nợ vay / tổng nợ phải trả',
             'alias' => 'Total Debts/Total Liabilities',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
-            'description' => 'Chỉ số này cho biết tỉ lệ nợ vay trong tổng nợ của doanh nghiệp, Total Debts/Total Liabilities = 100% * (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn) / Tổng nợ phải trả',
+            'description' => 'Chỉ số này cho biết tỉ lệ nợ vay trong tổng nợ của doanh nghiệp, <strong style="color:#FF00FF;">Tổng nợ vay = Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn</strong>',
             'value' => $calculator->totalDebtToTotalLiabilityRatio
         ]);
         return $this;
@@ -133,7 +133,7 @@ trait FinancialLeverageWriter
             'alias' => 'Currrent Debts/Total Debts',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
-            'description' => 'Chỉ số này cho biết tỉ lệ nợ vay ngắn hạn trong tổng nợ vay của doanh nghiệp, Current Debts / Total Debts = 100% * Vay và nợ thuê tài chính ngắn hạn / (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn)',
+            'description' => 'Chỉ số này cho biết tỉ lệ nợ vay ngắn hạn trong tổng nợ vay của doanh nghiệp, <strong style="color:#FF00FF;">Công thức tính = 100% * Vay và nợ thuê tài chính ngắn hạn / (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn)</strong>',
             'value' => $calculator->currentDebtToTotalDebtRatio
         ]);
         return $this;
