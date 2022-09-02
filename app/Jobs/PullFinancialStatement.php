@@ -120,9 +120,14 @@ class PullFinancialStatement implements ShouldQueue
     protected function validateStatement($content)
     {
         $firstItem = array_first(json_decode($content, true));
-        $data = \Arr::where($firstItem['values'], function ($value) {
-            return $value['year'] == $this->year && $value['quarter'] == $this->quarter;
-        });
-        return !empty($data);
+        try {
+            $data = \Arr::where($firstItem['values'], function ($value) {
+                return $value['year'] == $this->year && $value['quarter'] == $this->quarter;
+            });
+            return !empty($data);
+        } catch (Exception $e) {
+            return false;
+        }
+        
     }
 }

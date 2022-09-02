@@ -28,6 +28,7 @@ use App\Jobs\Financials\Writers\CostStructureWriter;
 use App\Jobs\Financials\Writers\ProfitabilityWriter;
 use App\Jobs\Financials\Calculators\DupontCalculator;
 use App\Jobs\Financials\Calculators\GrowthCalculator;
+use App\Jobs\Financials\Writers\ProfitStructureWriter;
 use App\Jobs\Financials\Calculators\CashFlowCalculator;
 use App\Jobs\Financials\Calculators\LiquidityCalculator;
 use App\Jobs\Financials\Writers\FinancialLeverageWriter;
@@ -36,6 +37,7 @@ use App\Jobs\Financials\Calculators\ProfitabilityCalculator;
 use App\Jobs\Financials\Writers\CurrentAssetStructureWriter;
 use App\Jobs\Financials\Writers\LongTermAssetStructureWriter;
 use App\Jobs\Financials\Writers\OperatingEffectivenessWriter;
+use App\Jobs\Financials\Calculators\ProfitStructureCalculator;
 use App\Jobs\Financials\Calculators\FinancialLeverageCalculator;
 use App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator;
 use App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator;
@@ -43,7 +45,7 @@ use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class AnalyzeFinancialStatement implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter, GrowthWriter, DupontWriter;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProfitabilityWriter, LiquidityWriter, CashFlowWriter, CapexWriter, OperatingEffectivenessWriter, FinancialLeverageWriter, CostStructureWriter, CurrentAssetStructureWriter, LongTermAssetStructureWriter, GrowthWriter, DupontWriter, ProfitStructureWriter;
 
     /**
      * @var \Bkstar123\BksCMS\AdminPanel\Admin
@@ -164,7 +166,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeSellingExpenseToRevenueRatio($costStructureCalculator)
                  ->writeAdministrationExpenseToRevenueRatio($costStructureCalculator)
                  ->writeInterestCostToRevenueRatio($costStructureCalculator)
-                 ->writeSellingAndEnperpriseManagementToGrossProfitnRatio($costStructureCalculator);
+                 ->writeSellingAndEnperpriseManagementToGrossProfitRatio($costStructureCalculator);
             // Current Asset Structure
             $currentAssetStructureCalculator = (new CurrentAssetStructureCalculator($financialStatement))->execute();
             $this->writeCurrentAssetToTotalAssetRatio($currentAssetStructureCalculator)
@@ -181,6 +183,9 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator)
                  ->writeIntangibleAssetToFixedAssetRatio($longTermAssetStructureCalculator)
                  ->writeConstructionInProgressToFixedAssetRatio($longTermAssetStructureCalculator);
+            // Profit Structure
+            $profitStructureCalculator = (new ProfitStructureCalculator($financialStatement))->execute();
+            $this->writeOperatingProfitToEBTRatio($profitStructureCalculator);
             // Growth
             $growthCalculator = (new GrowthCalculator($financialStatement))->execute();
             $this->writeRevenueGrowth($growthCalculator)

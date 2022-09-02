@@ -105,7 +105,7 @@ class CostStructureCalculator extends BaseCalculator
      *
      * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
      */
-    public function calculateSellingAndEnperpriseManagementToGrossProfitnRatio()
+    public function calculateSellingAndEnperpriseManagementToGrossProfitRatio()
     {
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;

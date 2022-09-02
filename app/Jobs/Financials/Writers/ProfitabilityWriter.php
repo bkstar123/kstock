@@ -214,7 +214,7 @@ trait ProfitabilityWriter
             'alias' => 'Gross profit margin',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => '<strong>Gross Profit Margin</strong> - Biên lợi nhuận gộp hay còn gọi là tỷ suất lợi nhuận gộp đánh giá khả năng sinh lời của doanh nghiệp. Theo quan điểm của Buffet, thì tỉ suất lợi nhuận gộp trên 40% thường là doanh nghiệp có lợi thế cạnh tranh bền vững, nếu thấp hơn 20% thường là dấu hiệu của ngành có sự cạnh tranh gay gắt. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận gộp / Doanh thu thuần</strong>',
+            'description' => '<strong>Gross Profit Margin</strong> - Biên lợi nhuận gộp hay còn gọi là tỷ suất lợi nhuận gộp đánh giá khả năng sinh lời của doanh nghiệp. <strong style="color:#d2691e;">Theo quan điểm của Buffet, thì tỉ suất lợi nhuận gộp trên 40% thường là doanh nghiệp có lợi thế cạnh tranh bền vững, nếu thấp hơn 20% thường là dấu hiệu của ngành có sự cạnh tranh gay gắt</strong>. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận gộp / Doanh thu thuần</strong>',
             'value' => $calculator->grossProfitMargin
         ]);
         return $this;
