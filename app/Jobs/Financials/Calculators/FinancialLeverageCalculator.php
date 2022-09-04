@@ -25,6 +25,16 @@ class FinancialLeverageCalculator extends BaseCalculator
 
     public $averageTotalAssetToAverageEquityRatio = null; //Chỉ số Tổng tài sản bình quân / Vốn chủ sở hữu bình quân
 
+    public $debtToEquityRatio = null; //Chi so no vay / VCSH
+
+    public $longTermDebtToEquityRatio = null; //Chi so no vay dai han / VCSH
+
+    public $longTermDebtToLongTermLiabilityRatio = null; //Chi so no vay dai han / no dai han
+
+    public $currentDebtToCurrentLiabilityRatio = null; //Chi so no vay ngan han / no ngan han
+
+    public $interestExpenseToAverageDebtRatio = null; //Chi so chi phí lãi vay / Nợ vay bình quân
+
     /**
      * Calculate short-term to total liabilities ratio - Tỷ số nợ ngắn hạn trên tổng nợ phải trả
      *
@@ -153,6 +163,102 @@ class FinancialLeverageCalculator extends BaseCalculator
             $total_debt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
             if ($total_debt != 0) {
                 $this->currentDebtToTotalDebtRatio = round(100 * $current_debt / $total_debt, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+    * Calculate Debts to Equities - Chỉ số nợ vay / VCSH
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function calculateDebtToEquityRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $equity = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
+            $total_debt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
+            if ($equity != 0) {
+                $this->debtToEquityRatio = round($total_debt / $equity, 4);
+            }
+        }
+        return $this;
+    }
+
+    /**
+    * Calculate Long Term Debts to Equities - Chỉ số nợ vay dài hạn / VCSH
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function calculateLongTermDebtToEquityRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $equity = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
+            $long_term_debt = $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
+            if ($equity != 0) {
+                $this->longTermDebtToEquityRatio = round($long_term_debt / $equity, 4);
+            }
+        }
+        return $this;
+    }
+
+    /**
+    * Calculate Long Term Debts to Long Term Liabilities - Chỉ số nợ vay dài hạn / nợ dài hạn
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function calculateLongTermDebtToLongTermLiabilityRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $long_term_debt = $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
+            $long_term_liability = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear, $selectedQuarter);
+            if ($long_term_liability != 0) {
+                $this->longTermDebtToLongTermLiabilityRatio = round(100 * $long_term_debt / $long_term_liability, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+    * Calculate Current Debts to Current Liabilities - Chỉ số nợ ngắn dài hạn / nợ ngắn hạn
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function calculateCurrentDebtToCurrentLiabilityRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $current_debt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter);
+            $current_liability = $this->financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter);
+            if ($current_liability != 0) {
+                $this->currentDebtToCurrentLiabilityRatio = round(100 * $current_debt / $current_liability, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+    * Calculate Interest Expense to Average Debt - Chỉ số chi phí lãi vay / Nợ vay bình quân
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function calculateInterestExpenseToAverageDebtRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement) && 
+            !empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $average_debt = $this->financialStatement->balance_statement->getItem('3010101')->getAverageValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getAverageValue($selectedYear, $selectedQuarter);
+            $interest_expense = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
+            if ($average_debt != 0) {
+                $this->interestExpenseToAverageDebtRatio = round(100 * $interest_expense / $average_debt, 2);
             }
         }
         return $this;

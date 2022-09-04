@@ -96,7 +96,7 @@ trait CostStructureWriter
     public function writeSellingAndEnperpriseManagementToGrossProfitRatio(CostStructureCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Chi phí bán hang & Chi phí QLDN / Lợi nhuận gộp',
+            'name' => 'Chi phí bán hàng & Chi phí QLDN / Lợi nhuận gộp',
             'alias' => 'Selling and Enterprise Management Expenses/Gross Profit',
             'group' => 'Chỉ số Cơ cấu chi phí',
             'unit' => '%',
