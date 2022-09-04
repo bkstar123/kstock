@@ -119,7 +119,7 @@ trait ProfitabilityWriter
             'alias' => 'ROS',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => '<strong>ROS</strong> - Tỉ suất lợi nhuận ròng trên doanh thu thuần (<strong>Return On Sales</strong>) thể hiện mối tương quan giữa lợi nhuận được tạo ra dựa trên mỗi đồng doanh số cho biết với một đồng doanh thu thuần từ bán hàng và cung cấp dịch vụ sẽ tạo ra bao nhiêu đồng lợi nhuận ròng, tỷ suất này càng lớn thì hiệu quả hoạt động của doanh nghiệp càng cao. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận sau thuế/ Doanh thu thuần</strong>',
+            'description' => '<strong>ROS</strong> - Tỉ suất lợi nhuận ròng trên doanh thu thuần (<strong>Return On Sales</strong>) thể hiện mối tương quan giữa lợi nhuận được tạo ra dựa trên mỗi đồng doanh số cho biết với một đồng doanh thu thuần từ bán hàng và cung cấp dịch vụ sẽ tạo ra bao nhiêu đồng lợi nhuận ròng, tỷ suất này càng lớn thì hiệu quả hoạt động của doanh nghiệp càng cao. <strong style="color:#d2691e;">Theo Buffet, thì tỉ suất lợi nhuận ròng duy trì đều đặn trên 20% nhiều khả năng là doanh nghiệp có lợi thế cạnh tranh bền vững, nếu thấp hơn 10% thường là dấu hiệu của doanh nghiệp hoạt động trong ngành có sự cạnh tranh gay gắt</strong>. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận sau thuế/ Doanh thu thuần</strong>',
             'value' => $calculator->ros
         ]);
         return $this;

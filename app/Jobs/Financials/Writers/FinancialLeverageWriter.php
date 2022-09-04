@@ -76,7 +76,7 @@ trait FinancialLeverageWriter
     {
         array_push($this->content, [
             'name' => ' Tổng tài sản / Vốn chủ sở hữu (Hệ số đòn bẩy tài chính)',
-            'alias' => 'Total Assets / Equitites',
+            'alias' => 'Total Assets/Equities',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => 'scalar',
             'description' => 'Hệ số đòn bẩy tài chính cho biết tài sản của công ty được tài trợ chính bởi vốn chủ sở hữu của các cổ đông hay là nguồn nợ bên ngoài. <strong style="color:#FF00FF;">Hệ số đòn bẩy tài chính = 1 + (Tổng nợ phải trả/VCSH)</strong>',
@@ -94,7 +94,7 @@ trait FinancialLeverageWriter
     {
         array_push($this->content, [
             'name' => ' Tổng tài sản bình quân / Vốn chủ sở hữu bình quân (Hệ số đòn bẩy tài chính trung bình - phiên bản chặt chẽ hơn của đòn bẩy tài chính)',
-            'alias' => 'Average Total Assets / Average Equitites',
+            'alias' => 'Average Total Assets/Average Equities',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => 'scalar',
             'description' => '<strong style="color:#FF00FF;">Hệ số đòn bẩy tài chính trung bình = 1 + (Tổng nợ phải trả bình quân / VCSH bình quân)</strong>',
@@ -129,12 +129,102 @@ trait FinancialLeverageWriter
     public function writeCurrentDebtToTotalDebtRatio(FinancialLeverageCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Nợ vay ngắn hạn / tổng nợ vay',
+            'name' => 'Nợ vay ngắn hạn / Tổng nợ vay',
             'alias' => 'Currrent Debts/Total Debts',
             'group' => 'Chỉ số đòn bẩy tài chính',
             'unit' => '%',
             'description' => 'Chỉ số này cho biết tỉ lệ nợ vay ngắn hạn trong tổng nợ vay của doanh nghiệp, <strong style="color:#FF00FF;">Công thức tính = 100% * Vay và nợ thuê tài chính ngắn hạn / (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn)</strong>',
             'value' => $calculator->currentDebtToTotalDebtRatio
+        ]);
+        return $this;
+    }
+
+    /**
+    * Write Debts to Equities Ratio - Chỉ số nợ vay / VCSH
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeDebtToEquityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tổng nợ vay / Vốn chủ sở hữu (Hệ số nợ vay)',
+            'alias' => 'Debts/Equities',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => 'scalar',
+            'description' => 'Không phải mọi khoản nợ đều rủi ro như nhau, hệ số này tập trung đánh giá mức độ đòn bẩy tài chính dựa vào nợ vay (nợ phải trả chi phí lãi vay). Hệ số này càng lớn thì rủi ro càng cao. <strong style="color:#FF00FF;">Công thức tính = (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn) / Vốn chủ sở hữu</strong>',
+            'value' => $calculator->debtToEquityRatio
+        ]);
+        return $this;
+    }
+
+    /**
+    * Write Long Term Debts to Equities Ratio - Chỉ số nợ vay dài hạn / VCSH
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeLongTermDebtToEquityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Nợ vay dài hạn / Vốn chủ sở hữu (Hệ số nợ vay dài hạn)',
+            'alias' => 'Long Term Debts/Equities',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => 'scalar',
+            'description' => 'Đánh giá mức độ đòn bẩy tài chính của doanh nghiệp theo nguồn nợ vay dài hạn (nợ dài hạn phải trả chi phí lãi vay). Nợ vay dài hạn chứa đựng nhiều rủi ro hơn nợ vay ngắn hạn do nhạy cảm với sự thay đổi của lãi suất và những biến động kinh tế vĩ mô cũng như triển vọng kinh doanh dài hạn của doan nghiệp. <strong style="color:#FF00FF;">Công thức tính = Vay và nợ thuê tài chính dài hạn / Vốn chủ sở hữu</strong>',
+            'value' => $calculator->longTermDebtToEquityRatio
+        ]);
+        return $this;
+    }
+
+    /**
+    * Write Long Term Debts to Long Term Liabilities Ratio - Chỉ số nợ vay dài hạn / nợ dài hạn
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeLongTermDebtToLongTermLiabilityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Nợ vay dài hạn / Nợ dài hạn',
+            'alias' => 'Long Term Debts/Long Term Liabilities',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => '%',
+            'description' => 'Đo lường tỉ trọng nợ vay dài hạn trong tổng nợ phải trả dài hạn của doanh nghiệp. <strong style="color:#FF00FF;">Công thức tính = Vay và nợ thuê tài chính dài hạn / Nợ dài hạn</strong>',
+            'value' => $calculator->longTermDebtToLongTermLiabilityRatio
+        ]);
+        return $this;
+    }
+
+    /**
+    * Write Current Debts to Current Liabilities Ratio - Chỉ số nợ vay ngắn hạn / nợ ngắn hạn
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeCurrentDebtToCurrentLiabilityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Nợ vay ngắn hạn / Nợ ngắn hạn',
+            'alias' => 'Current Debts/Current Liabilities',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => '%',
+            'description' => 'Đo lường tỉ trọng nợ vay ngắn hạn trong tổng nợ phải trả ngắn hạn của doanh nghiệp. <strong style="color:#FF00FF;">Công thức tính = Vay và nợ thuê tài chính ngắn hạn / Nợ ngắn hạn</strong>',
+            'value' => $calculator->currentDebtToCurrentLiabilityRatio
+        ]);
+        return $this;
+    }
+
+    /**
+    * Write Interest Expense to Average Debt Ratio - Chỉ số chi phí lãi vay / Nợ vay bình quân
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeInterestExpenseToAverageDebtRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Chi phí lãi vay / Nợ vay bình quân',
+            'alias' => 'Interest Expenses/Average Debts',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => '%',
+            'description' => 'Đo lường xem doanh nghiệp phải trả bao nhiêu đồng chi phí lãi vay cho một đồng vay nợ, hệ số này phản ánh mức độ tương đối lãi suất đi vay của doanh nghiệp. <strong style="color:#FF00FF;">Công thức tính = Chi phí lãi vay / (Vay và nợ thuê tài chính ngắn hạn bình quân + Vay và nợ thuê tài chính dài hạn bình quân)</strong>',
+            'value' => $calculator->interestExpenseToAverageDebtRatio
         ]);
         return $this;
     }

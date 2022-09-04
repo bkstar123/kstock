@@ -159,7 +159,12 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeTotalAssetToEquityRatio($financialLeverageCalculator)
                  ->writeAverageTotalAssetToAverageEquityRatio($financialLeverageCalculator)
                  ->writeTotalDebtToTotalLiabilityRatio($financialLeverageCalculator)
-                 ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator);
+                 ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator)
+                 ->writeDebtToEquityRatio($financialLeverageCalculator)
+                 ->writeLongTermDebtToEquityRatio($financialLeverageCalculator)
+                 ->writeLongTermDebtToLongTermLiabilityRatio($financialLeverageCalculator)
+                 ->writeCurrentDebtToCurrentLiabilityRatio($financialLeverageCalculator)
+                 ->writeInterestExpenseToAverageDebtRatio($financialLeverageCalculator);
             // Cost Structure
             $costStructureCalculator = (new CostStructureCalculator($financialStatement))->execute();
             $this->writeCOGSToRevenueRatio($costStructureCalculator)

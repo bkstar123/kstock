@@ -59,7 +59,7 @@ trait LiquidityWriter
     {
         array_push($this->content, [
             'name' => 'Hệ số thanh toán nhanh  (giảm trừ hàng tồn kho)',
-            'alias' => 'Quick Ratio',
+            'alias' => 'Quick Ratio 1',
             'group' => 'Chỉ số thanh toán',
             'unit' => 'scalar',
             'description' => 'Hệ số khả năng thanh toán nhanh thể hiện khả năng thanh toán của doanh nghiệp mà không cần thực hiện thanh lý gấp hàng tồn kho, bộ phận có tính thanh khoản thấp nhất trong tài sản ngắn hạn. Hệ số này < 0.5 phản ánh doanh nghiệp đang gặp khó khăn trong việc chi trả nợ ngắn hạn, tính thanh khoản thấp, Hệ số này > 0.5 phản ánh doanh nghiệp có khả năng thanh toán tốt, tính thanh khoản cao. <strong style="color:#FF00FF;">Công thức tính = (Tài sản ngắn hạn - hàng tồn kho) / Nợ ngắn hạn </strong>',
