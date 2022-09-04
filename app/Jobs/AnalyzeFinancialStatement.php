@@ -153,18 +153,18 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeEquityTurnoverRatio($operatingEffectivenessCalculator);
             // Financial Leverage
             $financialLeverageCalculator = (new FinancialLeverageCalculator($financialStatement))->execute();
-            $this->writeShortTermToTotalLiabilitiesRatio($financialLeverageCalculator)
+            $this->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator)
                  ->writeTotalDebtToTotalAssetRatio($financialLeverageCalculator)
-                 ->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator)
-                 ->writeTotalAssetToEquityRatio($financialLeverageCalculator)
-                 ->writeAverageTotalAssetToAverageEquityRatio($financialLeverageCalculator)
+                 ->writeShortTermToTotalLiabilitiesRatio($financialLeverageCalculator)
                  ->writeTotalDebtToTotalLiabilityRatio($financialLeverageCalculator)
                  ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator)
-                 ->writeDebtToEquityRatio($financialLeverageCalculator)
-                 ->writeLongTermDebtToEquityRatio($financialLeverageCalculator)
                  ->writeLongTermDebtToLongTermLiabilityRatio($financialLeverageCalculator)
                  ->writeCurrentDebtToCurrentLiabilityRatio($financialLeverageCalculator)
-                 ->writeInterestExpenseToAverageDebtRatio($financialLeverageCalculator);
+                 ->writeInterestExpenseToAverageDebtRatio($financialLeverageCalculator)
+                 ->writeDebtToEquityRatio($financialLeverageCalculator)
+                 ->writeLongTermDebtToEquityRatio($financialLeverageCalculator)
+                 ->writeTotalAssetToEquityRatio($financialLeverageCalculator)
+                 ->writeAverageTotalAssetToAverageEquityRatio($financialLeverageCalculator);
             // Cost Structure
             $costStructureCalculator = (new CostStructureCalculator($financialStatement))->execute();
             $this->writeCOGSToRevenueRatio($costStructureCalculator)
@@ -194,6 +194,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
             // Growth
             $growthCalculator = (new GrowthCalculator($financialStatement))->execute();
             $this->writeRevenueGrowth($growthCalculator)
+                 ->writeInventoryGrowth($growthCalculator)
                  ->writeGrossProfitGrowth($growthCalculator)
                  ->writeEBTGrowth($growthCalculator)
                  ->writeNetProfitOfParentShareHolderGrowth($growthCalculator)

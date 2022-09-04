@@ -253,4 +253,31 @@ trait GrowthWriter
         ]);
         return $this;
     }
+
+    /**
+     * Write Inventory Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeInventoryGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng hàng tồn kho QoQ',
+            'alias' => 'Inventory Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng hàng tồn kho so với quý trước trong cùng năm tài chính. <strong style="color:#d2691e;">Theo Buffet thì ở các doanh nghiệp có lợi thế cạnh tranh bền vững tăng trưởng hàng tồn kho phải nhất quán với tăng trưởng doanh thu</strong>',
+            'value' => $calculator->inventoryGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng hàng tồn kho YoY',
+            'alias' => 'Inventory Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng hàng tồn kho so với cùng kỳ năm tài chính trước. <strong style="color:#d2691e;">Theo Buffet thì ở các doanh nghiệp có lợi thế cạnh tranh bền vững tăng trưởng hàng tồn kho phải nhất quán với tăng trưởng doanh thu</strong>',
+            'value' => $calculator->inventoryGrowthYoY
+        ]);
+        return $this;
+    }
 }
