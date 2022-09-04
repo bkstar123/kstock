@@ -128,6 +128,5 @@ class PullFinancialStatement implements ShouldQueue
         } catch (Exception $e) {
             return false;
         }
-        
     }
 }

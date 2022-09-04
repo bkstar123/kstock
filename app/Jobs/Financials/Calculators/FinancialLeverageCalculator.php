@@ -251,7 +251,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateInterestExpenseToAverageDebtRatio()
     {
-        if (!empty($this->financialStatement->balance_statement) && 
+        if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;

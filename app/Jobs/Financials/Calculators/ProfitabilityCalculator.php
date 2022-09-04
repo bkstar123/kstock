@@ -199,14 +199,14 @@ class ProfitabilityCalculator extends BaseCalculator
         return $this;
     }
 
-     /**
-     * Calculate EBITDA Mergin based on the cash flow statement
-     *
-     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
-     */
+    /**
+    * Calculate EBITDA Mergin based on the cash flow statement
+    *
+    * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
+    */
     public function calculateEBITDAMargin2()
     {
-        if (!empty($this->financialStatement->cash_flow_statement) && 
+        if (!empty($this->financialStatement->cash_flow_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
