@@ -47,6 +47,10 @@ class GrowthCalculator extends BaseCalculator
 
     public $charterCapitalGrowthYoY = null; //Tăng trưởng vốn điều lệ so với cùng kỳ năm tài chính trước
 
+    public $inventoryGrowthQoQ = null; //Tăng trưởng hang ton kho so với quý trước trong cùng năm tài chính
+
+    public $inventoryGrowthYoY = null; //Tăng trưởng hang ton kho so với cùng kỳ năm tài chính trước
+
     /**
      * Calculate Revenue Growth
      *
@@ -266,6 +270,31 @@ class GrowthCalculator extends BaseCalculator
                 $charterCapitalQoQ = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear, $selectedQuarter-1);
                 if ($charterCapitalQoQ != 0) {
                     $this->charterCapitalGrowthQoQ = round(100 * ($selectedPeriodCharterCapital - $charterCapitalQoQ) / abs($charterCapitalQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Inventory Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateInventoryGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodInventory = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter);
+            $inventoryYoY = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear-1, $selectedQuarter);
+            if ($inventoryYoY != 0) {
+                $this->inventoryGrowthYoY = round(100 * ($selectedPeriodInventory - $inventoryYoY) / abs($inventoryYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $inventoryQoQ = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter-1);
+                if ($inventoryQoQ != 0) {
+                    $this->inventoryGrowthQoQ = round(100 * ($selectedPeriodInventory - $inventoryQoQ) / abs($inventoryQoQ), 2);
                 }
             }
         }
