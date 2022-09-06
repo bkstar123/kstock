@@ -100,7 +100,7 @@ trait CashFlowWriter
             'alias' => 'FCF/Revenue',
             'group' => 'Chỉ số dòng tiền',
             'unit' => '%',
-            'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi từ một đồng doanh thu thuần sang dòng tiền tự do (FCF). <strong style="color:#FF00FF;">Dòng tiền tự do (FCF) = CFO - CAPEX </strong>',
+            'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi từ một đồng doanh thu thuần sang dòng tiền tự do (FCF). Bất kỳ một doanh nghiệp nào có thể duy trì tỷ lệ FCF/Doanh thu thuần trên 10% trong nhiều năm đều là 1 cỗ máy tạo ra tiền. <strong style="color:#FF00FF;">Dòng tiền tự do (FCF) = CFO - CAPEX </strong>',
             'value' => $calculator->fCFToRevenue
         ]);
         return $this;
