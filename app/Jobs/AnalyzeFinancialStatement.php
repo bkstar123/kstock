@@ -107,6 +107,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $profitabilityCalculator = (new ProfitabilityCalculator($financialStatement))->execute();
             $this->writeROAA($profitabilityCalculator)
                  ->writeROA($profitabilityCalculator)
+                 ->writeROTA($profitabilityCalculator)
                  ->writeROCE($profitabilityCalculator)
                  ->writeROEA($profitabilityCalculator)
                  ->writeROE($profitabilityCalculator)

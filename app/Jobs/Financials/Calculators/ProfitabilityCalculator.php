@@ -33,6 +33,8 @@ class ProfitabilityCalculator extends BaseCalculator
 
     public $grossProfitMargin = null; //Bien loi nhuan gop
 
+    public $rota = null; //Ti suat loi nhuan truoc thue va lai vay tren tong tai san binh quan
+
     /**
      * Calculate ROAA - Ty suat loi nhuan tren tong tai san binh quan
      *
@@ -48,6 +50,26 @@ class ProfitabilityCalculator extends BaseCalculator
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             if ($average_total_assets != 0) {
                 $this->roaa = round(100 * $parent_company_net_profit / $average_total_assets, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate ROTA - Ty suat loi nhuan truoc thue va lai vay tren tong tai san binh quan
+     *
+     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
+     */
+    public function calculateROTA()
+    {
+        if (!empty($this->financialStatement->balance_statement) &&
+            !empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
+            $eBit = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
+            if ($average_total_assets != 0) {
+                $this->rota = round(100 * $eBit / $average_total_assets, 2);
             }
         }
         return $this;

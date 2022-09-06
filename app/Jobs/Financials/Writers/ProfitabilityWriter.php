@@ -24,8 +24,27 @@ trait ProfitabilityWriter
             'alias' => 'ROAA',
             'group' => 'Chỉ số sinh lời',
             'unit' => '%',
-            'description' => '<strong>ROAA</strong> - Tỷ suất lợi nhuận trên tổng tài sản bình quân (<strong>Return on Average Assets</strong>) cho biết tài sản của một doanh nghiệp đang được sử dụng tốt như thế nào để tạo ra lợi nhuận. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận sau thuế của cổ đông của công ty mẹ / Tổng tài sản trung bình</strong>.',
+            'description' => '<strong>ROAA</strong> - Tỷ suất lợi nhuận trên tổng tài sản bình quân (<strong>Return on Average Assets</strong>) cho biết tài sản của một doanh nghiệp đang được sử dụng tốt như thế nào để tạo ra lợi nhuận. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận sau thuế của cổ đông của công ty mẹ / Tổng tài sản bình quân</strong>.',
             'value' => $calculator->roaa
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write ROTA - Ty suat loi nhuan truoc thue va lai vay tren tong tai san binh quan
+     *
+     * @param  \App\Jobs\Financials\Calculators\ProfitabilityCalculator $calculator
+     * @return $this
+     */
+    protected function writeROTA(ProfitabilityCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tỷ suất lợi nhuận trước thuế và lãi vay trên tổng tài sản bình quân',
+            'alias' => 'ROTA',
+            'group' => 'Chỉ số sinh lời',
+            'unit' => '%',
+            'description' => '<strong>ROTA</strong> - Tỷ suất lợi nhuận trước thuế và lãi vay (EBIT) trên tổng tài sản bình quân mang ý nghĩa tương tự ROAA hay ROA nhưng loại bỏ sự ảnh hưởng của cấu trúc nguồn vốn (chi phí lãi vay) và sự ảnh hưởng của thuế suất doanh nghiệp. Chỉ số này dùng để đánh giá hiệu quả sinh lời của tài sản doanh nghiệp dựa trên mô hình kinh doanh thuần tuý. <strong style="color:#FF00FF;">Công thức tính = 100% * Lợi nhuận trước thuế và lãi vay (EBIT)/ Tổng tài sản bình quân</strong>.',
+            'value' => $calculator->rota
         ]);
         return $this;
     }
