@@ -203,7 +203,8 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeLongTermLiabilityGrowth($growthCalculator)
                  ->writeLiabilityGrowth($growthCalculator)
                  ->writeEquityGrowth($growthCalculator)
-                 ->writeCharterCapitalGrowth($growthCalculator);
+                 ->writeCharterCapitalGrowth($growthCalculator)
+                 ->writeFcfGrowth($growthCalculator);
             //Dupont Analysis
             $dupontCalculator = (new DupontCalculator($financialStatement))->execute();
             $this->writeDupontLevel2Components($dupontCalculator)

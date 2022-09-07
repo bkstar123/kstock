@@ -121,7 +121,7 @@ class CashFlowCalculator extends BaseCalculator
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->income_statement)) {
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
-            $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) - abs($this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter)) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
+            $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
                 $this->fCFToRevenue = round(100 * $fcf / $net_revenue, 2);

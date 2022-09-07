@@ -280,4 +280,31 @@ trait GrowthWriter
         ]);
         return $this;
     }
+
+    /**
+     * Write FCF Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeFcfGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng dòng tiền tự do (FCF) QoQ',
+            'alias' => 'FCF Growth QoQ',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng dòng tiền tự do so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->fcfGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng dòng tiền tự do (FCF) YoY',
+            'alias' => 'FCF Growth YoY',
+            'group' => 'Chỉ số Tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng dòng tiền tự do so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->fcfGrowthYoY
+        ]);
+        return $this;
+    }
 }
