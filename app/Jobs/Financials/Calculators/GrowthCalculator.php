@@ -55,6 +55,18 @@ class GrowthCalculator extends BaseCalculator
 
     public $fcfGrowthYoY = null; //Tang truong dong tien tu do so voi cùng kỳ năm tài chính trước
 
+    public $cogsGrowthQoQ = null; //Tang truong gia von ban hang so voi quý trước trong cùng năm tài chính
+
+    public $cogsGrowthYoY = null; //Tang truong gia von ban hang so voi cùng kỳ năm tài chính trước
+
+    public $operationExpenseGrowthQoQ = null; //Tang truong chi phi hoat dong (chi phi ban hang & QLDN) so voi quý trước trong cùng năm tài chính
+
+    public $operationExpenseGrowthYoY = null; //Tang truong chi phi hoat dong (chi phi ban hang & QLDN) so voi cùng kỳ năm tài chính trước
+
+    public $interestExpenseGrowthQoQ = null; //Tang truong chi phi lai vay so voi quý trước trong cùng năm tài chính
+
+    public $interestExpenseGrowthYoY = null; //Tang truong chi phi lai vay so voi cùng kỳ năm tài chính trước
+
     /**
      * Calculate Revenue Growth
      *
@@ -324,6 +336,81 @@ class GrowthCalculator extends BaseCalculator
                 $fcfQoQ = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter-1);
                 if ($fcfQoQ != 0) {
                     $this->fcfGrowthQoQ = round(100 * ($selectedPeriodFCF - $fcfQoQ) / abs($fcfQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate COGS Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateCogsGrowth()
+    {
+        if (!empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodCogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
+            $cogsYoY = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear-1, $selectedQuarter);
+            if ($cogsYoY != 0) {
+                $this->cogsGrowthYoY = round(100 * ($selectedPeriodCogs - $cogsYoY) / abs($cogsYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $cogsQoQ = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter-1);
+                if ($cogsQoQ != 0) {
+                    $this->cogsGrowthQoQ = round(100 * ($selectedPeriodCogs - $cogsQoQ) / abs($cogsQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Operation Expense Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateOperationExpenseGrowth()
+    {
+        if (!empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodOperationExpense = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
+            $operationExpenseYoY = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear-1, $selectedQuarter) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear-1, $selectedQuarter);
+            if ($operationExpenseYoY != 0) {
+                $this->operationExpenseGrowthYoY = round(100 * ($selectedPeriodOperationExpense - $operationExpenseYoY) / abs($operationExpenseYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $operationExpenseQoQ = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter-1);
+                if ($operationExpenseQoQ != 0) {
+                    $this->operationExpenseGrowthQoQ = round(100 * ($selectedPeriodOperationExpense - $operationExpenseQoQ) / abs($operationExpenseQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Interest Expense Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateInterestExpenseGrowth()
+    {
+        if (!empty($this->financialStatement->income_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodInterestExpense = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
+            $interestExpenseYoY = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear-1, $selectedQuarter);
+            if ($interestExpenseYoY != 0) {
+                $this->interestExpenseGrowthYoY = round(100 * ($selectedPeriodInterestExpense - $interestExpenseYoY) / abs($interestExpenseYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $interestExpenseQoQ = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter-1);
+                if ($interestExpenseQoQ != 0) {
+                    $this->interestExpenseGrowthQoQ = round(100 * ($selectedPeriodInterestExpense - $interestExpenseQoQ) / abs($interestExpenseQoQ), 2);
                 }
             }
         }
