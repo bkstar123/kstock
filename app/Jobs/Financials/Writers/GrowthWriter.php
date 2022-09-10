@@ -201,6 +201,33 @@ trait GrowthWriter
     }
 
     /**
+     * Write Debt Growth
+     *
+     * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
+     * @return $this
+     */
+    public function writeDebtGrowth(GrowthCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Tăng trưởng nợ vay QoQ',
+            'alias' => 'Debt Growth QoQ',
+            'group' => 'Chỉ số tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng nợ vay so với quý trước trong cùng năm tài chính',
+            'value' => $calculator->debtGrowthQoQ
+        ]);
+        array_push($this->content, [
+            'name' => 'Tăng trưởng nợ vay YoY',
+            'alias' => 'Debt Growth YoY',
+            'group' => 'Chỉ số tăng trưởng',
+            'unit' => '%',
+            'description' => 'Tăng trưởng nợ vay so với cùng kỳ năm tài chính trước',
+            'value' => $calculator->debtGrowthYoY
+        ]);
+        return $this;
+    }
+
+    /**
      * Write Equity Growth
      *
      * @param \App\Jobs\Financials\Calculators\GrowthCalculator $calculator
