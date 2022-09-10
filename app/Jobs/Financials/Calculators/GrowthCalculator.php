@@ -67,6 +67,10 @@ class GrowthCalculator extends BaseCalculator
 
     public $interestExpenseGrowthYoY = null; //Tang truong chi phi lai vay so voi cùng kỳ năm tài chính trước
 
+    public $debtGrowthQoQ = null; //Tang truong no vay so voi quý trước trong cùng năm tài chính
+
+    public $debtExpenseGrowthYoY = null; //Tang truong no vay so voi cùng kỳ năm tài chính trước
+
     /**
      * Calculate Revenue Growth
      *
@@ -411,6 +415,31 @@ class GrowthCalculator extends BaseCalculator
                 $interestExpenseQoQ = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter-1);
                 if ($interestExpenseQoQ != 0) {
                     $this->interestExpenseGrowthQoQ = round(100 * ($selectedPeriodInterestExpense - $interestExpenseQoQ) / abs($interestExpenseQoQ), 2);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Debt Growth
+     *
+     * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
+     */
+    public function calculateDebtGrowth()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedPeriodDebt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
+            $debtYoY = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear-1, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear-1, $selectedQuarter);
+            if ($debtYoY != 0) {
+                $this->debtGrowthYoY = round(100 * ($selectedPeriodDebt - $debtYoY) / abs($debtYoY), 2);
+            }
+            if ($selectedQuarter > 1) {
+                $debtQoQ = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter-1);
+                if ($debtQoQ != 0) {
+                    $this->debtGrowthQoQ = round(100 * ($selectedPeriodDebt - $debtQoQ) / abs($debtQoQ), 2);
                 }
             }
         }

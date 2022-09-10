@@ -206,6 +206,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeTotalAssetGrowth($growthCalculator)
                  ->writeLongTermLiabilityGrowth($growthCalculator)
                  ->writeLiabilityGrowth($growthCalculator)
+                 ->writeDebtGrowth($growthCalculator)
                  ->writeEquityGrowth($growthCalculator)
                  ->writeCharterCapitalGrowth($growthCalculator)
                  ->writeFcfGrowth($growthCalculator);
