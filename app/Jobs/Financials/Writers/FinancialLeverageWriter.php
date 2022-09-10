@@ -158,6 +158,24 @@ trait FinancialLeverageWriter
     }
 
     /**
+    * Write Net Debts to Equities Ratio - Chỉ số nợ vay rong / VCSH
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function writeNetDebtToEquityRatio(FinancialLeverageCalculator $calculator)
+    {
+        array_push($this->content, [
+            'name' => 'Nợ vay ròng / Vốn chủ sở hữu (Hệ số nợ vay ròng)',
+            'alias' => 'Net Debts/Equities',
+            'group' => 'Chỉ số đòn bẩy tài chính',
+            'unit' => 'scalar',
+            'description' => 'Tập trung đánh giá mức độ đòn bẩy tài chính dựa vào nợ vay ròng. Hệ số này càng lớn thì rủi ro càng cao. <strong style="color:#FF00FF;">Công thức tính = (Vay và nợ thuê tài chính ngắn hạn + Vay và nợ thuê tài chính dài hạn - Các khoản đầu tư tài chính ngắn hạn - Các khoản đầu tư tài chính dài hạn) / Vốn chủ sở hữu</strong>',
+            'value' => $calculator->netDebtToEquityRatio
+        ]);
+        return $this;
+    }
+
+    /**
     * Write Long Term Debts to Equities Ratio - Chỉ số nợ vay dài hạn / VCSH
     *
     * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this

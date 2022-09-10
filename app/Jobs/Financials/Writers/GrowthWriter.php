@@ -182,7 +182,7 @@ trait GrowthWriter
     public function writeLiabilityGrowth(GrowthCalculator $calculator)
     {
         array_push($this->content, [
-            'name' => 'Tăng trưởng phải trả QoQ',
+            'name' => 'Tăng trưởng nợ phải trả QoQ',
             'alias' => 'Liability Growth QoQ',
             'group' => 'Chỉ số Tăng trưởng',
             'unit' => '%',

@@ -237,8 +237,18 @@ class CashFlowCalculator extends BaseCalculator
             $selectedYear = $this->financialStatement->year;
             $selectedQuarter = $this->financialStatement->quarter;
             $cfo = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
-            $investingInflows = $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('204')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('208')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('209')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('210')->getValue($selectedYear, $selectedQuarter);
-            $financingInflows = $this->financialStatement->cash_flow_statement->getItem('301')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('303')->getValue($selectedYear, $selectedQuarter);
+            $investingInflows = 0;
+            $financingInflows = 0;
+            for ($i = 201; $i < 212 ; $i++) {
+                if ($this->financialStatement->cash_flow_statement->getItem("$i")->getValue($selectedYear, $selectedQuarter) > 0) {
+                    $investingInflows += $this->financialStatement->cash_flow_statement->getItem("$i")->getValue($selectedYear, $selectedQuarter);
+                }
+            }
+            for ($i = 301; $i < 311 ; $i++) {
+                if ($this->financialStatement->cash_flow_statement->getItem("$i")->getValue($selectedYear, $selectedQuarter) > 0) {
+                    $financingInflows += $this->financialStatement->cash_flow_statement->getItem("$i")->getValue($selectedYear, $selectedQuarter);
+                }
+            }
             if ($cfo > 0) {
                 $this->cashGeneratingPowerRatio = round(100 * $cfo / ($cfo + $investingInflows + $financingInflows), 2);
             }
