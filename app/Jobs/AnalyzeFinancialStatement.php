@@ -197,7 +197,10 @@ class AnalyzeFinancialStatement implements ShouldQueue
             $growthCalculator = (new GrowthCalculator($financialStatement))->execute();
             $this->writeRevenueGrowth($growthCalculator)
                  ->writeInventoryGrowth($growthCalculator)
+                 ->writeCogsGrowth($growthCalculator)
                  ->writeGrossProfitGrowth($growthCalculator)
+                 ->writeOperationExpenseGrowth($growthCalculator)
+                 ->writeInterestExpenseGrowth($growthCalculator)
                  ->writeEBTGrowth($growthCalculator)
                  ->writeNetProfitOfParentShareHolderGrowth($growthCalculator)
                  ->writeTotalAssetGrowth($growthCalculator)
