@@ -214,7 +214,7 @@ trait CashFlowWriter
             'alias' => 'Cash Generating Power Ratio',
             'group' => 'Chỉ số dòng tiền',
             'unit' => '%',
-            'description' => 'Hệ số đánh giá khả năng tạo ra tiền mặt của doanh nghiệp (<strong>Cash Generating Power Ratio</strong>) hoàn toàn dựa trên hoạt động kinh doanh, so sánh trên tổng dòng tiền vào của doanh nghiệp. <strong style="color:#FF00FF;">Công thức tính = Lưu chuyển tiền thuần từ HĐKD (CFO) / (CFO + Dòng tiền vào từ hoạt động đầu tư + Dòng tiền vào của hoạt động tài chính) </strong>',
+            'description' => 'Hệ số đánh giá khả năng tạo ra tiền mặt của doanh nghiệp (<strong>Cash Generating Power Ratio</strong>) hoàn toàn dựa trên hoạt động kinh doanh, so sánh trên tổng dòng tiền vào của doanh nghiệp. Nếu 1 doanh nghiệp có tỷ lệ này được duy trì > 0 và ổn định trên 15% trong nhiều năm liền, khi đó có thể coi doanh nghiệp đó là một “cỗ máy tạo ra tiền”./ <strong style="color:#FF00FF;">Công thức tính = Lưu chuyển tiền thuần từ HĐKD (CFO) / (CFO + Dòng tiền vào từ hoạt động đầu tư + Dòng tiền vào của hoạt động tài chính) </strong>',
             'value' => $calculator->cashGeneratingPowerRatio
         ]);
         return $this;

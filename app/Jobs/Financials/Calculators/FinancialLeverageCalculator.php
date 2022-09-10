@@ -27,6 +27,8 @@ class FinancialLeverageCalculator extends BaseCalculator
 
     public $debtToEquityRatio = null; //Chi so no vay / VCSH
 
+    public $netDebtToEquityRatio = null; //Chi so no vay rong / VCSH
+
     public $longTermDebtToEquityRatio = null; //Chi so no vay dai han / VCSH
 
     public $longTermDebtToLongTermLiabilityRatio = null; //Chi so no vay dai han / no dai han
@@ -182,6 +184,25 @@ class FinancialLeverageCalculator extends BaseCalculator
             $total_debt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
             if ($equity != 0) {
                 $this->debtToEquityRatio = round($total_debt / $equity, 4);
+            }
+        }
+        return $this;
+    }
+
+    /**
+    * Calculate Net Debts to Equities - Chỉ số nợ vay rong / VCSH
+    *
+    * @return \App\Jobs\Financials\Calculators\FinancialLeverageCalculator $this
+    */
+    public function calculateNetDebtToEquityRatio()
+    {
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $this->financialStatement->year;
+            $selectedQuarter = $this->financialStatement->quarter;
+            $equity = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
+            $net_debt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter) - $this->financialStatement->balance_statement->getItem('10102')->getValue($selectedYear, $selectedQuarter) - $this->financialStatement->balance_statement->getItem('10205')->getValue($selectedYear, $selectedQuarter);
+            if ($equity != 0) {
+                $this->netDebtToEquityRatio = round($net_debt / $equity, 4);
             }
         }
         return $this;
