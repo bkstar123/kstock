@@ -26,13 +26,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Long Term Asset / Total Asset Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateLongTermAssetToTotalAssetRatio()
+    public function calculateLongTermAssetToTotalAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
             $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             if ($total_assets != 0) {
@@ -45,13 +47,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Fixed Asset / Total Asset Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateFixedAssetToTotalAssetRatio()
+    public function calculateFixedAssetToTotalAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
             if ($total_assets != 0) {
@@ -64,13 +68,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Tangible Fixed Asset / Fixed Asset Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateTangibleFixedAssetToFixedAssetRatio()
+    public function calculateTangibleFixedAssetToFixedAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
             $tangible_fixed_assets = $this->financialStatement->balance_statement->getItem('1020201')->getValue($selectedYear, $selectedQuarter);
             if ($fixed_assets != 0) {
@@ -83,13 +89,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Financial Lending Asset / Fixed Asset Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateFinancialLendingAssetToFixedAssetRatio()
+    public function calculateFinancialLendingAssetToFixedAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
             $financial_lending_assets = $this->financialStatement->balance_statement->getItem('1020202')->getValue($selectedYear, $selectedQuarter);
             if ($fixed_assets != 0) {
@@ -102,13 +110,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Intangible Asset / Fixed Asset Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateIntangibleAssetToFixedAssetRatio()
+    public function calculateIntangibleAssetToFixedAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
             $intangible_assets = $this->financialStatement->balance_statement->getItem('1020203')->getValue($selectedYear, $selectedQuarter);
             ;
@@ -122,13 +132,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Construction In Progress / Fixed Asset Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateConstructionInProgressToFixedAssetRatio()
+    public function calculateConstructionInProgressToFixedAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
             $constructionInProgress = $this->financialStatement->balance_statement->getItem('1020402')->getValue($selectedYear, $selectedQuarter);
             if ($fixed_assets != 0) {

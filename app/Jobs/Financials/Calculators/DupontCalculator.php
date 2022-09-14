@@ -35,21 +35,23 @@ class DupontCalculator extends BaseCalculator
     /**
      * Calculate Dupont components
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\DupontCalculator $this
      */
-    public function calculateDupontComponents()
+    public function calculateDupontComponents($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) && !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $profitabilityCalculator = new ProfitabilityCalculator($this->financialStatement);
             $financialLeverageCalculator = new FinancialLeverageCalculator($this->financialStatement);
             $operatingEffectivenessCalculator = new OperatingEffectivenessCalculator($this->financialStatement);
-            $this->roaa = $profitabilityCalculator->calculateROAA()->roaa;
-            $this->averageFinancialLeverage = $financialLeverageCalculator->calculateAverageTotalAssetToAverageEquityRatio()->averageTotalAssetToAverageEquityRatio;
-            $this->ros2 = $profitabilityCalculator->calculateROS2()->ros2;
-            $this->ebitMargin = $profitabilityCalculator->calculateEBITMargin()->ebitMargin;
-            $this->averageTotalAssetTurnOver = $operatingEffectivenessCalculator->calculateTotalAssetTurnoverRatio()->totalAssetTurnoverRatio;
+            $this->roaa = $profitabilityCalculator->calculateROAA($selectedYear, $selectedQuarter)->roaa;
+            $this->averageFinancialLeverage = $financialLeverageCalculator->calculateAverageTotalAssetToAverageEquityRatio($selectedYear, $selectedQuarter)->averageTotalAssetToAverageEquityRatio;
+            $this->ros2 = $profitabilityCalculator->calculateROS2($selectedYear, $selectedQuarter)->ros2;
+            $this->ebitMargin = $profitabilityCalculator->calculateEBITMargin($selectedYear, $selectedQuarter)->ebitMargin;
+            $this->averageTotalAssetTurnOver = $operatingEffectivenessCalculator->calculateTotalAssetTurnoverRatio($selectedYear, $selectedQuarter)->totalAssetTurnoverRatio;
             $earningBeforeTax = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter);
             $earningAfterTaxParentCompany = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             $earningAfterTax = $this->financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter);

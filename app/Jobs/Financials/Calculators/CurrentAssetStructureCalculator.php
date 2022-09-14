@@ -26,13 +26,15 @@ class CurrentAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Current Assets / Total Assets Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator $this
      */
-    public function calculateCurrentAssetToTotalAssetRatio()
+    public function calculateCurrentAssetToTotalAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             if ($total_assets != 0) {
@@ -45,13 +47,15 @@ class CurrentAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Cash / Current Assets Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator $this
      */
-    public function calculateCashToCurrentAssetRatio()
+    public function calculateCashToCurrentAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $cash = $this->financialStatement->balance_statement->getItem('1010101')->getValue($selectedYear, $selectedQuarter);
             if ($current_assets != 0) {
@@ -64,13 +68,15 @@ class CurrentAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Current Financial Investing / Current Assets Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator $this
      */
-    public function calculateCurrentFinancialInvestingToCurrentAssetRatio()
+    public function calculateCurrentFinancialInvestingToCurrentAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $current_financial_investing = $this->financialStatement->balance_statement->getItem('10102')->getValue($selectedYear, $selectedQuarter);
             if ($current_assets != 0) {
@@ -83,13 +89,15 @@ class CurrentAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate Current Receivable Account / Current Assets Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator $this
      */
-    public function calculateCurrentReceivableAccountToCurrentAssetRatio()
+    public function calculateCurrentReceivableAccountToCurrentAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $current_receivable_accounts = $this->financialStatement->balance_statement->getItem('10103')->getValue($selectedYear, $selectedQuarter);
             if ($current_assets != 0) {
@@ -102,13 +110,15 @@ class CurrentAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate inventories / Current Assets Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator $this
      */
-    public function calculateInventoryToCurrentAssetRatio()
+    public function calculateInventoryToCurrentAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $current_inventories = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter);
             if ($current_assets != 0) {
@@ -121,13 +131,15 @@ class CurrentAssetStructureCalculator extends BaseCalculator
     /**
      * Calculate other Current Assets / Current Assets Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CurrentAssetStructureCalculator $this
      */
-    public function calculateOtherCurrentAssetToCurrentAssetRatio()
+    public function calculateOtherCurrentAssetToCurrentAssetRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $other_current_assets = $this->financialStatement->balance_statement->getItem('10105')->getValue($selectedYear, $selectedQuarter);
             if ($current_assets != 0) {

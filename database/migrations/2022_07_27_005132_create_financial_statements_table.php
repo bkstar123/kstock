@@ -16,7 +16,7 @@ class CreateFinancialStatementsTable extends Migration
         Schema::create('financial_statements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('symbol');
-            $table->string('year');
+            $table->integer('year');
             $table->tinyInteger('quarter')->unsigned();
             $table->bigInteger('admin_id')->unsigned()->index();
             $table->timestamps();

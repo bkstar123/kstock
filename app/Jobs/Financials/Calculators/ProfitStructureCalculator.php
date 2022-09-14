@@ -16,13 +16,15 @@ class ProfitStructureCalculator extends BaseCalculator
     /**
      * Calculate Operating Profit / Earning Before Tax (EBT) Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CapexCalculator $this
      */
-    public function calculateOperatingProfitToEBTRatio()
+    public function calculateOperatingProfitToEBTRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $operatingProfit = $this->financialStatement->income_statement->getItem('11')->getValue($selectedYear, $selectedQuarter);
             $eBT = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter);
             if ($eBT != 0) {
