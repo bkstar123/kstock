@@ -24,13 +24,15 @@ class CostStructureCalculator extends BaseCalculator
     /**
      * Calculate Cost of goods sale / Revenue Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
      */
-    public function calculateCOGSToRevenueRatio()
+    public function calculateCOGSToRevenueRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             ;
@@ -44,13 +46,15 @@ class CostStructureCalculator extends BaseCalculator
     /**
      * Calculate Selling Expense / Revenue Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
      */
-    public function calculateSellingExpenseToRevenueRatio()
+    public function calculateSellingExpenseToRevenueRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selling_expenses = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter);
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             ;
@@ -64,13 +68,15 @@ class CostStructureCalculator extends BaseCalculator
     /**
      * Calculate Administration Expense / Revenue Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
      */
-    public function calculateAdministrationExpenseToRevenueRatio()
+    public function calculateAdministrationExpenseToRevenueRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $administration_expenses = $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             ;
@@ -84,13 +90,15 @@ class CostStructureCalculator extends BaseCalculator
     /**
      * Calculate Interest Cost / Revenue Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
      */
-    public function calculateInterestCostToRevenueRatio()
+    public function calculateInterestCostToRevenueRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $interest_cost = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($revenue != 0) {
@@ -103,13 +111,15 @@ class CostStructureCalculator extends BaseCalculator
     /**
      * Calculate Selling & Enterprise Management Expenses To Gross Profit Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\CostStructureCalculator $this
      */
-    public function calculateSellingAndEnperpriseManagementToGrossProfitRatio()
+    public function calculateSellingAndEnperpriseManagementToGrossProfitRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selling_expense = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter);
             $enterprise_management_expense = $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
             $grossProfit = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter);

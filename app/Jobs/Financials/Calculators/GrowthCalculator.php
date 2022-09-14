@@ -74,13 +74,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Revenue Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateRevenueGrowth()
+    public function calculateRevenueGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodRevenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $revenueYoY = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear-1, $selectedQuarter);
             if ($revenueYoY != 0) {
@@ -99,13 +101,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Gross Profit Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateGrossProfitGrowth()
+    public function calculateGrossProfitGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodGrossProfit = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter);
             $grossProfitYoY = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear-1, $selectedQuarter);
             if ($grossProfitYoY != 0) {
@@ -124,13 +128,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Earning Before Tax (EBT) Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateEBTGrowth()
+    public function calculateEBTGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodEBT = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter);
             $eBTYoY = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear-1, $selectedQuarter);
             if ($eBTYoY != 0) {
@@ -149,13 +155,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Net Profit Of Parent Shareholders Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateNetProfitOfParentShareHolderGrowth()
+    public function calculateNetProfitOfParentShareHolderGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodNetProfitOfParentShareHolder = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             $netProfitOfParentShareHolderYoY = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear-1, $selectedQuarter);
             if ($netProfitOfParentShareHolderYoY != 0) {
@@ -174,13 +182,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Total Asset Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateTotalAssetGrowth()
+    public function calculateTotalAssetGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodTotalAssets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             $totalAssetsYoY = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear-1, $selectedQuarter);
             if ($totalAssetsYoY != 0) {
@@ -199,13 +209,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Long Term Liability Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateLongTermLiabilityGrowth()
+    public function calculateLongTermLiabilityGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodLongTermLiability = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear, $selectedQuarter);
             $longTermLiabilityYoY = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear-1, $selectedQuarter);
             if ($longTermLiabilityYoY != 0) {
@@ -224,13 +236,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Liability Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateLiabilityGrowth()
+    public function calculateLiabilityGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodLiability = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear, $selectedQuarter);
             $liabilityYoY = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear-1, $selectedQuarter);
             if ($liabilityYoY != 0) {
@@ -249,13 +263,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Equity Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateEquityGrowth()
+    public function calculateEquityGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodEquity = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
             $equityYoY = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear-1, $selectedQuarter);
             if ($equityYoY != 0) {
@@ -274,13 +290,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Charter Capital Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateCharterCapitalGrowth()
+    public function calculateCharterCapitalGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodCharterCapital = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear, $selectedQuarter);
             $charterCapitalYoY = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear-1, $selectedQuarter);
             if ($charterCapitalYoY != 0) {
@@ -299,13 +317,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Inventory Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateInventoryGrowth()
+    public function calculateInventoryGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodInventory = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter);
             $inventoryYoY = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear-1, $selectedQuarter);
             if ($inventoryYoY != 0) {
@@ -324,13 +344,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate FCF Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateFcfGrowth()
+    public function calculateFcfGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->cash_flow_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodFCF = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
             $fcfYoY = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear-1, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear-1, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear-1, $selectedQuarter);
             if ($fcfYoY != 0) {
@@ -349,13 +371,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate COGS Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateCogsGrowth()
+    public function calculateCogsGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodCogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $cogsYoY = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear-1, $selectedQuarter);
             if ($cogsYoY != 0) {
@@ -374,13 +398,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Operation Expense Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateOperationExpenseGrowth()
+    public function calculateOperationExpenseGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodOperationExpense = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
             $operationExpenseYoY = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear-1, $selectedQuarter) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear-1, $selectedQuarter);
             if ($operationExpenseYoY != 0) {
@@ -399,13 +425,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Interest Expense Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateInterestExpenseGrowth()
+    public function calculateInterestExpenseGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodInterestExpense = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $interestExpenseYoY = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear-1, $selectedQuarter);
             if ($interestExpenseYoY != 0) {
@@ -424,13 +452,15 @@ class GrowthCalculator extends BaseCalculator
     /**
      * Calculate Debt Growth
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\GrowthCalculator $this
      */
-    public function calculateDebtGrowth()
+    public function calculateDebtGrowth($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $selectedPeriodDebt = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter);
             $debtYoY = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear-1, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear-1, $selectedQuarter);
             if ($debtYoY != 0) {

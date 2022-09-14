@@ -38,14 +38,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROAA - Ty suat loi nhuan tren tong tai san binh quan
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROAA()
+    public function calculateROAA($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             if ($average_total_assets != 0) {
@@ -58,14 +60,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROTA - Ty suat loi nhuan truoc thue va lai vay tren tong tai san binh quan
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROTA()
+    public function calculateROTA($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             $eBit = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             if ($average_total_assets != 0) {
@@ -78,14 +82,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROA - Ty suat loi nhuan tren tong tai san trong ky
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROA()
+    public function calculateROA($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             if ($total_assets != 0) {
@@ -98,14 +104,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROCE - Ty suat loi nhuan tren von dai han binh quan
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROCE()
+    public function calculateROCE($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $average_total_assets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             $average_current_liabilities = $this->financialStatement->balance_statement->getItem('30101')->getAverageValue($selectedYear, $selectedQuarter);
             $eBIT = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
@@ -119,14 +127,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROEA - Ty suat loi nhuan tren VCSH binh quan
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROEA()
+    public function calculateROEA($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             $average_equities = $this->financialStatement->balance_statement->getItem('302')->getAverageValue($selectedYear, $selectedQuarter);
             if ($average_equities != 0) {
@@ -139,14 +149,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROE - Ty suat loi nhuan tren VCSH
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROE()
+    public function calculateROE($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             $equities = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter);
             if ($equities != 0) {
@@ -159,13 +171,15 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROS - Ty suat loi nhuan rong
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROS()
+    public function calculateROS($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $net_profit = $this->financialStatement->income_statement->getItem('19')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
@@ -178,13 +192,15 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate ROS2 - Ty suat loi nhuan rong
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateROS2()
+    public function calculateROS2($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $parent_company_net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
@@ -197,14 +213,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate EBITDA Mergin based on balance & income statements
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateEBITDAMargin1()
+    public function calculateEBITDAMargin1($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $previousPeriod = getPreviousPeriod($selectedYear, $selectedQuarter);
             $eBit = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $tangibleFixedAssets = $this->financialStatement->balance_statement->getItem("102020102");
@@ -224,14 +242,16 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
     * Calculate EBITDA Mergin based on the cash flow statement
     *
+    * @param int $year
+    * @param int $quarter
     * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
     */
-    public function calculateEBITDAMargin2()
+    public function calculateEBITDAMargin2($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->cash_flow_statement) &&
             !empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $eBITDA = $this->financialStatement->cash_flow_statement->getItem('101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('10210')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('10201')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
@@ -244,13 +264,15 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate EBIT Margin
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateEBITMargin()
+    public function calculateEBITMargin($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $eBit = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
@@ -263,13 +285,15 @@ class ProfitabilityCalculator extends BaseCalculator
     /**
      * Calculate Gross profit margin - Bien loi nhuan gop
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\ProfitabilityCaculator $this
      */
-    public function calculateGrossProfitMargin()
+    public function calculateGrossProfitMargin($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $grossProfit = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter);
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {

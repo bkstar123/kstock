@@ -26,13 +26,15 @@ class LiquidityCalculator extends BaseCalculator
     /**
      * Calculate Overall Solvency ratio - He so kha nang thanh toan tong quat
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
      */
-    public function calculateOverallSolvencyRatio()
+    public function calculateOverallSolvencyRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             $liabilities = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear, $selectedQuarter);
             if ($liabilities != 0) {
@@ -45,13 +47,15 @@ class LiquidityCalculator extends BaseCalculator
     /**
     * Calculate Current ratio - He so kha nang thanh toan hien hanh (ngan han)
     *
+    * @param int $year
+     * @param int $quarter
     * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
     */
-    public function calculateCurrentRatio()
+    public function calculateCurrentRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $currentAssets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $currentLiabilities = $this->financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter);
             if ($currentLiabilities != 0) {
@@ -64,13 +68,15 @@ class LiquidityCalculator extends BaseCalculator
     /**
      * Calculate Quick Ratio - He so kha nang thanh toan nhanh
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
      */
-    public function calculateQuickRatio()
+    public function calculateQuickRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $currentAssets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $inventories = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter);
             $currentLiabilities = $this->financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter);
@@ -84,13 +90,15 @@ class LiquidityCalculator extends BaseCalculator
     /**
      * Calculate Quick Ratio 2 - He so kha nang thanh toan nhanh 2 (loai bo hang ton kho va phai thu ngan han)
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
      */
-    public function calculateQuickRatio2()
+    public function calculateQuickRatio2($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $currentAssets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $inventories = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter);
             $currentReceivableAccounts = $this->financialStatement->balance_statement->getItem('10103')->getValue($selectedYear, $selectedQuarter);
@@ -105,13 +113,15 @@ class LiquidityCalculator extends BaseCalculator
     /**
      * Calculate CashRatio - He so kha nang thanh toan tuc thoi
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
      */
-    public function calculateCashRatio()
+    public function calculateCashRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $cashAndEquivalents = $this->financialStatement->balance_statement->getItem('10101')->getValue($selectedYear, $selectedQuarter);
             $currentLiabilities = $this->financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter);
             if ($currentLiabilities != 0) {
@@ -124,13 +134,15 @@ class LiquidityCalculator extends BaseCalculator
     /**
      * Calculate Interest Coverage Ratio - He so kha nang chi tra lai vay
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LiquidityCalculator $this
      */
-    public function calculateInterestCoverageRatio()
+    public function calculateInterestCoverageRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $eBIT = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             $interest = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter);
             if ($interest != 0) {

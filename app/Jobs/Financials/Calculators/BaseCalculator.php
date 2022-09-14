@@ -24,14 +24,18 @@ class BaseCalculator
 
     /**
      * Execute all calculation methods
+     *
+     * @param int $year
+     * @param int $quarter
+     * @return \App\Jobs\Financials\Calculators\BaseCalculator
      */
-    public function execute()
+    public function execute($year = null, $quarter = null)
     {
         $methods = array_filter(get_class_methods($this), function ($method) {
             return str_starts_with($method, 'calculate');
         });
         foreach ($methods as $method) {
-            call_user_func([$this, $method]);
+            call_user_func([$this, $method], $year, $quarter);
         }
         return $this;
     }

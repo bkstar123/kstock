@@ -34,13 +34,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
       * Calculate Receivable Turn-over Ratio
       *
+      * @param int $year
+      * @param int $quarter
       * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
       */
-    public function calculateReceivableTurnoverRatio()
+    public function calculateReceivableTurnoverRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageCurrentCustomerReceivables = $this->financialStatement->balance_statement->getItem('1010301')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageCurrentCustomerReceivables != 0) {
@@ -54,13 +56,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
      * Calculate Inventory Turn-over Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
      */
-    public function calculateInventoryTurnoverRatio()
+    public function calculateInventoryTurnoverRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $averageInventories = $this->financialStatement->balance_statement->getItem('10104')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageInventories != 0) {
@@ -74,13 +78,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
      * Calculate Accounts Payable Turnover Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
      */
-    public function calculateAccountsPayableTurnoverRatio()
+    public function calculateAccountsPayableTurnoverRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $averageCurrentAccountPayables = $this->financialStatement->balance_statement->getItem('3010103')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageCurrentAccountPayables != 0) {
@@ -94,13 +100,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
      * Calculate Cash Conversion Cycle
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
      */
-    public function calculateCashConversionCycle()
+    public function calculateCashConversionCycle($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageCurrentCustomerReceivables = $this->financialStatement->balance_statement->getItem('1010301')->getAverageValue($selectedYear, $selectedQuarter);
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
@@ -119,13 +127,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
      * Calculate Fixed Asset Turnover Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
      */
-    public function calculateFixedAssetTurnoverRatio()
+    public function calculateFixedAssetTurnoverRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageFixedAssets = $this->financialStatement->balance_statement->getItem('10202')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageFixedAssets != 0) {
@@ -138,13 +148,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
      * Calculate Total Asset Turnover Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
      */
-    public function calculateTotalAssetTurnoverRatio()
+    public function calculateTotalAssetTurnoverRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageTotalAssets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageTotalAssets != 0) {
@@ -157,13 +169,15 @@ class OperatingEffectivenessCalculator extends BaseCalculator
     /**
      * Calculate Total Asset Turnover Ratio
      *
+     * @param int $year
+     * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator $this
      */
-    public function calculateEquityTurnoverRatio()
+    public function calculateEquityTurnoverRatio($year = null, $quarter = null)
     {
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
-            $selectedYear = $this->financialStatement->year;
-            $selectedQuarter = $this->financialStatement->quarter;
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageEquity = $this->financialStatement->balance_statement->getItem('302')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageEquity != 0) {
