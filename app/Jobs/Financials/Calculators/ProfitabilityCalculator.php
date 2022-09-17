@@ -11,29 +11,29 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class ProfitabilityCalculator extends BaseCalculator
 {
-    public $roaa = null; //Ty suat loi nhuan tren tong tai san binh quan
+    public $roaa; //Ty suat loi nhuan tren tong tai san binh quan
 
-    public $roce = null; //Ty suat loi nhuan tren von su dung dai han binh quan
+    public $roce; //Ty suat loi nhuan tren von su dung dai han binh quan
 
-    public $roa = null; //Ty suat loi nhuan tren tong tai san trong ki
+    public $roa; //Ty suat loi nhuan tren tong tai san trong ki
 
-    public $roe = null; //Ty suat loi nhuan tren VCSH trong ky
+    public $roe; //Ty suat loi nhuan tren VCSH trong ky
 
-    public $roea = null; //Ty suat loi nhuan tren VCSH binh quan
+    public $roea; //Ty suat loi nhuan tren VCSH binh quan
 
-    public $ros = null; //Ty suat loi nhuan rong (theo LNST)
+    public $ros; //Ty suat loi nhuan rong (theo LNST)
 
-    public $ros2 = null; //Ty suat loi nhuan rong (theo LNST co dong cong ty me)
+    public $ros2; //Ty suat loi nhuan rong (theo LNST co dong cong ty me)
 
-    public $ebitdaMargin1 = null; //Bien loi nhuan truoc thue, lai vay va khau hao tinh theo CDKT va bao cao ket qua HDKD
+    public $ebitdaMargin1; //Bien loi nhuan truoc thue, lai vay va khau hao tinh theo CDKT va bao cao ket qua HDKD
 
-    public $ebitdaMargin2 = null; //Bien loi nhuan truoc thue, lai vay va khau hao tinh theo LCTT
+    public $ebitdaMargin2; //Bien loi nhuan truoc thue, lai vay va khau hao tinh theo LCTT
 
-    public $ebitMargin = null; //Bien loi nhuan truoc thue va lai vay
+    public $ebitMargin; //Bien loi nhuan truoc thue va lai vay
 
-    public $grossProfitMargin = null; //Bien loi nhuan gop
+    public $grossProfitMargin; //Bien loi nhuan gop
 
-    public $rota = null; //Ti suat loi nhuan truoc thue va lai vay tren tong tai san binh quan
+    public $rota; //Ti suat loi nhuan truoc thue va lai vay tren tong tai san binh quan
 
     /**
      * Calculate ROAA - Ty suat loi nhuan tren tong tai san binh quan
@@ -44,6 +44,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROAA($year = null, $quarter = null)
     {
+        $this->roaa = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -66,6 +67,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROTA($year = null, $quarter = null)
     {
+        $this->rota = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -88,6 +90,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROA($year = null, $quarter = null)
     {
+        $this->roa = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -110,6 +113,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROCE($year = null, $quarter = null)
     {
+        $this->roce = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -133,6 +137,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROEA($year = null, $quarter = null)
     {
+        $this->roea = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -155,6 +160,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROE($year = null, $quarter = null)
     {
+        $this->roe = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -177,6 +183,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROS($year = null, $quarter = null)
     {
+        $this->ros = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -198,6 +205,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateROS2($year = null, $quarter = null)
     {
+        $this->ros2 = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -219,6 +227,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateEBITDAMargin1($year = null, $quarter = null)
     {
+        $this->ebitdaMargin1 = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -248,6 +257,7 @@ class ProfitabilityCalculator extends BaseCalculator
     */
     public function calculateEBITDAMargin2($year = null, $quarter = null)
     {
+        $this->ebitdaMargin2 = null;
         if (!empty($this->financialStatement->cash_flow_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
@@ -270,6 +280,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateEBITMargin($year = null, $quarter = null)
     {
+        $this->ebitMargin = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -291,6 +302,7 @@ class ProfitabilityCalculator extends BaseCalculator
      */
     public function calculateGrossProfitMargin($year = null, $quarter = null)
     {
+        $this->grossProfitMargin = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

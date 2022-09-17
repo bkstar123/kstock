@@ -11,25 +11,25 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class OperatingEffectivenessCalculator extends BaseCalculator
 {
-    public $receivableTurnoverRatio = null; //Vòng quay các khoản phải thu khách hàng
+    public $receivableTurnoverRatio; //Vòng quay các khoản phải thu khách hàng
 
-    public $averageCollectionPeriod = null; //Thời gian thu tiền khách hàng bình quân
+    public $averageCollectionPeriod; //Thời gian thu tiền khách hàng bình quân
 
-    public $inventoryTurnoverRatio = null; //Vòng quay hàng tồn kho
+    public $inventoryTurnoverRatio; //Vòng quay hàng tồn kho
 
-    public $averageAgeOfInventory = null;  //Thời gian tồn kho bình quân
+    public $averageAgeOfInventory;  //Thời gian tồn kho bình quân
 
-    public $accountsPayableTurnoverRatio = null; //Vòng quay phải trả nhà cung cấp
+    public $accountsPayableTurnoverRatio; //Vòng quay phải trả nhà cung cấp
 
-    public $averageAccountPayableDuration = null; //Thời gian trả tiền nhà cung cấp bình quân
+    public $averageAccountPayableDuration; //Thời gian trả tiền nhà cung cấp bình quân
 
-    public $cashConversionCycle = null; //Chu kỳ chuyển đổi tiền mặt
+    public $cashConversionCycle; //Chu kỳ chuyển đổi tiền mặt
 
-    public $fixedAssetTurnoverRatio = null; //Vòng quay tài sản cố định
+    public $fixedAssetTurnoverRatio; //Vòng quay tài sản cố định
 
-    public $totalAssetTurnoverRatio = null; //Vòng quay tổng tài sản
+    public $totalAssetTurnoverRatio; //Vòng quay tổng tài sản
 
-    public $equityTurnoverRatio = null; //Vòng quay VCSH
+    public $equityTurnoverRatio; //Vòng quay VCSH
 
     /**
       * Calculate Receivable Turn-over Ratio
@@ -40,6 +40,8 @@ class OperatingEffectivenessCalculator extends BaseCalculator
       */
     public function calculateReceivableTurnoverRatio($year = null, $quarter = null)
     {
+        $this->receivableTurnoverRatio = null;
+        $this->averageCollectionPeriod = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -47,7 +49,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $averageCurrentCustomerReceivables = $this->financialStatement->balance_statement->getItem('1010301')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageCurrentCustomerReceivables != 0) {
                 $this->receivableTurnoverRatio = round($revenue / $averageCurrentCustomerReceivables, 4);
-                $this->averageCollectionPeriod = round(365 * $averageCurrentCustomerReceivables/$revenue, 0);
+                $this->averageCollectionPeriod = round(365 * $averageCurrentCustomerReceivables / $revenue, 0);
             }
         }
         return $this;
@@ -62,6 +64,8 @@ class OperatingEffectivenessCalculator extends BaseCalculator
      */
     public function calculateInventoryTurnoverRatio($year = null, $quarter = null)
     {
+        $this->inventoryTurnoverRatio = null;
+        $this->averageAgeOfInventory = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -84,6 +88,8 @@ class OperatingEffectivenessCalculator extends BaseCalculator
      */
     public function calculateAccountsPayableTurnoverRatio($year = null, $quarter = null)
     {
+        $this->accountsPayableTurnoverRatio = null;
+        $this->averageAccountPayableDuration = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -106,6 +112,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
      */
     public function calculateCashConversionCycle($year = null, $quarter = null)
     {
+        $this->cashConversionCycle = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -133,6 +140,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
      */
     public function calculateFixedAssetTurnoverRatio($year = null, $quarter = null)
     {
+        $this->fixedAssetTurnoverRatio = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -154,6 +162,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
      */
     public function calculateTotalAssetTurnoverRatio($year = null, $quarter = null)
     {
+        $this->totalAssetTurnoverRatio = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -175,6 +184,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
      */
     public function calculateEquityTurnoverRatio($year = null, $quarter = null)
     {
+        $this->equityTurnoverRatio = null;
         if (!empty($this->financialStatement->income_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

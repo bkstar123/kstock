@@ -11,17 +11,17 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class LiquidityCalculator extends BaseCalculator
 {
-    public $overallSolvencyRatio = null;
+    public $overallSolvencyRatio; //He so thanh toan tong quat
 
-    public $currentRatio = null;
+    public $currentRatio; //He so thanh toan hien hanh
 
-    public $quickRatio = null;
+    public $quickRatio; // He so thanh toan nhanh
 
-    public $quickRatio2 = null;
+    public $quickRatio2; //He so thanh toan nhanh
 
-    public $cashRatio = null;
+    public $cashRatio; //He so thanh toan tuc thoi
 
-    public $interestCoverageRatio = null;
+    public $interestCoverageRatio; //He so thanh toan lai vay
 
     /**
      * Calculate Overall Solvency ratio - He so kha nang thanh toan tong quat
@@ -32,6 +32,7 @@ class LiquidityCalculator extends BaseCalculator
      */
     public function calculateOverallSolvencyRatio($year = null, $quarter = null)
     {
+        $this->overallSolvencyRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -53,6 +54,7 @@ class LiquidityCalculator extends BaseCalculator
     */
     public function calculateCurrentRatio($year = null, $quarter = null)
     {
+        $this->currentRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -74,6 +76,7 @@ class LiquidityCalculator extends BaseCalculator
      */
     public function calculateQuickRatio($year = null, $quarter = null)
     {
+        $this->quickRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -96,6 +99,7 @@ class LiquidityCalculator extends BaseCalculator
      */
     public function calculateQuickRatio2($year = null, $quarter = null)
     {
+        $this->quickRatio2 = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -119,6 +123,7 @@ class LiquidityCalculator extends BaseCalculator
      */
     public function calculateCashRatio($year = null, $quarter = null)
     {
+        $this->cashRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -140,6 +145,7 @@ class LiquidityCalculator extends BaseCalculator
      */
     public function calculateInterestCoverageRatio($year = null, $quarter = null)
     {
+        $this->interestCoverageRatio = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

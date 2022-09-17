@@ -104,117 +104,117 @@ class AnalyzeFinancialStatement implements ShouldQueue
                 }
             }
             // Profitability Ratios
-            $profitabilityCalculator = (new ProfitabilityCalculator($financialStatement))->execute();
-            $this->writeROAA($profitabilityCalculator)
-                 ->writeROA($profitabilityCalculator)
-                 ->writeROTA($profitabilityCalculator)
-                 ->writeROCE($profitabilityCalculator)
-                 ->writeROEA($profitabilityCalculator)
-                 ->writeROE($profitabilityCalculator)
-                 ->writeROS($profitabilityCalculator)
-                 ->writeROS2($profitabilityCalculator)
-                 ->writeEBITDAMargin1($profitabilityCalculator)
-                 ->writeEBITDAMargin2($profitabilityCalculator)
-                 ->writeEBITMargin($profitabilityCalculator)
-                 ->writeGrossProfitMargin($profitabilityCalculator);
+            $profitabilityCalculator = new ProfitabilityCalculator($financialStatement);
+            $this->writeROAA($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROA($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROTA($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROCE($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROEA($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROE($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROS($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeROS2($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeEBITDAMargin1($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeEBITDAMargin2($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeEBITMargin($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeGrossProfitMargin($profitabilityCalculator, $financialStatement->year, $financialStatement->quarter);
             // Liquidity/Solvency Ratios
-            $liquidityCalculator = (new LiquidityCalculator($financialStatement))->execute();
-            $this->writeOverallSolvencyRatio($liquidityCalculator)
-                 ->writeCurrentRatio($liquidityCalculator)
-                 ->writeQuickRatio($liquidityCalculator)
-                 ->writeQuickRatio2($liquidityCalculator)
-                 ->writeCashRatio($liquidityCalculator)
-                 ->writeInterestCoverageRatio($liquidityCalculator);
+            $liquidityCalculator = new LiquidityCalculator($financialStatement);
+            $this->writeOverallSolvencyRatio($liquidityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentRatio($liquidityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeQuickRatio($liquidityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeQuickRatio2($liquidityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCashRatio($liquidityCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInterestCoverageRatio($liquidityCalculator, $financialStatement->year, $financialStatement->quarter);
             // Cash Flow Ratios
-            $cashFlowCalculator = (new CashFlowCalculator($financialStatement))->execute();
-            $this->writeLiabilityCoverageRatioByCFO($cashFlowCalculator)
-                 ->writeCurrentLiabilityCoverageRatioByCFO($cashFlowCalculator)
-                 ->writeLongTermLiabilityCoverageRatioByCFO($cashFlowCalculator)
-                 ->writeCFOToRevenue($cashFlowCalculator)
-                 ->writeFCFToRevenue($cashFlowCalculator)
-                 ->writeLiabilityCoverageRatioByFCF($cashFlowCalculator)
-                 ->writeCurrentLiabilityCoverageRatioByFCF($cashFlowCalculator)
-                 ->writeLongTermLiabilityCoverageRatioByFCF($cashFlowCalculator)
-                 ->writeInterestCoverageRatioByFCF($cashFlowCalculator)
-                 ->writeAssetEfficencyForFCFRatio($cashFlowCalculator)
-                 ->writeCashGeneratingPowerRatio($cashFlowCalculator)
-                 ->writeExternalFinancingRatio($cashFlowCalculator);
+            $cashFlowCalculator = new CashFlowCalculator($financialStatement);
+            $this->writeLiabilityCoverageRatioByCFO($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentLiabilityCoverageRatioByCFO($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermLiabilityCoverageRatioByCFO($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCFOToRevenue($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFCFToRevenue($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLiabilityCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentLiabilityCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermLiabilityCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInterestCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeAssetEfficencyForFCFRatio($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCashGeneratingPowerRatio($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeExternalFinancingRatio($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter);
             // CAPEX
-            $capexCalculator = (new CapexCalculator($financialStatement))->execute();
-            $this->writeCfoToCapexRatio($capexCalculator)
-                 ->writeCapexToNetProfitRatio($capexCalculator);
+            $capexCalculator = new CapexCalculator($financialStatement);
+            $this->writeCfoToCapexRatio($capexCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCapexToNetProfitRatio($capexCalculator, $financialStatement->year, $financialStatement->quarter);
             // Operating effectiveness
-            $operatingEffectivenessCalculator = (new OperatingEffectivenessCalculator($financialStatement))->execute();
-            $this->writeReceivableTurnoverRatio($operatingEffectivenessCalculator)
-                 ->writeInventoryTurnoverRatio($operatingEffectivenessCalculator)
-                 ->writeAccountsPayableTurnoverRatio($operatingEffectivenessCalculator)
-                 ->writeCashConversionCycle($operatingEffectivenessCalculator)
-                 ->writeFixedAssetTurnoverRatio($operatingEffectivenessCalculator)
-                 ->writeTotalAssetTurnoverRatio($operatingEffectivenessCalculator)
-                 ->writeEquityTurnoverRatio($operatingEffectivenessCalculator);
+            $operatingEffectivenessCalculator = new OperatingEffectivenessCalculator($financialStatement);
+            $this->writeReceivableTurnoverRatio($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInventoryTurnoverRatio($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeAccountsPayableTurnoverRatio($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCashConversionCycle($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFixedAssetTurnoverRatio($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeTotalAssetTurnoverRatio($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeEquityTurnoverRatio($operatingEffectivenessCalculator, $financialStatement->year, $financialStatement->quarter);
             // Financial Leverage
-            $financialLeverageCalculator = (new FinancialLeverageCalculator($financialStatement))->execute();
-            $this->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator)
-                 ->writeTotalDebtToTotalAssetRatio($financialLeverageCalculator)
-                 ->writeShortTermToTotalLiabilitiesRatio($financialLeverageCalculator)
-                 ->writeTotalDebtToTotalLiabilityRatio($financialLeverageCalculator)
-                 ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator)
-                 ->writeLongTermDebtToLongTermLiabilityRatio($financialLeverageCalculator)
-                 ->writeCurrentDebtToCurrentLiabilityRatio($financialLeverageCalculator)
-                 ->writeInterestExpenseToAverageDebtRatio($financialLeverageCalculator)
-                 ->writeDebtToEquityRatio($financialLeverageCalculator)
-                 ->writeNetDebtToEquityRatio($financialLeverageCalculator)
-                 ->writeLongTermDebtToEquityRatio($financialLeverageCalculator)
-                 ->writeTotalAssetToEquityRatio($financialLeverageCalculator)
-                 ->writeAverageTotalAssetToAverageEquityRatio($financialLeverageCalculator);
+            $financialLeverageCalculator = new FinancialLeverageCalculator($financialStatement);
+            $this->writeTotalLiabilityToTotalAssetRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeTotalDebtToTotalAssetRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeShortTermToTotalLiabilitiesRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeTotalDebtToTotalLiabilityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentDebtToTotalDebtRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermDebtToLongTermLiabilityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentDebtToCurrentLiabilityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInterestExpenseToAverageDebtRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeDebtToEquityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeNetDebtToEquityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermDebtToEquityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeTotalAssetToEquityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeAverageTotalAssetToAverageEquityRatio($financialLeverageCalculator, $financialStatement->year, $financialStatement->quarter);
             // Cost Structure
-            $costStructureCalculator = (new CostStructureCalculator($financialStatement))->execute();
-            $this->writeCOGSToRevenueRatio($costStructureCalculator)
-                 ->writeSellingExpenseToRevenueRatio($costStructureCalculator)
-                 ->writeAdministrationExpenseToRevenueRatio($costStructureCalculator)
-                 ->writeInterestCostToRevenueRatio($costStructureCalculator)
-                 ->writeSellingAndEnperpriseManagementToGrossProfitRatio($costStructureCalculator);
+            $costStructureCalculator = new CostStructureCalculator($financialStatement);
+            $this->writeCOGSToRevenueRatio($costStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeSellingExpenseToRevenueRatio($costStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeAdministrationExpenseToRevenueRatio($costStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInterestCostToRevenueRatio($costStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeSellingAndEnperpriseManagementToGrossProfitRatio($costStructureCalculator, $financialStatement->year, $financialStatement->quarter);
             // Current Asset Structure
-            $currentAssetStructureCalculator = (new CurrentAssetStructureCalculator($financialStatement))->execute();
-            $this->writeCurrentAssetToTotalAssetRatio($currentAssetStructureCalculator)
-                 ->writeCashToCurrentAssetRatio($currentAssetStructureCalculator)
-                 ->writeCurrentFinancialInvestingToCurrentAssetRatio($currentAssetStructureCalculator)
-                 ->writeCurrentReceivableAccountToCurrentAssetRatio($currentAssetStructureCalculator)
-                 ->writeInventoryToCurrentAssetRatio($currentAssetStructureCalculator)
-                 ->calculateOtherCurrentAssetToCurrentAssetRatio($currentAssetStructureCalculator);
+            $currentAssetStructureCalculator = new CurrentAssetStructureCalculator($financialStatement);
+            $this->writeCurrentAssetToTotalAssetRatio($currentAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCashToCurrentAssetRatio($currentAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentFinancialInvestingToCurrentAssetRatio($currentAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCurrentReceivableAccountToCurrentAssetRatio($currentAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInventoryToCurrentAssetRatio($currentAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->calculateOtherCurrentAssetToCurrentAssetRatio($currentAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter);
             // Long Term Asset Structure
-            $longTermAssetStructureCalculator = (new LongTermAssetStructureCalculator($financialStatement))->execute();
-            $this->writeLongTermAssetToTotalAssetRatio($longTermAssetStructureCalculator)
-                 ->writeFixedAssetToTotalAssetRatio($longTermAssetStructureCalculator)
-                 ->writeTangibleFixedAssetToFixedAssetRatio($longTermAssetStructureCalculator)
-                 ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator)
-                 ->writeIntangibleAssetToFixedAssetRatio($longTermAssetStructureCalculator)
-                 ->writeConstructionInProgressToFixedAssetRatio($longTermAssetStructureCalculator);
+            $longTermAssetStructureCalculator = new LongTermAssetStructureCalculator($financialStatement);
+            $this->writeLongTermAssetToTotalAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFixedAssetToTotalAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeTangibleFixedAssetToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeIntangibleAssetToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeConstructionInProgressToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter);
             // Profit Structure
-            $profitStructureCalculator = (new ProfitStructureCalculator($financialStatement))->execute();
-            $this->writeOperatingProfitToEBTRatio($profitStructureCalculator);
+            $profitStructureCalculator = new ProfitStructureCalculator($financialStatement);
+            $this->writeOperatingProfitToEBTRatio($profitStructureCalculator, $financialStatement->year, $financialStatement->quarter);
             // Growth
-            $growthCalculator = (new GrowthCalculator($financialStatement))->execute();
-            $this->writeRevenueGrowth($growthCalculator)
-                 ->writeInventoryGrowth($growthCalculator)
-                 ->writeCogsGrowth($growthCalculator)
-                 ->writeGrossProfitGrowth($growthCalculator)
-                 ->writeOperationExpenseGrowth($growthCalculator)
-                 ->writeInterestExpenseGrowth($growthCalculator)
-                 ->writeEBTGrowth($growthCalculator)
-                 ->writeNetProfitOfParentShareHolderGrowth($growthCalculator)
-                 ->writeTotalAssetGrowth($growthCalculator)
-                 ->writeLongTermLiabilityGrowth($growthCalculator)
-                 ->writeLiabilityGrowth($growthCalculator)
-                 ->writeDebtGrowth($growthCalculator)
-                 ->writeEquityGrowth($growthCalculator)
-                 ->writeCharterCapitalGrowth($growthCalculator)
-                 ->writeFcfGrowth($growthCalculator);
+            $growthCalculator = new GrowthCalculator($financialStatement);
+            $this->writeRevenueGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInventoryGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCogsGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeGrossProfitGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeOperationExpenseGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeInterestExpenseGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeEBTGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeNetProfitOfParentShareHolderGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeTotalAssetGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermLiabilityGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLiabilityGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeDebtGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeEquityGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeCharterCapitalGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFcfGrowth($growthCalculator, $financialStatement->year, $financialStatement->quarter);
             //Dupont Analysis
-            $dupontCalculator = (new DupontCalculator($financialStatement))->execute();
-            $this->writeDupontLevel2Components($dupontCalculator)
-                 ->writeDupontLevel3Components($dupontCalculator)
-                 ->writeDupontLevel5Components($dupontCalculator);
+            $dupontCalculator = new DupontCalculator($financialStatement);
+            $this->writeDupontLevel2Components($dupontCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeDupontLevel3Components($dupontCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeDupontLevel5Components($dupontCalculator, $financialStatement->year, $financialStatement->quarter);
             AnalysisReport::create([
                 'content' => json_encode($this->content),
                 'financial_statement_id' => $this->financialStatementID

@@ -11,7 +11,7 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class ProfitStructureCalculator extends BaseCalculator
 {
-    public $operatingProfitToEBT = null; //He so loi nhuan thuan tu HDKD / LNTT
+    public $operatingProfitToEBT; //He so loi nhuan thuan tu HDKD / LNTT
 
     /**
      * Calculate Operating Profit / Earning Before Tax (EBT) Ratio
@@ -22,6 +22,7 @@ class ProfitStructureCalculator extends BaseCalculator
      */
     public function calculateOperatingProfitToEBTRatio($year = null, $quarter = null)
     {
+        $this->operatingProfitToEBT = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

@@ -11,29 +11,29 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class CashFlowCalculator extends BaseCalculator
 {
-    public $liabilityCoverageRatioByCFO = null; //Hệ số thanh toán nợ bằng dòng tiền hoạt động kinh doanh
+    public $liabilityCoverageRatioByCFO; //Hệ số thanh toán nợ bằng dòng tiền hoạt động kinh doanh
 
-    public $currentLiabilityCoverageRatioByCFO = null; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh
+    public $currentLiabilityCoverageRatioByCFO; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền hoạt động kinh doanh
 
-    public $longTermLiabilityCoverageRatioByCFO = null; //Hệ số thanh toán nợ dài hạn bằng dòng tiền hoạt động kinh doanh
+    public $longTermLiabilityCoverageRatioByCFO; //Hệ số thanh toán nợ dài hạn bằng dòng tiền hoạt động kinh doanh
 
-    public $cFOToRevenue = null; //CFO/Doanh thu thuần
+    public $cFOToRevenue; //CFO/Doanh thu thuần
 
-    public $fCFToRevenue = null; //FCF/Doanh thu thuần
+    public $fCFToRevenue; //FCF/Doanh thu thuần
 
-    public $liabilityCoverageRatioByFCF = null; //Hệ số thanh toán nợ bằng dòng tiền tự do
+    public $liabilityCoverageRatioByFCF; //Hệ số thanh toán nợ bằng dòng tiền tự do
 
-    public $currentLiabilityCoverageRatioByFCF = null; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền tự do
+    public $currentLiabilityCoverageRatioByFCF; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền tự do
 
-    public $longTermLiabilityCoverageRatioByFCF = null; //Hệ số thanh toán nợ dài hạn bằng dòng tiền tự do
+    public $longTermLiabilityCoverageRatioByFCF; //Hệ số thanh toán nợ dài hạn bằng dòng tiền tự do
 
-    public $interestCoverageRatioByFCF = null; //Hệ số thanh toán lãi vay bằng dòng tiền tự do
+    public $interestCoverageRatioByFCF; //Hệ số thanh toán lãi vay bằng dòng tiền tự do
 
-    public $assetEfficencyForFCFRatio = null; //Hệ số hiệu quả chuyển đổi tài sản thành dòng tiền tự do
+    public $assetEfficencyForFCFRatio; //Hệ số hiệu quả chuyển đổi tài sản thành dòng tiền tự do
 
-    public $cashGeneratingPowerRatio = null; //Hệ số hiệu quả tạo tiền từ hoạt động kinh doanh
+    public $cashGeneratingPowerRatio; //Hệ số hiệu quả tạo tiền từ hoạt động kinh doanh
 
-    public $externalFinancingRatio = null; //Hệ số phụ thuộc tài chính bên ngoài
+    public $externalFinancingRatio; //Hệ số phụ thuộc tài chính bên ngoài
 
     /**
      * Calculate Liability Coverage Ratio By CFO - He so kha nang thanh toan no cua dong tien kinh doanh
@@ -44,6 +44,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateLiabilityCoverageRatioByCFO($year = null, $quarter = null)
     {
+        $this->liabilityCoverageRatioByCFO = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -65,6 +66,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateCurrentLiabilityCoverageRatioByCFO($year = null, $quarter = null)
     {
+        $this->currentLiabilityCoverageRatioByCFO = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -86,6 +88,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateLongTermLiabilityCoverageRatioByCFO($year = null, $quarter = null)
     {
+        $this->longTermLiabilityCoverageRatioByCFO = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -107,6 +110,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateCFOToRevenue($year = null, $quarter = null)
     {
+        $this->cFOToRevenue = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -128,6 +132,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateFCFToRevenue($year = null, $quarter = null)
     {
+        $this->fCFToRevenue = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -149,6 +154,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateLiabilityCoverageRatioByFCF($year = null, $quarter = null)
     {
+        $this->liabilityCoverageRatioByFCF = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -170,6 +176,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateCurrentLiabilityCoverageRatioByFCF($year = null, $quarter = null)
     {
+        $this->currentLiabilityCoverageRatioByFCF = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -191,6 +198,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateLongTermLiabilityCoverageRatioByFCF($year = null, $quarter = null)
     {
+        $this->longTermLiabilityCoverageRatioByFCF = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -212,6 +220,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateInterestCoverageRatioByFCF($year = null, $quarter = null)
     {
+        $this->interestCoverageRatioByFCF = null;
         if (!empty($this->financialStatement->cash_flow_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -234,6 +243,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateAssetEfficencyForFCFRatio($year = null, $quarter = null)
     {
+        $this->assetEfficencyForFCFRatio = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -255,6 +265,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateCashGeneratingPowerRatio($year = null, $quarter = null)
     {
+        $this->cashGeneratingPowerRatio = null;
         if (!empty($this->financialStatement->cash_flow_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -287,6 +298,7 @@ class CashFlowCalculator extends BaseCalculator
      */
     public function calculateExternalFinancingRatio($year = null, $quarter = null)
     {
+        $this->externalFinancingRatio = null;
         if (!empty($this->financialStatement->cash_flow_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
