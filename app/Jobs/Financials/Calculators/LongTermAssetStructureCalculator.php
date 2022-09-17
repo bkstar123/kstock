@@ -11,17 +11,17 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class LongTermAssetStructureCalculator extends BaseCalculator
 {
-    public $longTermAssetToTotalAssetRatio = null; //Tài sản dài hạn/Tổng tài sản
+    public $longTermAssetToTotalAssetRatio; //Tài sản dài hạn/Tổng tài sản
 
-    public $fixedAssetToTotalAssetRatio = null; //Tài sản cố định/Tổng tài sản
+    public $fixedAssetToTotalAssetRatio; //Tài sản cố định/Tổng tài sản
 
-    public $tangibleFixedAssetToFixedAssetRatio = null; //Tài sản cố định hữu hình/Tài sản cố định
+    public $tangibleFixedAssetToFixedAssetRatio; //Tài sản cố định hữu hình/Tài sản cố định
 
-    public $financialLendingAssetToFixedAssetRatio = null; //Tài sản thuê tài chính/Tài sản cố định
+    public $financialLendingAssetToFixedAssetRatio; //Tài sản thuê tài chính/Tài sản cố định
 
-    public $intangibleAssetToFixedAssetRatio = null; //Tài sản vô hình/Tài sản cố định
+    public $intangibleAssetToFixedAssetRatio; //Tài sản vô hình/Tài sản cố định
 
-    public $constructionInProgressToFixedAssetRatio = null; //Chi phí xây dựng cơ bản dở dang dài hạn / Tài sản cố định
+    public $constructionInProgressToFixedAssetRatio; //Chi phí xây dựng cơ bản dở dang dài hạn / Tài sản cố định
 
     /**
      * Calculate Long Term Asset / Total Asset Ratio
@@ -32,6 +32,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
      */
     public function calculateLongTermAssetToTotalAssetRatio($year = null, $quarter = null)
     {
+        $this->longTermAssetToTotalAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -53,6 +54,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
      */
     public function calculateFixedAssetToTotalAssetRatio($year = null, $quarter = null)
     {
+        $this->fixedAssetToTotalAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -74,6 +76,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
      */
     public function calculateTangibleFixedAssetToFixedAssetRatio($year = null, $quarter = null)
     {
+        $this->tangibleFixedAssetToFixedAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -95,6 +98,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
      */
     public function calculateFinancialLendingAssetToFixedAssetRatio($year = null, $quarter = null)
     {
+        $this->financialLendingAssetToFixedAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -116,6 +120,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
      */
     public function calculateIntangibleAssetToFixedAssetRatio($year = null, $quarter = null)
     {
+        $this->intangibleAssetToFixedAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -138,6 +143,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
      */
     public function calculateConstructionInProgressToFixedAssetRatio($year = null, $quarter = null)
     {
+        $this->constructionInProgressToFixedAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

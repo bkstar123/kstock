@@ -11,17 +11,17 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class CurrentAssetStructureCalculator extends BaseCalculator
 {
-    public $currentAssetToTotalAssetRatio = null; //Tài sản ngắn hạn/Tổng tài sản
+    public $currentAssetToTotalAssetRatio; //Tài sản ngắn hạn/Tổng tài sản
 
-    public $cashToCurrentAssetRatio = null; //Tiền/Tài sản ngắn hạn
+    public $cashToCurrentAssetRatio; //Tiền/Tài sản ngắn hạn
 
-    public $currentFinancialInvestingToCurrentAssetRatio = null; //Đầu tư tài chính ngắn hạn/Tài sản ngắn hạn
+    public $currentFinancialInvestingToCurrentAssetRatio; //Đầu tư tài chính ngắn hạn/Tài sản ngắn hạn
 
-    public $currentReceivableAccountToCurrentAssetRatio = null; //Phải thu ngắn hạn/Tài sản ngắn hạn
+    public $currentReceivableAccountToCurrentAssetRatio; //Phải thu ngắn hạn/Tài sản ngắn hạn
 
-    public $inventoryToCurrentAssetRatio = null; //Hàng tồn kho/Tài sản ngắn hạn
+    public $inventoryToCurrentAssetRatio; //Hàng tồn kho/Tài sản ngắn hạn
 
-    public $otherCurrentAssetToCurrentAssetRatio = null;  //Tài sản ngắn hạn khác/Tài sản ngắn hạn
+    public $otherCurrentAssetToCurrentAssetRatio;  //Tài sản ngắn hạn khác/Tài sản ngắn hạn
 
     /**
      * Calculate Current Assets / Total Assets Ratio
@@ -32,6 +32,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
      */
     public function calculateCurrentAssetToTotalAssetRatio($year = null, $quarter = null)
     {
+        $this->currentAssetToTotalAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -53,6 +54,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
      */
     public function calculateCashToCurrentAssetRatio($year = null, $quarter = null)
     {
+        $this->cashToCurrentAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -74,6 +76,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
      */
     public function calculateCurrentFinancialInvestingToCurrentAssetRatio($year = null, $quarter = null)
     {
+        $this->currentFinancialInvestingToCurrentAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -95,6 +98,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
      */
     public function calculateCurrentReceivableAccountToCurrentAssetRatio($year = null, $quarter = null)
     {
+        $this->currentReceivableAccountToCurrentAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -116,6 +120,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
      */
     public function calculateInventoryToCurrentAssetRatio($year = null, $quarter = null)
     {
+        $this->inventoryToCurrentAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -137,6 +142,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
      */
     public function calculateOtherCurrentAssetToCurrentAssetRatio($year = null, $quarter = null)
     {
+        $this->otherCurrentAssetToCurrentAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

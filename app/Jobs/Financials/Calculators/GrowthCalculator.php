@@ -11,65 +11,65 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class GrowthCalculator extends BaseCalculator
 {
-    public $revenueGrowthQoQ = null; //Tăng trưởng doanh thu thuần so với quý trước trong cùng năm tài chính
+    public $revenueGrowthQoQ; //Tăng trưởng doanh thu thuần so với quý trước trong cùng năm tài chính
 
-    public $revenueGrowthYoY = null; //Tăng trưởng doanh thu thuần so với cùng kỳ năm tài chính trước
+    public $revenueGrowthYoY; //Tăng trưởng doanh thu thuần so với cùng kỳ năm tài chính trước
 
-    public $grossProfitGrowthQoQ = null; //Tăng trưởng lợi nhuận gộp so với quý trước trong cùng năm tài chính
+    public $grossProfitGrowthQoQ; //Tăng trưởng lợi nhuận gộp so với quý trước trong cùng năm tài chính
 
-    public $grossProfitGrowthYoY = null; //Tăng trưởng lợi nhuận gộp so với cùng kỳ năm tài chính trước
+    public $grossProfitGrowthYoY; //Tăng trưởng lợi nhuận gộp so với cùng kỳ năm tài chính trước
 
-    public $eBTGrowthQoQ = null; //Tăng trưởng lợi nhuận trước thuế so với quý trước trong cùng năm tài chính
+    public $eBTGrowthQoQ; //Tăng trưởng lợi nhuận trước thuế so với quý trước trong cùng năm tài chính
 
-    public $eBTGrowthYoY = null; //Tăng trưởng lợi nhuận trước thuế so với cùng kỳ năm tài chính trước
+    public $eBTGrowthYoY; //Tăng trưởng lợi nhuận trước thuế so với cùng kỳ năm tài chính trước
 
-    public $netProfitOfParentShareHolderGrowthQoQ = null; //Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với quý trước trong cùng năm tài chính
+    public $netProfitOfParentShareHolderGrowthQoQ; //Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với quý trước trong cùng năm tài chính
 
-    public $netProfitOfParentShareHolderGrowthYoY = null; //Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với cùng kỳ năm tài chính trước
+    public $netProfitOfParentShareHolderGrowthYoY; //Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với cùng kỳ năm tài chính trước
 
-    public $totalAssetGrowthQoQ = null; //Tăng trưởng tổng tài sản so với quý trước trong cùng năm tài chính
+    public $totalAssetGrowthQoQ; //Tăng trưởng tổng tài sản so với quý trước trong cùng năm tài chính
 
-    public $totalAssetGrowthYoY = null; //Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước
+    public $totalAssetGrowthYoY; //Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước
 
-    public $longTermLiabilityGrowthQoQ = null; //Tăng trưởng nợ dài hạn so với quý trước trong cùng năm tài chính
+    public $longTermLiabilityGrowthQoQ; //Tăng trưởng nợ dài hạn so với quý trước trong cùng năm tài chính
 
-    public $longTermLiabilityGrowthYoY = null; //Tăng trưởng nợ dài hạn so với cùng kỳ năm tài chính trước
+    public $longTermLiabilityGrowthYoY; //Tăng trưởng nợ dài hạn so với cùng kỳ năm tài chính trước
 
-    public $liabilityGrowthQoQ = null; //Tăng trưởng nợ phải trả so với quý trước trong cùng năm tài chính
+    public $liabilityGrowthQoQ; //Tăng trưởng nợ phải trả so với quý trước trong cùng năm tài chính
 
-    public $liabilityGrowthYoY = null; //Tăng trưởng nợ phải trả so với cùng kỳ năm tài chính trước
+    public $liabilityGrowthYoY; //Tăng trưởng nợ phải trả so với cùng kỳ năm tài chính trước
 
-    public $equityGrowthQoQ = null; //Tăng trưởng VCSH so với quý trước trong cùng năm tài chính
+    public $equityGrowthQoQ; //Tăng trưởng VCSH so với quý trước trong cùng năm tài chính
 
-    public $equityGrowthYoY = null; //Tăng trưởng VCSH so với cùng kỳ năm tài chính trước
+    public $equityGrowthYoY; //Tăng trưởng VCSH so với cùng kỳ năm tài chính trước
 
-    public $charterCapitalGrowthQoQ = null; //Tăng trưởng vốn điều lệ so với quý trước trong cùng năm tài chính
+    public $charterCapitalGrowthQoQ; //Tăng trưởng vốn điều lệ so với quý trước trong cùng năm tài chính
 
-    public $charterCapitalGrowthYoY = null; //Tăng trưởng vốn điều lệ so với cùng kỳ năm tài chính trước
+    public $charterCapitalGrowthYoY; //Tăng trưởng vốn điều lệ so với cùng kỳ năm tài chính trước
 
-    public $inventoryGrowthQoQ = null; //Tăng trưởng hang ton kho so với quý trước trong cùng năm tài chính
+    public $inventoryGrowthQoQ; //Tăng trưởng hang ton kho so với quý trước trong cùng năm tài chính
 
-    public $inventoryGrowthYoY = null; //Tăng trưởng hang ton kho so với cùng kỳ năm tài chính trước
+    public $inventoryGrowthYoY; //Tăng trưởng hang ton kho so với cùng kỳ năm tài chính trước
 
-    public $fcfGrowthQoQ = null; //Tang truong dong tien tu do so voi quý trước trong cùng năm tài chính
+    public $fcfGrowthQoQ; //Tang truong dong tien tu do so voi quý trước trong cùng năm tài chính
 
-    public $fcfGrowthYoY = null; //Tang truong dong tien tu do so voi cùng kỳ năm tài chính trước
+    public $fcfGrowthYoY; //Tang truong dong tien tu do so voi cùng kỳ năm tài chính trước
 
-    public $cogsGrowthQoQ = null; //Tang truong gia von ban hang so voi quý trước trong cùng năm tài chính
+    public $cogsGrowthQoQ; //Tang truong gia von ban hang so voi quý trước trong cùng năm tài chính
 
-    public $cogsGrowthYoY = null; //Tang truong gia von ban hang so voi cùng kỳ năm tài chính trước
+    public $cogsGrowthYoY; //Tang truong gia von ban hang so voi cùng kỳ năm tài chính trước
 
-    public $operationExpenseGrowthQoQ = null; //Tang truong chi phi hoat dong (chi phi ban hang & QLDN) so voi quý trước trong cùng năm tài chính
+    public $operationExpenseGrowthQoQ; //Tang truong chi phi hoat dong (chi phi ban hang & QLDN) so voi quý trước trong cùng năm tài chính
 
-    public $operationExpenseGrowthYoY = null; //Tang truong chi phi hoat dong (chi phi ban hang & QLDN) so voi cùng kỳ năm tài chính trước
+    public $operationExpenseGrowthYoY; //Tang truong chi phi hoat dong (chi phi ban hang & QLDN) so voi cùng kỳ năm tài chính trước
 
-    public $interestExpenseGrowthQoQ = null; //Tang truong chi phi lai vay so voi quý trước trong cùng năm tài chính
+    public $interestExpenseGrowthQoQ; //Tang truong chi phi lai vay so voi quý trước trong cùng năm tài chính
 
-    public $interestExpenseGrowthYoY = null; //Tang truong chi phi lai vay so voi cùng kỳ năm tài chính trước
+    public $interestExpenseGrowthYoY; //Tang truong chi phi lai vay so voi cùng kỳ năm tài chính trước
 
-    public $debtGrowthQoQ = null; //Tang truong no vay so voi quý trước trong cùng năm tài chính
+    public $debtGrowthQoQ; //Tang truong no vay so voi quý trước trong cùng năm tài chính
 
-    public $debtExpenseGrowthYoY = null; //Tang truong no vay so voi cùng kỳ năm tài chính trước
+    public $debtExpenseGrowthYoY; //Tang truong no vay so voi cùng kỳ năm tài chính trước
 
     /**
      * Calculate Revenue Growth
@@ -80,6 +80,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateRevenueGrowth($year = null, $quarter = null)
     {
+        $this->revenueGrowthYoY = null;
+        $this->revenueGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -107,6 +109,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateGrossProfitGrowth($year = null, $quarter = null)
     {
+        $this->grossProfitGrowthYoY = null;
+        $this->grossProfitGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -118,7 +122,7 @@ class GrowthCalculator extends BaseCalculator
             if ($selectedQuarter > 1) {
                 $grossProfitQoQ = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter-1);
                 if ($grossProfitQoQ != 0) {
-                    $this->grossProfitGrowthQoQ= round(100 * ($selectedPeriodGrossProfit - $grossProfitQoQ) / abs($grossProfitQoQ), 2);
+                    $this->grossProfitGrowthQoQ = round(100 * ($selectedPeriodGrossProfit - $grossProfitQoQ) / abs($grossProfitQoQ), 2);
                 }
             }
         }
@@ -134,6 +138,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateEBTGrowth($year = null, $quarter = null)
     {
+        $this->eBTGrowthYoY = null;
+        $this->eBTGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -161,6 +167,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateNetProfitOfParentShareHolderGrowth($year = null, $quarter = null)
     {
+        $this->netProfitOfParentShareHolderGrowthYoY = null;
+        $this->netProfitOfParentShareHolderGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -188,6 +196,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateTotalAssetGrowth($year = null, $quarter = null)
     {
+        $this->totalAssetGrowthYoY = null;
+        $this->totalAssetGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -215,6 +225,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateLongTermLiabilityGrowth($year = null, $quarter = null)
     {
+        $this->longTermLiabilityGrowthYoY = null;
+        $this->longTermLiabilityGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -242,6 +254,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateLiabilityGrowth($year = null, $quarter = null)
     {
+        $this->liabilityGrowthYoY = null;
+        $this->liabilityGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -269,6 +283,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateEquityGrowth($year = null, $quarter = null)
     {
+        $this->equityGrowthYoY = null;
+        $this->equityGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -296,6 +312,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateCharterCapitalGrowth($year = null, $quarter = null)
     {
+        $this->charterCapitalGrowthYoY = null;
+        $this->charterCapitalGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -323,6 +341,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateInventoryGrowth($year = null, $quarter = null)
     {
+        $this->inventoryGrowthYoY = null;
+        $this->inventoryGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -350,6 +370,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateFcfGrowth($year = null, $quarter = null)
     {
+        $this->fcfGrowthYoY = null;
+        $this->fcfGrowthQoQ = null;
         if (!empty($this->financialStatement->cash_flow_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -377,6 +399,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateCogsGrowth($year = null, $quarter = null)
     {
+        $this->cogsGrowthYoY = null;
+        $this->cogsGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -404,6 +428,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateOperationExpenseGrowth($year = null, $quarter = null)
     {
+        $this->operationExpenseGrowthYoY = null;
+        $this->operationExpenseGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -431,6 +457,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateInterestExpenseGrowth($year = null, $quarter = null)
     {
+        $this->interestExpenseGrowthYoY = null;
+        $this->interestExpenseGrowthQoQ = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -458,6 +486,8 @@ class GrowthCalculator extends BaseCalculator
      */
     public function calculateDebtGrowth($year = null, $quarter = null)
     {
+        $this->debtGrowthYoY = null;
+        $this->debtGrowthQoQ = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

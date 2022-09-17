@@ -14,23 +14,23 @@ use App\Jobs\Financials\Calculators\OperatingEffectivenessCalculator;
 
 class DupontCalculator extends BaseCalculator
 {
-    public $roaa = null; // Ti suat sinh loi cua tong tai san binh quan
+    public $roaa; // Ti suat sinh loi cua tong tai san binh quan
 
-    public $averageFinancialLeverage = null; // He so don bay tai chinh binh quan
+    public $averageFinancialLeverage; // He so don bay tai chinh binh quan
 
-    public $ros2 = null; // Ti suat loi nhuan rong co dong cong ty me
+    public $ros2; // Ti suat loi nhuan rong co dong cong ty me
 
-    public $averageTotalAssetTurnOver = null; // Vong quay tong tai san binh quan
+    public $averageTotalAssetTurnOver; // Vong quay tong tai san binh quan
 
-    public $earningAfterTaxParentCompanyToEarningBeforeTax = null; // LNST co dong cong ty me / LNTT
+    public $earningAfterTaxParentCompanyToEarningBeforeTax; // LNST co dong cong ty me / LNTT
 
-    public $earningAfterTaxToEarningBeforeTax = null; // LNST / LNTT
+    public $earningAfterTaxToEarningBeforeTax; // LNST / LNTT
 
-    public $earningBeforeTaxToEBIT = null; // Loi nhuan truoc thue / EBIT
+    public $earningBeforeTaxToEBIT; // Loi nhuan truoc thue / EBIT
 
-    public $ebitMargin = null; // Ti suat EBIT tren doanh thu thuan
+    public $ebitMargin; // Ti suat EBIT tren doanh thu thuan
 
-    public $roea = null; //Ti suat sinh loi tren VCSH binh quan
+    public $roea; //Ti suat sinh loi tren VCSH binh quan
 
     /**
      * Calculate Dupont components
@@ -41,6 +41,15 @@ class DupontCalculator extends BaseCalculator
      */
     public function calculateDupontComponents($year = null, $quarter = null)
     {
+        $this->roaa = null;
+        $this->averageFinancialLeverage = null;
+        $this->ros2 = null;
+        $this->ebitMargin = null;
+        $this->averageTotalAssetTurnOver = null;
+        $this->earningAfterTaxParentCompanyToEarningBeforeTax = null;
+        $this->earningAfterTaxToEarningBeforeTax = null;
+        $this->earningBeforeTaxToEBIT = null;
+        $this->roea = null;
         if (!empty($this->financialStatement->balance_statement) && !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

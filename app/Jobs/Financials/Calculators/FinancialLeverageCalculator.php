@@ -11,31 +11,31 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class FinancialLeverageCalculator extends BaseCalculator
 {
-    public $shortTermToTotalLiabilitiesRatio = null; //Chỉ số nợ ngắn hạn / tổng nợ phải trả
+    public $shortTermToTotalLiabilitiesRatio; //Chỉ số nợ ngắn hạn / tổng nợ phải trả
 
-    public $totalDebtToTotalAssetRatio = null; //Chỉ số Nợ vay / Tổng tài sản
+    public $totalDebtToTotalAssetRatio; //Chỉ số Nợ vay / Tổng tài sản
 
-    public $totalLiabilityToTotalAssetRatio = null;  //Chỉ số Tổng nợ / Tổng tài sản
+    public $totalLiabilityToTotalAssetRatio;  //Chỉ số Tổng nợ / Tổng tài sản
 
-    public $totalAssetToEquityRatio = null;  //Chỉ số Tổng tài sản / Vốn chủ sở hữu
+    public $totalAssetToEquityRatio;  //Chỉ số Tổng tài sản / Vốn chủ sở hữu
 
-    public $totalDebtToTotalLiabilityRatio = null; //Chỉ số tổng nợ vay / tổng nợ
+    public $totalDebtToTotalLiabilityRatio; //Chỉ số tổng nợ vay / tổng nợ
 
-    public $currentDebtToTotalDebtRatio = null; //Chỉ số nợ vay ngắn hạn / tổng nợ vay
+    public $currentDebtToTotalDebtRatio; //Chỉ số nợ vay ngắn hạn / tổng nợ vay
 
-    public $averageTotalAssetToAverageEquityRatio = null; //Chỉ số Tổng tài sản bình quân / Vốn chủ sở hữu bình quân
+    public $averageTotalAssetToAverageEquityRatio; //Chỉ số Tổng tài sản bình quân / Vốn chủ sở hữu bình quân
 
-    public $debtToEquityRatio = null; //Chi so no vay / VCSH
+    public $debtToEquityRatio; //Chi so no vay / VCSH
 
-    public $netDebtToEquityRatio = null; //Chi so no vay rong / VCSH
+    public $netDebtToEquityRatio; //Chi so no vay rong / VCSH
 
-    public $longTermDebtToEquityRatio = null; //Chi so no vay dai han / VCSH
+    public $longTermDebtToEquityRatio; //Chi so no vay dai han / VCSH
 
-    public $longTermDebtToLongTermLiabilityRatio = null; //Chi so no vay dai han / no dai han
+    public $longTermDebtToLongTermLiabilityRatio; //Chi so no vay dai han / no dai han
 
-    public $currentDebtToCurrentLiabilityRatio = null; //Chi so no vay ngan han / no ngan han
+    public $currentDebtToCurrentLiabilityRatio; //Chi so no vay ngan han / no ngan han
 
-    public $interestExpenseToAverageDebtRatio = null; //Chi so chi phí lãi vay / Nợ vay bình quân
+    public $interestExpenseToAverageDebtRatio; //Chi so chi phí lãi vay / Nợ vay bình quân
 
     /**
      * Calculate short-term to total liabilities ratio - Tỷ số nợ ngắn hạn trên tổng nợ phải trả
@@ -46,6 +46,7 @@ class FinancialLeverageCalculator extends BaseCalculator
      */
     public function calculateShortTermToTotalLiabilitiesRatio($year = null, $quarter = null)
     {
+        $this->shortTermToTotalLiabilitiesRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -67,6 +68,7 @@ class FinancialLeverageCalculator extends BaseCalculator
      */
     public function calculateTotalDebtToTotalAssetRatio($year = null, $quarter = null)
     {
+        $this->totalDebtToTotalAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -88,6 +90,7 @@ class FinancialLeverageCalculator extends BaseCalculator
      */
     public function calculateTotalLiabilityToTotalAssetRatio($year = null, $quarter = null)
     {
+        $this->totalLiabilityToTotalAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -109,6 +112,7 @@ class FinancialLeverageCalculator extends BaseCalculator
      */
     public function calculateTotalAssetToEquityRatio($year = null, $quarter = null)
     {
+        $this->totalAssetToEquityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -130,6 +134,7 @@ class FinancialLeverageCalculator extends BaseCalculator
      */
     public function calculateAverageTotalAssetToAverageEquityRatio($year = null, $quarter = null)
     {
+        $this->averageTotalAssetToAverageEquityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -151,6 +156,7 @@ class FinancialLeverageCalculator extends BaseCalculator
      */
     public function calculateTotalDebtToTotalLiabilityRatio($year = null, $quarter = null)
     {
+        $this->totalDebtToTotalLiabilityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -172,6 +178,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateCurrentDebtToTotalDebtRatio($year = null, $quarter = null)
     {
+        $this->currentDebtToTotalDebtRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -193,6 +200,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateDebtToEquityRatio($year = null, $quarter = null)
     {
+        $this->debtToEquityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -214,6 +222,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateNetDebtToEquityRatio($year = null, $quarter = null)
     {
+        $this->netDebtToEquityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -235,6 +244,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateLongTermDebtToEquityRatio($year = null, $quarter = null)
     {
+        $this->longTermDebtToEquityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -256,6 +266,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateLongTermDebtToLongTermLiabilityRatio($year = null, $quarter = null)
     {
+        $this->longTermDebtToLongTermLiabilityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -277,6 +288,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateCurrentDebtToCurrentLiabilityRatio($year = null, $quarter = null)
     {
+        $this->currentDebtToCurrentLiabilityRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -298,6 +310,7 @@ class FinancialLeverageCalculator extends BaseCalculator
     */
     public function calculateInterestExpenseToAverageDebtRatio($year = null, $quarter = null)
     {
+        $this->interestExpenseToAverageDebtRatio = null;
         if (!empty($this->financialStatement->balance_statement) &&
             !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;

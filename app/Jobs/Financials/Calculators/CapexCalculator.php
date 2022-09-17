@@ -11,9 +11,9 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class CapexCalculator extends BaseCalculator
 {
-    public $cfoToCapexRatio = null;
+    public $cfoToCapexRatio; //CFO/CAPEX
 
-    public $capexToNetProfitRatio = null;
+    public $capexToNetProfitRatio; //CAPEX/Loi nhuan rong
 
     /**
      * Calculate CFO/CAPEX Ratio
@@ -24,6 +24,7 @@ class CapexCalculator extends BaseCalculator
      */
     public function calculateCfoToCapexRatio($year = null, $quarter = null)
     {
+        $this->cfoToCapexRatio = null;
         if (!empty($this->financialStatement->cash_flow_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -45,6 +46,7 @@ class CapexCalculator extends BaseCalculator
      */
     public function calculateCapexToNetProfitRatio($year = null, $quarter = null)
     {
+        $this->capexToNetProfitRatio = null;
         if (!empty($this->financialStatement->cash_flow_statement) && !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;

@@ -11,15 +11,15 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class CostStructureCalculator extends BaseCalculator
 {
-    public $cOGSToRevenueRatio = null; //Hệ số giá vốn bán hàng / doanh thu thuần
+    public $cOGSToRevenueRatio; //Hệ số giá vốn bán hàng / doanh thu thuần
 
-    public $sellingExpenseToRevenueRatio = null; //Hệ số giá vốn bán hàng / doanh thu thuần
+    public $sellingExpenseToRevenueRatio; //Hệ số giá vốn bán hàng / doanh thu thuần
 
-    public $administrationExpenseToRevenueRatio = null; //Hệ số chi phí quản lý doanh nghiệp / doanh thu thuần
+    public $administrationExpenseToRevenueRatio; //Hệ số chi phí quản lý doanh nghiệp / doanh thu thuần
 
-    public $interestCostToRevenueRatio = null; //Hệ số chi phí chi phí lãi vay / doanh thu thuần
+    public $interestCostToRevenueRatio; //Hệ số chi phí chi phí lãi vay / doanh thu thuần
 
-    public $sellingAndEnperpriseManagementToGrossProfitRatio = null; //He so chi phi ban hang va quan ly doanh nghiep / Loi nhuan gop
+    public $sellingAndEnperpriseManagementToGrossProfitRatio; //He so chi phi ban hang va quan ly doanh nghiep / Loi nhuan gop
 
     /**
      * Calculate Cost of goods sale / Revenue Ratio
@@ -30,6 +30,7 @@ class CostStructureCalculator extends BaseCalculator
      */
     public function calculateCOGSToRevenueRatio($year = null, $quarter = null)
     {
+        $this->cOGSToRevenueRatio = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -52,6 +53,7 @@ class CostStructureCalculator extends BaseCalculator
      */
     public function calculateSellingExpenseToRevenueRatio($year = null, $quarter = null)
     {
+        $this->sellingExpenseToRevenueRatio = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -74,6 +76,7 @@ class CostStructureCalculator extends BaseCalculator
      */
     public function calculateAdministrationExpenseToRevenueRatio($year = null, $quarter = null)
     {
+        $this->administrationExpenseToRevenueRatio = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -96,6 +99,7 @@ class CostStructureCalculator extends BaseCalculator
      */
     public function calculateInterestCostToRevenueRatio($year = null, $quarter = null)
     {
+        $this->interestCostToRevenueRatio = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -117,6 +121,7 @@ class CostStructureCalculator extends BaseCalculator
      */
     public function calculateSellingAndEnperpriseManagementToGrossProfitRatio($year = null, $quarter = null)
     {
+        $this->sellingAndEnperpriseManagementToGrossProfitRatio = null;
         if (!empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
