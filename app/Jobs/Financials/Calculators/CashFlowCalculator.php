@@ -282,7 +282,7 @@ class CashFlowCalculator extends BaseCalculator
                     $financingInflows += $this->financialStatement->cash_flow_statement->getItem("$i")->getValue($selectedYear, $selectedQuarter);
                 }
             }
-            if ($cfo > 0) {
+            if ($cfo > 0 && ($cfo + $investingInflows + $financingInflows) != 0) {
                 $this->cashGeneratingPowerRatio = round(100 * $cfo / ($cfo + $investingInflows + $financingInflows), 2);
             }
         }
@@ -305,7 +305,7 @@ class CashFlowCalculator extends BaseCalculator
             $cfo = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
             $cff = $this->financialStatement->cash_flow_statement->getItem('311')->getValue($selectedYear, $selectedQuarter);
             if ($cfo != 0) {
-                $this->externalFinancingRatio = round($cff/$cfo, 2);
+                $this->externalFinancingRatio = round($cff / $cfo, 2);
             }
         }
         return $this;

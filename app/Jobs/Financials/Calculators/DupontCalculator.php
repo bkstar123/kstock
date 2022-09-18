@@ -49,7 +49,6 @@ class DupontCalculator extends BaseCalculator
         $this->earningAfterTaxParentCompanyToEarningBeforeTax = null;
         $this->earningAfterTaxToEarningBeforeTax = null;
         $this->earningBeforeTaxToEBIT = null;
-        $this->roea = null;
         if (!empty($this->financialStatement->balance_statement) && !empty($this->financialStatement->income_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
@@ -72,7 +71,6 @@ class DupontCalculator extends BaseCalculator
             if ($eBIT != 0) {
                 $this->earningBeforeTaxToEBIT = round($earningBeforeTax / $eBIT, 4);
             }
-            $this->roea = round($this->roaa * $this->averageFinancialLeverage, 2);
         }
         return $this;
     }

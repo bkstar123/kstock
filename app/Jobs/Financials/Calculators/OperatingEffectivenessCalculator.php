@@ -47,7 +47,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageCurrentCustomerReceivables = $this->financialStatement->balance_statement->getItem('1010301')->getAverageValue($selectedYear, $selectedQuarter);
-            if ($averageCurrentCustomerReceivables != 0) {
+            if ($averageCurrentCustomerReceivables != 0 && $revenue != 0) {
                 $this->receivableTurnoverRatio = round($revenue / $averageCurrentCustomerReceivables, 4);
                 $this->averageCollectionPeriod = round(365 * $averageCurrentCustomerReceivables / $revenue, 0);
             }
@@ -71,9 +71,9 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $averageInventories = $this->financialStatement->balance_statement->getItem('10104')->getAverageValue($selectedYear, $selectedQuarter);
-            if ($averageInventories != 0) {
+            if ($averageInventories != 0 && $cogs != 0) {
                 $this->inventoryTurnoverRatio = round($cogs / $averageInventories, 4);
-                $this->averageAgeOfInventory = round(365 * $averageInventories/$cogs, 0);
+                $this->averageAgeOfInventory = round(365 * $averageInventories / $cogs, 0);
             }
         }
         return $this;
@@ -95,9 +95,9 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $averageCurrentAccountPayables = $this->financialStatement->balance_statement->getItem('3010103')->getAverageValue($selectedYear, $selectedQuarter);
-            if ($averageCurrentAccountPayables != 0) {
+            if ($averageCurrentAccountPayables != 0 && $cogs != 0) {
                 $this->accountsPayableTurnoverRatio = round($cogs / $averageCurrentAccountPayables, 4);
-                $this->averageAccountPayableDuration = round(365 * $averageCurrentAccountPayables/$cogs, 0);
+                $this->averageAccountPayableDuration = round(365 * $averageCurrentAccountPayables / $cogs, 0);
             }
         }
         return $this;
@@ -121,10 +121,10 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $cogs = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter);
             $averageInventories = $this->financialStatement->balance_statement->getItem('10104')->getAverageValue($selectedYear, $selectedQuarter);
             $averageCurrentAccountPayables = $this->financialStatement->balance_statement->getItem('3010103')->getAverageValue($selectedYear, $selectedQuarter);
-            $dso = round(365 * $averageCurrentCustomerReceivables/$revenue, 0);
-            $dpo = round(365 * $averageCurrentAccountPayables/$cogs, 0);
-            $dio = round(365 * $averageInventories/$cogs, 0);
-            if ($averageCurrentAccountPayables != 0) {
+            if ($revenue != 0 && $cogs != 0) {
+                $dso = round(365 * $averageCurrentCustomerReceivables / $revenue, 0);
+                $dpo = round(365 * $averageCurrentAccountPayables / $cogs, 0);
+                $dio = round(365 * $averageInventories / $cogs, 0);
                 $this->cashConversionCycle = $dso + $dio - $dpo;
             }
         }
@@ -147,7 +147,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageFixedAssets = $this->financialStatement->balance_statement->getItem('10202')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageFixedAssets != 0) {
-                $this->fixedAssetTurnoverRatio = round($revenue/$averageFixedAssets, 4);
+                $this->fixedAssetTurnoverRatio = round($revenue / $averageFixedAssets, 4);
             }
         }
         return $this;
@@ -169,7 +169,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageTotalAssets = $this->financialStatement->balance_statement->getItem('2')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageTotalAssets != 0) {
-                $this->totalAssetTurnoverRatio = round($revenue/$averageTotalAssets, 4);
+                $this->totalAssetTurnoverRatio = round($revenue / $averageTotalAssets, 4);
             }
         }
         return $this;
@@ -191,7 +191,7 @@ class OperatingEffectivenessCalculator extends BaseCalculator
             $revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             $averageEquity = $this->financialStatement->balance_statement->getItem('302')->getAverageValue($selectedYear, $selectedQuarter);
             if ($averageEquity != 0) {
-                $this->equityTurnoverRatio = round($revenue/$averageEquity, 4);
+                $this->equityTurnoverRatio = round($revenue / $averageEquity, 4);
             }
         }
         return $this;

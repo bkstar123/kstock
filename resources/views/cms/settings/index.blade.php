@@ -46,6 +46,18 @@
 					        	          id="api_token"
 					        	          name="api_token">{{ config('settings.api_token') }}</textarea>
 					        </div>
+					        <div class="form-group">
+					        	<label for="limits">Limits</label>
+					        	<input class="form-control" 
+					        	       type="text" 
+					        	       placeholder="Số lượng tối đa kỳ báo cáo tài chính tải về (tối đa là 10, tối thiểu là 2)"
+					        	       id="limits"
+					        	       name="limits"
+					        	       value="{{ config('settings.limits') }}" />
+					        	@error('limits')
+					        	    <div class="alert alert-danger">{{ $message }}</div>
+					        	@enderror
+					        </div>
 					        <div class="col-12 text-right">
                                 <button class="btn btn-success" type="submit">
                                     <i class="fa fa-fw fa-lg fa-check-circle"></i>Save

@@ -23,7 +23,7 @@ trait OperatingEffectivenessWriter
     {
         $values1 = [];
         $values2 = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -71,7 +71,7 @@ trait OperatingEffectivenessWriter
     {
         $values1 = [];
         $values2 = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -119,7 +119,7 @@ trait OperatingEffectivenessWriter
     {
         $values1 = [];
         $values2 = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -166,7 +166,7 @@ trait OperatingEffectivenessWriter
     protected function writeCashConversionCycle(OperatingEffectivenessCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -199,7 +199,7 @@ trait OperatingEffectivenessWriter
     protected function writeFixedAssetTurnoverRatio(OperatingEffectivenessCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -232,7 +232,7 @@ trait OperatingEffectivenessWriter
     protected function writeTotalAssetTurnoverRatio(OperatingEffectivenessCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -265,7 +265,7 @@ trait OperatingEffectivenessWriter
     protected function writeEquityTurnoverRatio(OperatingEffectivenessCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,

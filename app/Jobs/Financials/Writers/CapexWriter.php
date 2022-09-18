@@ -22,7 +22,7 @@ trait CapexWriter
     protected function writeCfoToCapexRatio(CapexCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -55,7 +55,7 @@ trait CapexWriter
     protected function writeCapexToNetProfitRatio(CapexCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,

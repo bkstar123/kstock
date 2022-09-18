@@ -22,7 +22,7 @@ trait CostStructureWriter
     protected function writeCOGSToRevenueRatio(CostStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -55,7 +55,7 @@ trait CostStructureWriter
     public function writeSellingExpenseToRevenueRatio(CostStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -88,7 +88,7 @@ trait CostStructureWriter
     public function writeAdministrationExpenseToRevenueRatio(CostStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -121,7 +121,7 @@ trait CostStructureWriter
     public function writeInterestCostToRevenueRatio(CostStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -154,7 +154,7 @@ trait CostStructureWriter
     public function writeSellingAndEnperpriseManagementToGrossProfitRatio(CostStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,

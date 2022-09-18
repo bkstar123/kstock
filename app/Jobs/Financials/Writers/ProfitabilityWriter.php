@@ -22,7 +22,7 @@ trait ProfitabilityWriter
     protected function writeROAA(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -55,7 +55,7 @@ trait ProfitabilityWriter
     protected function writeROTA(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -88,7 +88,7 @@ trait ProfitabilityWriter
     protected function writeROA(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -121,7 +121,7 @@ trait ProfitabilityWriter
     protected function writeROCE(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -154,7 +154,7 @@ trait ProfitabilityWriter
     protected function writeROEA(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -187,7 +187,7 @@ trait ProfitabilityWriter
     protected function writeROE(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -220,7 +220,7 @@ trait ProfitabilityWriter
     protected function writeROS(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -253,7 +253,7 @@ trait ProfitabilityWriter
     protected function writeROS2(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -286,7 +286,7 @@ trait ProfitabilityWriter
     protected function writeEBITDAMargin1(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -319,7 +319,7 @@ trait ProfitabilityWriter
     protected function writeEBITDAMargin2(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -352,7 +352,7 @@ trait ProfitabilityWriter
     protected function writeEBITMargin(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -385,7 +385,7 @@ trait ProfitabilityWriter
     protected function writeGrossProfitMargin(ProfitabilityCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,

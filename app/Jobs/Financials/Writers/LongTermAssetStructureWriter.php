@@ -22,7 +22,7 @@ trait LongTermAssetStructureWriter
     public function writeLongTermAssetToTotalAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -55,7 +55,7 @@ trait LongTermAssetStructureWriter
     public function writeFixedAssetToTotalAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -88,7 +88,7 @@ trait LongTermAssetStructureWriter
     public function writeTangibleFixedAssetToFixedAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -121,7 +121,7 @@ trait LongTermAssetStructureWriter
     public function writeFinancialLendingAssetToFixedAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -154,7 +154,7 @@ trait LongTermAssetStructureWriter
     public function writeIntangibleAssetToFixedAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -187,7 +187,7 @@ trait LongTermAssetStructureWriter
     public function writeConstructionInProgressToFixedAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
