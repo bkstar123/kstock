@@ -24,7 +24,7 @@ trait DupontWriter
         $values1 = [];
         $values2 = [];
         $values3 = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -41,7 +41,7 @@ trait DupontWriter
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->averageFinancialLeverage * $calculator->roaa, 0)
+                'value' => round($calculator->averageFinancialLeverage * $calculator->roaa, 1)
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
@@ -88,7 +88,7 @@ trait DupontWriter
         $values2 = [];
         $values3 = [];
         $values4 = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -111,7 +111,7 @@ trait DupontWriter
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->ros2 * $calculator->averageTotalAssetTurnOver * $calculator->averageFinancialLeverage, 0)
+                'value' => round($calculator->ros2 * $calculator->averageTotalAssetTurnOver * $calculator->averageFinancialLeverage, 1)
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
@@ -169,7 +169,7 @@ trait DupontWriter
         $values5 = [];
         $values6 = [];
         $values7 = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
@@ -210,7 +210,7 @@ trait DupontWriter
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->earningAfterTaxParentCompanyToEarningBeforeTax * $calculator->earningBeforeTaxToEBIT * $calculator->ebitMargin * $calculator->averageTotalAssetTurnOver * $calculator->averageFinancialLeverage, 0)
+                'value' => round($calculator->earningAfterTaxParentCompanyToEarningBeforeTax * $calculator->earningBeforeTaxToEBIT * $calculator->ebitMargin * $calculator->averageTotalAssetTurnOver * $calculator->averageFinancialLeverage, 1)
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];

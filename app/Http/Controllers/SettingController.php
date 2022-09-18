@@ -25,8 +25,10 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'limits' => 'numeric|min:2|max:10'
+        ]);
         $settings = $request->except('_token');
-        ;
         foreach ($settings as $key => $value) {
             Setting::set($key, $value);
         }
