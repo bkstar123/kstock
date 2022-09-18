@@ -29,7 +29,7 @@ trait AnalysisReportRepository
                     $item['group'],
                     $item['unit'],
                     $item['description'],
-                    $item['value']
+                    $item['values']
                 );
             });
             return $items;
@@ -56,7 +56,7 @@ trait AnalysisReportRepository
                 $item['group'],
                 $item['unit'],
                 $item['description'],
-                $item['value']
+                $item['values']
             );
         } else {
             return null;

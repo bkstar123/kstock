@@ -1,8 +1,8 @@
 @extends('cms.layouts.master')
 @if(!empty($financial_statement->quarter))
-    @section('title', "$financial_statement->symbol financial statement Q$financial_statement->quarter-$financial_statement->year")
+    @section('title', "$financial_statement->symbol Báo cáo tài chính Q$financial_statement->quarter-$financial_statement->year")
 @else
-    @section('title', "$financial_statement->symbol financial statement $financial_statement->year (Yearly)")
+    @section('title', "$financial_statement->symbol Báo cáo tài chính $financial_statement->year (Năm)")
 @endif
 
 @section('content')
@@ -15,28 +15,28 @@
                         <a class="nav-link active" 
                            href="#balance-statement" 
                            data-toggle="tab">
-                            Balance Statement
+                            Bảng cân đối kế toán
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" 
                            href="#income-statement" 
                            data-toggle="tab">
-                            Income Statement
+                            Báo cáo kết quả kinh doanh
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" 
                            href="#cash-flow-statement" 
                            data-toggle="tab">
-                            Cash Flow Statement
+                            Báo cáo lưu chuyển tiền tệ
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" 
                            href="#analysis-report" 
                            data-toggle="tab">
-                            Analysis Report
+                            Phân tích các chỉ số tài chính
                         </a>
                     </li>
                 </ul>
@@ -128,18 +128,47 @@
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>Indicator</th>
-                                                            <th>Value</th>
-                                                            <th>Unit</th>
-                                                            <th>Description</th>
+                                                            <th>Chỉ số tài chính</th>
+                                                            <th>Giá trị</th>
+                                                            <th>Đơn vị</th>
+                                                            <th>Mô tả</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach($financial_statement->analysis_report->getItems()->where('group', $group) as $item)
                                                             <tr>
                                                                 <td>{!! $item->name !!}</td>
-                                                                <td>{{ $item->value }}</td>
-                                                                <td>{{ $item->unit }}</td>
+                                                                <td>
+                                                                    <div class="card-body table-responsive p-0">
+                                                                        <table class="table table-hover">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    @foreach(Arr::pluck($item->values, 'period') as $period)
+                                                                                        <th>{{ $period }}</th>
+                                                                                    @endforeach
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    @foreach(Arr::pluck($item->values, 'value') as $value)
+                                                                                        <td>{{ $value }}</td>
+                                                                                    @endforeach
+                                                                                </tr>
+                                                                            </tbody> 
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @if($item->unit == 'scalar')
+                                                                        Lần
+                                                                    @elseif($item->unit == 'cycles')
+                                                                        Vòng
+                                                                    @elseif($item->unit == 'days')
+                                                                        Ngày
+                                                                    @else
+                                                                        {{ $item->unit }}
+                                                                    @endif
+                                                                </td>
                                                                 <td>{!! $item->description !!}</td>
                                                             </tr>
                                                         @endforeach

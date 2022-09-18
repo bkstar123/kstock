@@ -37,9 +37,9 @@ class AnalysisReportItem
     public $description;
 
     /**
-     * @var float
+     * @var array
      */
-    public $value;
+    public $values;
 
     /**
      * Initialize StatementItem instance
@@ -49,15 +49,15 @@ class AnalysisReportItem
      * @param string $group
      * @param string $unit
      * @param string $description
-     * @param float $value
+     * @param array $values
      */
-    public function __construct($name, $alias, $group, $unit, $description, $value)
+    public function __construct($name, $alias, $group, $unit, $description, $values)
     {
         $this->name = $name;
         $this->alias = $alias;
         $this->group = $group;
         $this->unit = $unit;
         $this->description = $description;
-        $this->value = $value;
+        $this->values = $values;
     }
 }

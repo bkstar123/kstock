@@ -23,6 +23,7 @@ trait DupontWriter
     {
         $values1 = [];
         $values2 = [];
+        $values3 = [];
         for ($i = 1; $i < 6; $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
@@ -36,6 +37,12 @@ trait DupontWriter
                 'quarter' => $quarter,
                 'value' => $calculator->averageFinancialLeverage
             ]);
+            array_push($values3, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => round($calculator->averageFinancialLeverage * $calculator->roaa, 0)
+            ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
             $quarter = $previous['quarter'];
@@ -43,18 +50,26 @@ trait DupontWriter
         array_push($this->content, [
             'name' => 'ROAA',
             'alias' => 'Dupont2-ROAA',
-            'group' => "Phân tích Dupont Level 2 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 2",
             'unit' => '%',
             'description' => 'Đánh giá hiệu quả sử dụng tài sản của doanh nghiệp',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Hệ số đòn bẩy tài chính trung bình',
             'alias' => 'Dupont2-FinancialLeverage',
-            'group' => "Phân tích Dupont Level 2 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 2",
             'unit' => 'scalar',
             'description' => 'Phản ánh cơ cấu nguồn vốn của doanh nghiệp',
-            'values2' => $values2
+            'values' => $values2
+        ]);
+        array_push($this->content, [
+            'name' => '==> ROEA',
+            'alias' => 'Dupont2-FinancialLeverage',
+            'group' => "Phân tích Dupont Level 2",
+            'unit' => '%',
+            'description' => 'Tỷ suất lợi nhuận trên VCSH bình quân',
+            'values' => $values3
         ]);
         return $this;
     }
@@ -72,6 +87,7 @@ trait DupontWriter
         $values1 = [];
         $values2 = [];
         $values3 = [];
+        $values4 = [];
         for ($i = 1; $i < 6; $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
@@ -91,6 +107,12 @@ trait DupontWriter
                 'quarter' => $quarter,
                 'value' => $calculator->averageFinancialLeverage
             ]);
+            array_push($values4, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => round($calculator->ros2 * $calculator->averageTotalAssetTurnOver * $calculator->averageFinancialLeverage, 0)
+            ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
             $quarter = $previous['quarter'];
@@ -98,26 +120,34 @@ trait DupontWriter
         array_push($this->content, [
             'name' => 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (phiên bản chặt chẽ hơn của ROS)',
             'alias' => 'Dupont3-ROS2',
-            'group' => "Phân tích Dupont Level 3 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 3",
             'unit' => '%',
             'description' => 'Hiệu quả quản lý và hoạt động của doanh nghiệp',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Vòng quay tổng tài sản bình quân',
             'alias' => 'Dupont3-Average Total Asset Turnover',
-            'group' => "Phân tích Dupont Level 3 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 3",
             'unit' => 'cycles',
             'description' => 'Đánh giá hiệu quả sử dụng tài sản của doanh nghiệp',
-            'values2' => $values2
+            'values' => $values2
         ]);
         array_push($this->content, [
             'name' => 'Hệ số đòn bẩy tài chính trung bình',
             'alias' => 'Dupont3-FinancialLeverage',
-            'group' => "Phân tích Dupont Level 3 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 3",
             'unit' => 'scalar',
             'description' => 'Phản ánh cơ cấu nguồn vốn của doanh nghiệp',
-            'values3' => $values3
+            'values' => $values3
+        ]);
+        array_push($this->content, [
+            'name' => '==> ROEA',
+            'alias' => 'Dupont3-FinancialLeverage',
+            'group' => "Phân tích Dupont Level 3",
+            'unit' => '%',
+            'description' => 'Tỷ suất lợi nhuận trên VCSH bình quân',
+            'values' => $values4
         ]);
         return $this;
     }
@@ -138,6 +168,7 @@ trait DupontWriter
         $values4 = [];
         $values5 = [];
         $values6 = [];
+        $values7 = [];
         for ($i = 1; $i < 6; $i++) {
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
@@ -175,6 +206,12 @@ trait DupontWriter
                 'quarter' => $quarter,
                 'value' => $calculator->averageFinancialLeverage
             ]);
+            array_push($values7, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => round($calculator->earningAfterTaxParentCompanyToEarningBeforeTax * $calculator->earningBeforeTaxToEBIT * $calculator->ebitMargin * $calculator->averageTotalAssetTurnOver * $calculator->averageFinancialLeverage, 0)
+            ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
             $quarter = $previous['quarter'];
@@ -182,50 +219,58 @@ trait DupontWriter
         array_push($this->content, [
             'name' => 'LNST của cổ đông công ty mẹ / LNTT',
             'alias' => 'Dupont5-Earning After Tax of Parent Company To Earning Before Tax',
-            'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 5",
             'unit' => 'scalar',
             'description' => 'Đánh giá sự ảnh hưởng của thuế TNDN và lợi ích của cổ đông không kiểm soát lên lợi nhuận ròng của cổ đông công ty mẹ',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => '-----Trong đó, LNST/LNTT',
             'alias' => 'Dupont5-Earning After Tax To Earning Before Tax',
-            'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 5",
             'unit' => 'scalar',
             'description' => 'Còn được gọi là hệ số gánh nặng thuế (Tax Burden) phản ánh mức thuế mà doanh nghiệp phải chịu, và chính sách của doanh nghiệp sẽ là cố gắng tối thiểu hóa gánh nặng thuế',
-            'values2' => $values2
+            'values' => $values2
         ]);
         array_push($this->content, [
             'name' => 'LNTT/EBIT',
             'alias' => 'Dupont5-Earning Before Tax To EBIT',
-            'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 5",
             'unit' => 'scalar',
             'description' => 'Hệ số Gánh nặng lãi vay (Interest Burden – IB) đánh giá sự ảnh hưởng của chi phí lãi vay lên lợi nhuận ròng của doanh nghiệp. LNTT/EBIT của doanh nghiệp lớn nhất khi không có các khoản thanh toán lãi vay cho chủ nợ (không vay nợ). Khi đó, giá trị cao nhất và tốt nhất mà hệ số này có thể có được là 1. Đòn bẩy tài chính càng thấp, hệ số IB sẽ càng cao, và rủi ro tài chính cho các cổ đông sẽ nhỏ.',
-            'values3' => $values3
+            'values' => $values3
         ]);
         array_push($this->content, [
             'name' => 'EBIT/Doanh thu thuần',
             'alias' => 'Dupont5-EBIT Margin',
-            'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 5",
             'unit' => '%',
             'description' => 'Chỉ tiêu này phản ánh khả năng kiểm soát các loại chi phí của doanh nghiệp tốt đến đâu như giá vốn hàng bán, chi phí bán hàng, chi phí QLDN',
-            'values4' => $values4
+            'values' => $values4
         ]);
         array_push($this->content, [
             'name' => 'Vòng quay tổng tài sản bình quân',
             'alias' => 'Dupont5-Average Total Asset Turnover',
-            'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 5",
             'unit' => 'cycles',
             'description' => 'Đánh giá hiệu quả sử dụng tài sản của doanh nghiệp',
-            'values5' => $values5
+            'values' => $values5
         ]);
         array_push($this->content, [
             'name' => 'Hệ số đòn bẩy tài chính trung bình',
             'alias' => 'Dupont5-FinancialLeverage',
-            'group' => "Phân tích Dupont Level 5 (ROEA = $calculator->roea %)",
+            'group' => "Phân tích Dupont Level 5",
             'unit' => 'scalar',
             'description' => 'Thể hiện đòn bẩy tài chính doanh nghiệp, Với cùng 1 lượng tài sản, doanh nghiệp có đòn bẩy tài chính phù hợp trong cơ cấu tài sản có thể tạo ra 1 tỷ suất sinh lời ROE cao hơn 1 doanh nghiệp không dùng đòn bẩy. Tuy nhiên, đòn bẩy tài chính sẽ làm tăng rủi ro. Nợ vay làm cho doanh nghiệp dễ nhạy cảm hơn với chu kỳ kinh tế, nhất là trong giai đoạn khó khăn, doanh thu giảm',
-            'values6' => $values6
+            'values' => $values6
+        ]);
+        array_push($this->content, [
+            'name' => '==> ROEA',
+            'alias' => 'Dupont5-FinancialLeverage',
+            'group' => "Phân tích Dupont Level 5",
+            'unit' => '%',
+            'description' => 'Tỷ suất lợi nhuận trên VCSH bình quân',
+            'values' => $values7
         ]);
         return $this;
     }
