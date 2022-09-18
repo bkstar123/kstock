@@ -46,7 +46,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng doanh thu thuần so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng doanh thu thuần YoY',
@@ -54,7 +54,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng doanh thu thuần so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -94,7 +94,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng lợi nhuận gộp so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng lợi nhuận gộp YoY',
@@ -102,7 +102,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng lợi nhuận gộp so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -142,7 +142,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng lợi nhuận trước thuế so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng lợi nhuận trước thuế YoY',
@@ -150,7 +150,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng lợi nhuận trước thuế so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -190,7 +190,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ YoY',
@@ -198,7 +198,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -238,7 +238,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng tổng tài sản so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng tổng tài sản YoY',
@@ -246,7 +246,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng tổng tài sản so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -286,7 +286,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng nợ dài hạn so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng nợ dài hạn YoY',
@@ -294,7 +294,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng nợ dài hạn so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -334,7 +334,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng nợ phải trả so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng nợ phải trả YoY',
@@ -342,7 +342,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng nợ phải trả so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -382,7 +382,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng nợ vay so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng nợ vay YoY',
@@ -390,7 +390,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng nợ vay so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -430,7 +430,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng VCSH so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng VCSH YoY',
@@ -438,7 +438,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng VCSH so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -478,7 +478,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng vốn điều lệ so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng vốn điều lệ YoY',
@@ -486,7 +486,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng vốn điều lệ so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -526,7 +526,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng hàng tồn kho so với quý trước trong cùng năm tài chính. <strong style="color:#d2691e;">Theo Buffet thì ở các doanh nghiệp có lợi thế cạnh tranh bền vững tăng trưởng hàng tồn kho phải nhất quán với tăng trưởng doanh thu</strong>',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng hàng tồn kho YoY',
@@ -534,7 +534,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng hàng tồn kho so với cùng kỳ năm tài chính trước. <strong style="color:#d2691e;">Theo Buffet thì ở các doanh nghiệp có lợi thế cạnh tranh bền vững tăng trưởng hàng tồn kho phải nhất quán với tăng trưởng doanh thu</strong>',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -574,7 +574,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng dòng tiền tự do so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng dòng tiền tự do (FCF) YoY',
@@ -582,7 +582,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng dòng tiền tự do so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -622,7 +622,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng giá vốn bán hàng so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng giá vốn bán hàng YoY',
@@ -630,7 +630,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng giá vốn bán hàng so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -670,7 +670,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng chi phí hoạt động so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng chi phí hoạt động YoY',
@@ -678,7 +678,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng chi phí hoạt động so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
@@ -718,7 +718,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng chi phí lãi vay so với quý trước trong cùng năm tài chính',
-            'values1' => $values1
+            'values' => $values1
         ]);
         array_push($this->content, [
             'name' => 'Tăng trưởng chi phí lãi vay YoY',
@@ -726,7 +726,7 @@ trait GrowthWriter
             'group' => 'Chỉ số tăng trưởng',
             'unit' => '%',
             'description' => 'Tăng trưởng chi phí lãi vay so với cùng kỳ năm tài chính trước',
-            'values2' => $values2
+            'values' => $values2
         ]);
         return $this;
     }
