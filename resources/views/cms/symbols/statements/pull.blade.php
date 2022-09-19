@@ -8,7 +8,7 @@
 			<div class="card-header">
 				<h3 class="card-title">Enter details of the financial statements</h3>
 			</div>
-			<form action="{{ route('cms.financial.statements.pull') }}" method="POST">
+			<form id="form" action="{{ route('cms.financial.statements.pull') }}" method="POST">
 				@csrf
 				<div class="card-body">
 					<div class="form-group">
@@ -51,7 +51,7 @@
 						       value="{{ old('quarter') }}" />
 					</div>
 					<div class="card-footer">
-						<button type="submit" class="btn btn-primary">Pull</button>
+						<button id="submitBtn" type="submit" class="btn btn-primary">Pull</button>
 					</div>
 				</div>
 		    </form>
@@ -59,3 +59,13 @@
 	</div>
 </div>
 @endsection
+
+@push('scriptBottom')
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#form").submit(function () {
+			$("#submitBtn").attr('disabled', true);
+		});
+	});
+</script>
+@endpush
