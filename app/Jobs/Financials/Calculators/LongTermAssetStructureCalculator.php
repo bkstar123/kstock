@@ -13,7 +13,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
 {
     public $longTermAssetToTotalAssetRatio; //Tài sản dài hạn/Tổng tài sản
 
-    public $fixedAssetToTotalAssetRatio; //Tài sản cố định/Tổng tài sản
+    public $fixedAssetToLongTermAssetRatio; //Tài sản cố định/Tài sản dai han
 
     public $tangibleFixedAssetToFixedAssetRatio; //Tài sản cố định hữu hình/Tài sản cố định
 
@@ -21,7 +21,15 @@ class LongTermAssetStructureCalculator extends BaseCalculator
 
     public $intangibleAssetToFixedAssetRatio; //Tài sản vô hình/Tài sản cố định
 
-    public $constructionInProgressToFixedAssetRatio; //Chi phí xây dựng cơ bản dở dang dài hạn / Tài sản cố định
+    public $constructionInProgressToLongTermAssetRatio; //Chi phí xây dựng cơ bản dở dang dài hạn / Tài sản dai han
+
+    public $longTermReceivableToLongTermAssetRatio; //Phai thu dai han/Tai dan dai han
+
+    public $investingRealEstateToLongTermAssetRatio; //Bat dong san dau tu / Tai san dai han
+
+    public $longTermFinancialInvestingToLongTermRatio; //Dau tu tai chinh dai han / Tai san dai han
+
+    public $otherLongTermAssetToLongTermRatio; //Tai san dai han khac / Tai san dai han
 
     /**
      * Calculate Long Term Asset / Total Asset Ratio
@@ -46,22 +54,44 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     }
 
     /**
-     * Calculate Fixed Asset / Total Asset Ratio
+     * Calculate Long Term Receivable / Long Term Asset Ratio
      *
      * @param int $year
      * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateFixedAssetToTotalAssetRatio($year = null, $quarter = null)
+    public function calculateLongTermReceivableToLongTermAssetRatio($year = null, $quarter = null)
     {
-        $this->fixedAssetToTotalAssetRatio = null;
+        $this->longTermReceivableToLongTermAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
-            $total_assets = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
+            $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
+            $long_term_receivables = $this->financialStatement->balance_statement->getItem('10201')->getValue($selectedYear, $selectedQuarter);
+            if ($long_term_assets != 0) {
+                $this->longTermReceivableToLongTermAssetRatio = round(100 * $long_term_receivables / $long_term_assets, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Fixed Asset / Long Term Asset Ratio
+     *
+     * @param int $year
+     * @param int $quarter
+     * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
+     */
+    public function calculateFixedAssetToLongTermAssetRatio($year = null, $quarter = null)
+    {
+        $this->fixedAssetToLongTermAssetRatio = null;
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
+            $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
             $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
-            if ($total_assets != 0) {
-                $this->fixedAssetToTotalAssetRatio = round(100 * $fixed_assets / $total_assets, 2);
+            if ($long_term_assets != 0) {
+                $this->fixedAssetToLongTermAssetRatio = round(100 * $fixed_assets / $long_term_assets, 2);
             }
         }
         return $this;
@@ -135,22 +165,88 @@ class LongTermAssetStructureCalculator extends BaseCalculator
     }
 
     /**
+     * Calculate Investing Real Estate / Long Term Asset Ratio
+     *
+     * @param int $year
+     * @param int $quarter
+     * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
+     */
+    public function calculateInvestingRealEstateToLongTermAssetRatio($year = null, $quarter = null)
+    {
+        $this->investingRealEstateToLongTermAssetRatio = null;
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
+            $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
+            $investingRealEstate = $this->financialStatement->balance_statement->getItem('10203')->getValue($selectedYear, $selectedQuarter);
+            if ($long_term_assets != 0) {
+                $this->investingRealEstateToLongTermAssetRatio = round(100 * $investingRealEstate / $long_term_assets, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Calculate Construction In Progress / Fixed Asset Ratio
      *
      * @param int $year
      * @param int $quarter
      * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
      */
-    public function calculateConstructionInProgressToFixedAssetRatio($year = null, $quarter = null)
+    public function calculateConstructionInProgressToLongTermRatio($year = null, $quarter = null)
     {
-        $this->constructionInProgressToFixedAssetRatio = null;
+        $this->constructionInProgressToLongTermAssetRatio = null;
         if (!empty($this->financialStatement->balance_statement)) {
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
-            $fixed_assets = $this->financialStatement->balance_statement->getItem('10202')->getValue($selectedYear, $selectedQuarter);
+            $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
             $constructionInProgress = $this->financialStatement->balance_statement->getItem('1020402')->getValue($selectedYear, $selectedQuarter);
-            if ($fixed_assets != 0) {
-                $this->constructionInProgressToFixedAssetRatio = round(100 * $constructionInProgress / $fixed_assets, 2);
+            if ($long_term_assets != 0) {
+                $this->constructionInProgressToLongTermAssetRatio = round(100 * $constructionInProgress / $long_term_assets, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Long Term Financial Investing / Fixed Asset Ratio
+     *
+     * @param int $year
+     * @param int $quarter
+     * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
+     */
+    public function calculateLongTermFinancialInvestingToLongTermRatio($year = null, $quarter = null)
+    {
+        $this->longTermFinancialInvestingToLongTermRatio = null;
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
+            $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
+            $long_term_financial_investing = $this->financialStatement->balance_statement->getItem('10205')->getValue($selectedYear, $selectedQuarter);
+            if ($long_term_assets != 0) {
+                $this->longTermFinancialInvestingToLongTermRatio = round(100 * $long_term_financial_investing / $long_term_assets, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate Long Term Financial Investing / Fixed Asset Ratio
+     *
+     * @param int $year
+     * @param int $quarter
+     * @return \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator $this
+     */
+    public function calculateOtherLongTermAssetToLongTermRatio($year = null, $quarter = null)
+    {
+        $this->otherLongTermAssetToLongTermRatio = null;
+        if (!empty($this->financialStatement->balance_statement)) {
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
+            $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
+            $other_long_term_assets = $this->financialStatement->balance_statement->getItem('10206')->getValue($selectedYear, $selectedQuarter);
+            if ($long_term_assets != 0) {
+                $this->otherLongTermAssetToLongTermRatio = round(100 * $other_long_term_assets / $long_term_assets, 2);
             }
         }
         return $this;

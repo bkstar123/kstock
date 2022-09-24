@@ -117,7 +117,7 @@ class SymbolController extends Controller
                 ->error()
                 ->flash();
             }
-        }  else {
+        } else {
             flashing('KSTOCK is busy processing your first request, please wait for 10 seconds before sending another one')->warning()->flash();
         }
         return back();

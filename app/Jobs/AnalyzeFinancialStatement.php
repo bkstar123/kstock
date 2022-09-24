@@ -132,6 +132,7 @@ class AnalyzeFinancialStatement implements ShouldQueue
                  ->writeLongTermLiabilityCoverageRatioByCFO($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeCFOToRevenue($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeFCFToRevenue($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFCFToCFO($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeLiabilityCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeCurrentLiabilityCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeLongTermLiabilityCoverageRatioByFCF($cashFlowCalculator, $financialStatement->year, $financialStatement->quarter)
@@ -185,11 +186,15 @@ class AnalyzeFinancialStatement implements ShouldQueue
             // Long Term Asset Structure
             $longTermAssetStructureCalculator = new LongTermAssetStructureCalculator($financialStatement);
             $this->writeLongTermAssetToTotalAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
-                 ->writeFixedAssetToTotalAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermReceivableToLongTermAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeFixedAssetToLongTermAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeTangibleFixedAssetToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeFinancialLendingAssetToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
                  ->writeIntangibleAssetToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
-                 ->writeConstructionInProgressToFixedAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter);
+                 ->writeInvestingRealEstateToLongTermAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeConstructionInProgressToLongTermAssetRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeLongTermFinancialInvestingToLongTermRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter)
+                 ->writeOtherLongTermAssetToLongTermRatio($longTermAssetStructureCalculator, $financialStatement->year, $financialStatement->quarter);
             // Profit Structure
             $profitStructureCalculator = new ProfitStructureCalculator($financialStatement);
             $this->writeOperatingProfitToEBTRatio($profitStructureCalculator, $financialStatement->year, $financialStatement->quarter);
