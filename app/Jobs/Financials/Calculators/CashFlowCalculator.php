@@ -21,6 +21,8 @@ class CashFlowCalculator extends BaseCalculator
 
     public $fCFToRevenue; //FCF/Doanh thu thuần
 
+    public $fCFToCFO; //FCF/CFO
+
     public $liabilityCoverageRatioByFCF; //Hệ số thanh toán nợ bằng dòng tiền tự do
 
     public $currentLiabilityCoverageRatioByFCF; //Hệ số thanh toán nợ ngắn hạn bằng dòng tiền tự do
@@ -140,6 +142,28 @@ class CashFlowCalculator extends BaseCalculator
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
                 $this->fCFToRevenue = round(100 * $fcf / $net_revenue, 2);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Calculate FCF/CFO
+     *
+     * @param int $year
+     * @param int $quarter
+     * @return \App\Jobs\Financials\Calculators\CashFlowCalculator $this
+     */
+    public function calculateFCFToCFO($year = null, $quarter = null)
+    {
+        $this->fCFToCFO = null;
+        if (!empty($this->financialStatement->cash_flow_statement)) {
+            $selectedYear = $year ?? $this->financialStatement->year;
+            $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
+            $fcf = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter);
+            $cfo = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
+            if ($cfo != 0) {
+                $this->fCFToCFO = round(100 * $fcf / $cfo, 2);
             }
         }
         return $this;

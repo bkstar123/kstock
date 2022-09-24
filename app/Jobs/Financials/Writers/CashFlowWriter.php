@@ -177,6 +177,39 @@ trait CashFlowWriter
     }
 
     /**
+     * Write FCF/CFO
+     *
+     * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator
+     * @param  int $year
+     * @param  int $quarter
+     * @return $this
+     */
+    protected function writeFCFToCFO(CashFlowCalculator $calculator, $year, $quarter)
+    {
+        $values = [];
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
+            array_push($values, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => $calculator->calculateFCFToCFO($year, $quarter)->fCFToCFO
+            ]);
+            $previous = getPreviousPeriod($year, $quarter);
+            $year = $previous['year'];
+            $quarter = $previous['quarter'];
+        }
+        array_push($this->content, [
+            'name' => 'FCF/CFO',
+            'alias' => 'FCF/CFO',
+            'group' => 'Chỉ số dòng tiền',
+            'unit' => '%',
+            'description' => 'Chỉ số này cho biết tỉ lệ chuyển đổi dòng tiền thuần từ hoạt động kinh doanh sang dòng tiền tự do, từ đó phản ánh chất lượng dòng tiền của doanh nghiệp',
+            'values' => $values
+        ]);
+        return $this;
+    }
+
+    /**
      * Write Liability Coverage Ratio By FCF - He so kha nang thanh toan no cua dong tien tu do
      *
      * @param \App\Jobs\Financials\Calculators\CashFlowCalculator $calculator

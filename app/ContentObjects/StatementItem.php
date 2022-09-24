@@ -97,22 +97,81 @@ class StatementItem
     }
 
     /**
-     * Get the average value of a statement content item for the given period
+     * Get the average value of a statement content item between the given period and a past period
      *
      * @param integer $year
      * @param integer $quarter
      * @return float
      */
-    public function getAverageValue($year, $quarter)
+    public function getAverageValue($year, $quarter, $step = 1)
     {
         $currentValue = $this->getValue($year, $quarter);
-        $previousPeriod = getPreviousPeriod($year, $quarter);
-        if ($this->checkDataForPeriodExisted($previousPeriod['year'], $previousPeriod['quarter'])) {
-            $lastValue = $this->getValue($previousPeriod['year'], $previousPeriod['quarter']);
-            return ($currentValue + $lastValue) / 2;
+        if ($step <= 0) {
+            return $currentValue;
+        }
+        for ($i = 1; $i <= $step; $i++) {
+            $pastPeriod = getPreviousPeriod($year, $quarter);
+            $year = $pastPeriod['year'];
+            $quarter = $pastPeriod['quarter'];
+        }
+        if ($this->checkDataForPeriodExisted($pastPeriod['year'], $pastPeriod['quarter'])) {
+            $pastValue = $this->getValue($pastPeriod['year'], $pastPeriod['quarter']);
+            return ($currentValue + $pastValue) / 2;
         } else {
             return $currentValue;
         }
+    }
+
+    /**
+     * Get the differential value of a statement content item between the given period and a past period
+     *
+     * @param integer $year
+     * @param integer $quarter
+     * @param integer $step
+     * @return float
+     */
+    public function getDifferentialValueFromPastPeriod($year, $quarter, $step = 1)
+    {
+        $currentValue = $this->getValue($year, $quarter);
+        if ($step <= 0) {
+            return $currentValue;
+        }
+        for ($i = 1; $i <= $step; $i++) {
+            $pastPeriod = getPreviousPeriod($year, $quarter);
+            $year = $pastPeriod['year'];
+            $quarter = $pastPeriod['quarter'];
+        }
+        if ($this->checkDataForPeriodExisted($pastPeriod['year'], $pastPeriod['quarter'])) {
+            $pastValue = $this->getValue($pastPeriod['year'], $pastPeriod['quarter']);
+            return $currentValue - $pastValue;
+        } else {
+            return $currentValue;
+        }
+    }
+
+    /**
+     * Get the accumulated value of a statement content item from a past period to the given period
+     *
+     * @param integer $year
+     * @param integer $quarter
+     * @param integer $step
+     * @return float
+     */
+    public function getAccumulatedValueFromPastPeriod($year, $quarter, $step = 1)
+    {
+        $accumulated_value = $this->getValue($year, $quarter);
+        if ($step < 0) {
+            return $currentValue;
+        }
+        for ($i = 1; $i <= $step; $i++) {
+            $pastPeriod = getPreviousPeriod($year, $quarter);
+            $year = $pastPeriod['year'];
+            $quarter = $pastPeriod['quarter'];
+            if ($this->checkDataForPeriodExisted($year, $quarter)) {
+                $accumulated_value += $this->getValue($year, $quarter);
+            }
+        }
+        return $accumulated_value;
     }
 
     /**

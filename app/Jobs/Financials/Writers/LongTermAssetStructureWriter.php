@@ -45,14 +45,14 @@ trait LongTermAssetStructureWriter
     }
 
     /**
-     * Write Fixed Asset / Total Asset Ratio
+     * Write Long Term Receivable / Long Term Asset Ratio
      *
      * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
      * @param  int $year
      * @param  int $quarter
      * @return $this
      */
-    public function writeFixedAssetToTotalAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
+    public function writeLongTermReceivableToLongTermAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
         for ($i = 1; $i <= config('settings.limits'); $i++) {
@@ -60,18 +60,51 @@ trait LongTermAssetStructureWriter
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => $calculator->calculateFixedAssetToTotalAssetRatio($year, $quarter)->fixedAssetToTotalAssetRatio
+                'value' => $calculator->calculateLongTermReceivableToLongTermAssetRatio($year, $quarter)->longTermReceivableToLongTermAssetRatio
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
             $quarter = $previous['quarter'];
         }
         array_push($this->content, [
-            'name' => 'Tài sản cố định/Tổng tài sản',
-            'alias' => 'Fixed Assets/Total Assets',
+            'name' => 'Các khoản phải thu dài hạn/Tài sản dài hạn',
+            'alias' => 'Long Term Receivables/Long Term Assets',
             'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
             'unit' => '%',
-            'description' => 'Phản ánh tỉ trọng tài sản cố định trên tổng tài sản của doanh nghiệp',
+            'description' => 'Phản ánh tỉ trọng các khoản phải thu dài hạn trên tổng tài sản dài hạn của doanh nghiệp',
+            'values' => $values
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Fixed Asset / Long Term Asset Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @param  int $year
+     * @param  int $quarter
+     * @return $this
+     */
+    public function writeFixedAssetToLongTermAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
+    {
+        $values = [];
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
+            array_push($values, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => $calculator->calculateFixedAssetToLongTermAssetRatio($year, $quarter)->fixedAssetToLongTermAssetRatio
+            ]);
+            $previous = getPreviousPeriod($year, $quarter);
+            $year = $previous['year'];
+            $quarter = $previous['quarter'];
+        }
+        array_push($this->content, [
+            'name' => 'Tài sản cố định/Tài sản dài hạn',
+            'alias' => 'Fixed Assets/Long Term Assets',
+            'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
+            'unit' => '%',
+            'description' => 'Phản ánh tỉ trọng tài sản cố định trên tổng tài sản dài hạn của doanh nghiệp',
             'values' => $values
         ]);
         return $this;
@@ -184,7 +217,7 @@ trait LongTermAssetStructureWriter
      * @param  int $quarter
      * @return $this
      */
-    public function writeConstructionInProgressToFixedAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
+    public function writeInvestingRealEstateToLongTermAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
     {
         $values = [];
         for ($i = 1; $i <= config('settings.limits'); $i++) {
@@ -192,18 +225,117 @@ trait LongTermAssetStructureWriter
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => $calculator->calculateConstructionInProgressToFixedAssetRatio($year, $quarter)->constructionInProgressToFixedAssetRatio
+                'value' => $calculator->calculateInvestingRealEstateToLongTermAssetRatio($year, $quarter)->investingRealEstateToLongTermAssetRatio
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
             $quarter = $previous['quarter'];
         }
         array_push($this->content, [
-            'name' => 'Chi phí xây dựng cơ bản dở dang/Tài sản cố định',
-            'alias' => 'Construction in Progress/Fixed Assets',
+            'name' => 'Bất động sản đầu tư/Tài sản dài hạn',
+            'alias' => 'Investing Real Estates/Long Term Assets',
             'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
             'unit' => '%',
-            'description' => 'Phản ánh tỉ trọng chi phí xây dựng cơ bản dở dang trên tổng tài sản cố định của doanh nghiệp',
+            'description' => 'Phản ánh tỉ trọng bất động sản đầu tư trên tổng tài sản dài hạns của doanh nghiệp',
+            'values' => $values
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Construction In Progress / Fixed Asset Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @param  int $year
+     * @param  int $quarter
+     * @return $this
+     */
+    public function writeConstructionInProgressToLongTermAssetRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
+    {
+        $values = [];
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
+            array_push($values, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => $calculator->calculateConstructionInProgressToLongTermRatio($year, $quarter)->constructionInProgressToLongTermAssetRatio
+            ]);
+            $previous = getPreviousPeriod($year, $quarter);
+            $year = $previous['year'];
+            $quarter = $previous['quarter'];
+        }
+        array_push($this->content, [
+            'name' => 'Chi phí xây dựng cơ bản dở dang/Tài sản dài hạn',
+            'alias' => 'Construction in Progress/Long Term Assets',
+            'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
+            'unit' => '%',
+            'description' => 'Phản ánh tỉ trọng chi phí xây dựng cơ bản dở dang trên tổng tài sản dài hạn của doanh nghiệp',
+            'values' => $values
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Construction In Progress / Fixed Asset Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @param  int $year
+     * @param  int $quarter
+     * @return $this
+     */
+    public function writeLongTermFinancialInvestingToLongTermRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
+    {
+        $values = [];
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
+            array_push($values, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => $calculator->calculateLongTermFinancialInvestingToLongTermRatio($year, $quarter)->longTermFinancialInvestingToLongTermRatio
+            ]);
+            $previous = getPreviousPeriod($year, $quarter);
+            $year = $previous['year'];
+            $quarter = $previous['quarter'];
+        }
+        array_push($this->content, [
+            'name' => 'Các khoản đầu tư tài chính dài hạn/Tài sản dài hạn',
+            'alias' => 'Long Term Financial Investing/Long Term Assets',
+            'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
+            'unit' => '%',
+            'description' => 'Phản ánh tỉ trọng các khoản đầu tư tài chính dài hạn trên tổng tài sản dài hạn của doanh nghiệp',
+            'values' => $values
+        ]);
+        return $this;
+    }
+
+    /**
+     * Write Construction In Progress / Fixed Asset Ratio
+     *
+     * @param \App\Jobs\Financials\Calculators\LongTermAssetStructureCalculator
+     * @param  int $year
+     * @param  int $quarter
+     * @return $this
+     */
+    public function writeOtherLongTermAssetToLongTermRatio(LongTermAssetStructureCalculator $calculator, $year, $quarter)
+    {
+        $values = [];
+        for ($i = 1; $i <= config('settings.limits'); $i++) {
+            array_push($values, [
+                'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
+                'year' => $year,
+                'quarter' => $quarter,
+                'value' => $calculator->calculateOtherLongTermAssetToLongTermRatio($year, $quarter)->otherLongTermAssetToLongTermRatio
+            ]);
+            $previous = getPreviousPeriod($year, $quarter);
+            $year = $previous['year'];
+            $quarter = $previous['quarter'];
+        }
+        array_push($this->content, [
+            'name' => 'Các tài sản dài hạn khác/Tài sản dài hạn',
+            'alias' => 'Other Long Term Assets/Long Term Assets',
+            'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
+            'unit' => '%',
+            'description' => 'Phản ánh tỉ trọng các tài sản dài hạn khác trên tổng tài sản dài hạn của doanh nghiệp',
             'values' => $values
         ]);
         return $this;
