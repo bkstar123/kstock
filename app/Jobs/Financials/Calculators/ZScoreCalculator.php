@@ -7,7 +7,6 @@
  */
 namespace App\Jobs\Financials\Calculators;
 
-use App\Services\Contracts\Symbols;
 use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class ZScoreCalculator extends BaseCalculator
