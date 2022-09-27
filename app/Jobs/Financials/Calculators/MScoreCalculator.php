@@ -11,7 +11,9 @@ use App\Jobs\Financials\Calculators\BaseCalculator;
 
 class MScoreCalculator extends BaseCalculator
 {
-    public $mScore; // Do luong kha nang quan tri loi nhuan
+    public $m8Score; // Do luong kha nang quan tri loi nhuan
+
+    public $m5Score; // Do luong kha nang quan tri loi nhuan
 
     public $dsri; // Chi so phai thu khach hang so voi doanh thu
 
@@ -38,7 +40,8 @@ class MScoreCalculator extends BaseCalculator
      */
     public function calculateMScores($year = null, $quarter = null)
     {
-        $this->mScore = null;
+        $this->m8Score = null;
+        $this->m5Score = null;
         $this->dsri = null;
         $this->gmi = null;
         $this->aqi = null;
@@ -69,26 +72,59 @@ class MScoreCalculator extends BaseCalculator
                 $revenueT_1 = $this->financialStatement->income_statement->getItem('3')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
                 $gross_profitT = $this->financialStatement->income_statement->getItem('5')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
                 $gross_profitT_1 =  $this->financialStatement->income_statement->getItem('5')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
+                $deprecationT = $this->financialStatement->cash_flow_statement->getItem('10201')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
+                $deprecationT_1 = $this->financialStatement->cash_flow_statement->getItem('10201')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
+                $sgaT = $this->financialStatement->income_statement->getItem('9')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3) + $this->financialStatement->income_statement->getItem('10')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
+                $sgaT_1 = $this->financialStatement->income_statement->getItem('9')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3) + $this->financialStatement->income_statement->getItem('10')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
+                $net_profitT = $this->financialStatement->income_statement->getItem('21')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
+                $cfoT = $this->financialStatement->cash_flow_statement->getItem('104')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
             }
             if ($revenueT != 0 && $revenueT_1 != 0) {
                 $dsriT = $current_receivablesT / $revenueT;
                 $dsriT_1 = $current_receivablesT_1 / $revenueT_1;
                 $gmiT = $gross_profitT / $revenueT;
                 $gmiT_1 = $gross_profitT_1 / $revenueT_1;
+                $sgaiT = $sgaT / $revenueT;
+                $sgaiT_1 = $sgaT_1 / $revenueT_1;
                 if ($dsriT_1 != 0) {
                     $this->dsri = $dsriT / $dsriT_1;
                 }
                 if ($gmiT != 0) {
                     $this->gmi = $gmiT_1 / $gmiT;
                 }
+                if ($sgaiT_1 != 0) {
+                    $this->sgai = $sgaiT / $sgaiT_1;
+                }
             }
             if ($total_assetsT != 0 && $total_assetsT_1 != 0) {
                 $aqiT = 1 - ($current_assetsT + $ppeT) / $total_assetsT;
                 $aqiT_1 = 1 - ($current_assetsT_1 + $ppeT_1) / $total_assetsT_1;
+                $lvgiT = ($this->financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter)) / $total_assetsT;
+                $lvgiT_1 = ($this->financialStatement->balance_statement->getItem('30101')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($yearT_1, $quarterT_1)) / $total_assetsT_1;
+                $this->tata = ($net_profitT - $cfoT) / $total_assetsT;
                 if ($aqiT_1 != 0) {
                     $this->aqi = $aqiT / $aqiT_1;
                 }
-            }         
+                if ($lvgiT_1 != 0) {
+                    $this->lvgi = $lvgiT / $lvgiT_1;
+                }
+            }
+            if ($revenueT_1 != 0) {
+                $this->sgi = $revenueT / $revenueT_1;
+            }
+            if (($ppeT + $deprecationT) != 0 && ($ppeT_1 + $deprecationT_1) != 0) {
+                $depiT = $deprecationT / ($ppeT + $deprecationT);
+                $depiT_1 = $deprecationT_1 / ($ppeT_1 + $deprecationT_1);
+                if ($depiT != 0) {
+                    $this->depi = $depiT_1 / $depiT;
+                }
+            }
+            if (!is_null($this->dsri) && !is_null($this->gmi) && 
+                !is_null($this->aqi) && !is_null($this->sgi) && 
+                !is_null($this->depi) && !is_null($this->sgai) && 
+                !is_null($this->tata) && !is_null($this->lvgi)) {
+                $this->m8Score = -4.84 + 0.0920 * $this->dsri + 0.528 * $this->gmi + 0.404 * $this->aqi + 0.892 * $this->sgi + 0.115 * $this->depi - 0.172 * $this->sgai + 4.679 * $this->tata - 0.327 * $this->lvgi;
+            }
         }
         return $this;
     }
