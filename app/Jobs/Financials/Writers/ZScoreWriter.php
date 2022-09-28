@@ -1,6 +1,6 @@
 <?php
 /**
- * DupontWriter trait
+ * ZScoreWriter trait
  *
  * @author: tuanha
  * @date: 14-Aug-2022
@@ -12,7 +12,7 @@ use App\Jobs\Financials\Calculators\ZScoreCalculator;
 trait ZScoreWriter
 {
     /**
-     * Write Z-Score for manufactoring enterprises
+     * Write Z-Score
      *
      * @param \App\Jobs\Financials\Calculators\ZScoreCalculator $calculator
      * @param  int $year
