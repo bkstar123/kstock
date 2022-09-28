@@ -77,6 +77,7 @@ class MScoreCalculator extends BaseCalculator
                 $net_profitT = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
                 $cfoT = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
             } else {
+                // Calculate in the combination of 04 consecutive periods including the given period
                 $revenueT = $this->financialStatement->income_statement->getItem('3')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
                 $revenueT_1 = $this->financialStatement->income_statement->getItem('3')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
                 $gross_profitT = $this->financialStatement->income_statement->getItem('5')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
