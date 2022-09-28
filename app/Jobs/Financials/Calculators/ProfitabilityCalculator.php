@@ -238,7 +238,7 @@ class ProfitabilityCalculator extends BaseCalculator
             $financialLendingStaticAssets = $this->financialStatement->balance_statement->getItem("102020202");
             $intangibleFixedAssets = $this->financialStatement->balance_statement->getItem("102020302");
             $investRealEstate = $this->financialStatement->balance_statement->getItem("1020302");
-            $deprecation = abs($tangibleFixedAssets->getValue($selectedYear, $selectedQuarter)) - abs($tangibleFixedAssets->getValue($previousPeriod['year'], $previousPeriod['quarter'])) + abs($financialLendingStaticAssets->getValue($selectedYear, $selectedQuarter)) - abs($financialLendingStaticAssets->getValue($previousPeriod['year'], $previousPeriod['quarter'])) + abs($intangibleFixedAssets->getValue($selectedYear, $selectedQuarter)) - abs($intangibleFixedAssets->getValue($previousPeriod['year'], $previousPeriod['quarter'])) + abs($investRealEstate->getValue($selectedYear, $selectedQuarter)) - abs($investRealEstate->getValue($previousPeriod['year'], $previousPeriod['quarter']));
+            $deprecation = abs($tangibleFixedAssets->getDifferentialValueFromPastPeriod($selectedYear, $selectedQuarter)) + abs($financialLendingStaticAssets->getDifferentialValueFromPastPeriod($selectedYear, $selectedQuarter)) + abs($intangibleFixedAssets->getDifferentialValueFromPastPeriod($selectedYear, $selectedQuarter)) + abs($investRealEstate->getDifferentialValueFromPastPeriod($selectedYear, $selectedQuarter));
             $eBITDA = $eBit + $deprecation;
             $net_revenue = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
             if ($net_revenue != 0) {
