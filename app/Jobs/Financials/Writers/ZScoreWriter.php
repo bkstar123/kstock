@@ -76,40 +76,40 @@ trait ZScoreWriter
             $quarter = $previous['quarter'];
         }
         array_push($this->content, [
-            'name' => 'Vốn lưu động bình quân / Tổng tài sản bình quân',
-            'alias' => 'Average Net Working Capitals / Average Assets',
+            'name' => 'Vốn lưu động / Tổng tài sản',
+            'alias' => 'Net Working Capitals / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
             'description' => 'Đo lường tài sản lưu động ròng của doanh nghiệp so với tổng nguồn vốn',
             'values' => $values1
         ]);
         array_push($this->content, [
-            'name' => 'Tổng lợi nhuận giữa lại 4 quý gần nhất / Tổng tài sản bình quân',
-            'alias' => 'Retained Earnings / Average Assets',
+            'name' => 'Tổng lợi nhuận giữa lại 4 quý gần nhất / Tổng tài sản',
+            'alias' => 'Retained Earnings / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
             'description' => 'Đo lường mức độ đòn bẩy của một doanh nghiệp. Doanh nghiệp với tỉ số lợi nhuận giữ lại trên tổng tài sản cao tài trợ cho tài sản bằng cách giữ lại lợi nhuận mà không vay nợ nhiều',
             'values' => $values2
         ]);
         array_push($this->content, [
-            'name' => 'Tổng lợi nhuận trước thuế và lãi vay 4 quý gần nhất / tổng tài sản bình quân',
-            'alias' => 'EBIT / Average Assets',
+            'name' => 'Tổng lợi nhuận trước thuế và lãi vay 4 quý gần nhất / Tổng tài sản',
+            'alias' => 'EBIT / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
             'description' => 'Đo lường hiệu quả thực tế của việc sử dụng tài sản của doanh nghiệp khi không xét đến yếu tố ảnh hưởng của chính sách lãi suất và cấu trúc nguồn vốn',
             'values' => $values3
         ]);
         array_push($this->content, [
-            'name' => 'VCSH bình quân / Tổng nợ bình quân',
-            'alias' => 'Average Equities / Average Liabilities',
+            'name' => 'VCSH / Tổng nợ',
+            'alias' => 'Equities / Total Liabilities',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
             'description' => 'So sánh tài sản ròng của doanh nghiệp với các khoản nợ từ đó đánh giá mức độ phụ thuộc của doanh nghiệp vào vay nợ',
             'values' => $values4
         ]);
         array_push($this->content, [
-            'name' => 'Tổng doanh thu 4 quý gần nhất / Tổng tài sản bình quân',
-            'alias' => 'Revenues / Average Assets',
+            'name' => 'Tổng doanh thu 4 quý gần nhất / Tổng tài sản',
+            'alias' => 'Revenues / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
             'description' => 'Vòng quay tổng tài sản, đánh giá hiệu quả tạo ra doanh thu từ tài sản doanh nghiệp',
