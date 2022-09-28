@@ -66,7 +66,16 @@ class MScoreCalculator extends BaseCalculator
             $total_assetsT = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
             $total_assetsT_1 = $this->financialStatement->balance_statement->getItem('2')->getValue($yearT_1, $quarterT_1);
             if ($selectedQuarter == 0) {
-
+                $revenueT = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter);
+                $revenueT_1 = $this->financialStatement->income_statement->getItem('3')->getValue($yearT_1, $quarterT_1);
+                $gross_profitT = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter);
+                $gross_profitT_1 =  $this->financialStatement->income_statement->getItem('5')->getValue($yearT_1, $quarterT_1);
+                $deprecationT = $this->financialStatement->cash_flow_statement->getItem('10201')->getValue($selectedYear, $selectedQuarter);
+                $deprecationT_1 = $this->financialStatement->cash_flow_statement->getItem('10201')->getValue($yearT_1, $quarterT_1);
+                $sgaT = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
+                $sgaT_1 = $this->financialStatement->income_statement->getItem('9')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->income_statement->getItem('10')->getValue($yearT_1, $quarterT_1);
+                $net_profitT = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+                $cfoT = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
             } else {
                 $revenueT = $this->financialStatement->income_statement->getItem('3')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
                 $revenueT_1 = $this->financialStatement->income_statement->getItem('3')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
@@ -123,7 +132,8 @@ class MScoreCalculator extends BaseCalculator
                 !is_null($this->aqi) && !is_null($this->sgi) && 
                 !is_null($this->depi) && !is_null($this->sgai) && 
                 !is_null($this->tata) && !is_null($this->lvgi)) {
-                $this->m8Score = -4.84 + 0.0920 * $this->dsri + 0.528 * $this->gmi + 0.404 * $this->aqi + 0.892 * $this->sgi + 0.115 * $this->depi - 0.172 * $this->sgai + 4.679 * $this->tata - 0.327 * $this->lvgi;
+                $this->m8Score = -4.84 + 0.92 * $this->dsri + 0.528 * $this->gmi + 0.404 * $this->aqi + 0.892 * $this->sgi + 0.115 * $this->depi - 0.172 * $this->sgai + 4.679 * $this->tata - 0.327 * $this->lvgi;
+                $this->m5Score = -6.065 + 0.823 * $this->dsri + 0.906 * $this->gmi + 0.593 * $this->aqi + 0.717 * $this->sgi + 0.107 * $this->depi;
             }
         }
         return $this;
