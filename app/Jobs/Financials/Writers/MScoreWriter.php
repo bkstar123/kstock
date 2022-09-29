@@ -24,17 +24,18 @@ trait MScoreWriter
         $values1 = [];
         $values2 = [];
         for ($i = 1; $i <= config('settings.limits'); $i++) {
+            $calculator->calculateMScores($year, $quarter);
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->calculateMScores($year, $quarter)->m8Score, 4)
+                'value' => !is_null($calculator->m8Score) ? round($calculator->m8Score, 4) : ''
             ]);
             array_push($values2, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->m5Score, 4)
+                'value' => !is_null($calculator->m5Score) ? round($calculator->m5Score, 4) : ''
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
