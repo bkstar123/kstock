@@ -67,14 +67,23 @@ class AnalyzeFinancialStatement implements ShouldQueue
     protected $content = [];
 
     /**
+     * @var string
+     */
+    protected $cashFlowStatementType;
+
+    /**
      * Create a new job instance.
      *
+     * @param integer $financialStatementID
+     * @param Bkstar123\BksCMS\AdminPanel\Admin  $user
+     * @param string  $cashFlowStatementType
      * @return void
      */
-    public function __construct($financialStatementID, $user)
+    public function __construct($financialStatementID, $user, $cashFlowStatementType)
     {
-        $this->financialStatementID = $financialStatementID;
         $this->user = $user;
+        $this->financialStatementID = $financialStatementID;
+        $this->cashFlowStatementType = $cashFlowStatementType;
     }
 
     /**
@@ -105,6 +114,9 @@ class AnalyzeFinancialStatement implements ShouldQueue
                     default:
                         # code...
                         break;
+                }
+                if ($this->cashFlowStatementType == 'direct') {
+                    $financialStatement->cash_flow_statement = null;
                 }
             }
             // Z-Score

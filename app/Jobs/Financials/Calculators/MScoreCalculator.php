@@ -129,9 +129,9 @@ class MScoreCalculator extends BaseCalculator
                     $this->depi = $depiT_1 / $depiT;
                 }
             }
-            if (!is_null($this->dsri) && !is_null($this->gmi) && 
-                !is_null($this->aqi) && !is_null($this->sgi) && 
-                !is_null($this->depi) && !is_null($this->sgai) && 
+            if (!is_null($this->dsri) && !is_null($this->gmi) &&
+                !is_null($this->aqi) && !is_null($this->sgi) &&
+                !is_null($this->depi) && !is_null($this->sgai) &&
                 !is_null($this->tata) && !is_null($this->lvgi)) {
                 $this->m8Score = -4.84 + 0.92 * $this->dsri + 0.528 * $this->gmi + 0.404 * $this->aqi + 0.892 * $this->sgi + 0.115 * $this->depi - 0.172 * $this->sgai + 4.679 * $this->tata - 0.327 * $this->lvgi;
                 $this->m5Score = -6.065 + 0.823 * $this->dsri + 0.906 * $this->gmi + 0.593 * $this->aqi + 0.717 * $this->sgi + 0.107 * $this->depi;

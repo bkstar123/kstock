@@ -89,14 +89,19 @@ class PullFinancialStatement implements ShouldQueue
         $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 3, $this->year, $this->quarter, (int) config('settings.limits') + 5);
         if (empty($cashFlowStatement) || $cashFlowStatement == 'null' || !$this->validateStatement($cashFlowStatement)) {
             $cashFlowStatement = $symbols->getFullFinancialStatement($this->symbol, 4, $this->year, $this->quarter, (int) config('settings.limits') + 5);
+        } else {
+            $cashFlowStatementType = "direct";
         }
         if (!empty($cashFlowStatement) && $cashFlowStatement != 'null' && $this->validateStatement($cashFlowStatement)) {
+            $cashFlowStatementType = $cashFlowStatementType ?? 'indirect';
             CashFlowStatement::create([
                 'content' => $cashFlowStatement,
                 'financial_statement_id' => $this->financialStatementID
             ]);
+        } else {
+            $cashFlowStatementType = '';
         }
-        AnalyzeFinancialStatement::dispatch($this->financialStatementID, $this->user); // Temporary dispatch here
+        AnalyzeFinancialStatement::dispatch($this->financialStatementID, $this->user, $cashFlowStatementType); // Temporary dispatch here
         PullFinancialStatementCompleted::dispatch($this->user);
     }
 

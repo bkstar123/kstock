@@ -29,47 +29,48 @@ trait ZScoreWriter
         $values6 = [];
         $values7 = [];
         for ($i = 1; $i <= config('settings.limits'); $i++) {
+            $calculator->calculateZScores($year, $quarter);
             array_push($values1, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->calculateZScores($year, $quarter)->x1, 4)
+                'value' => !is_null($calculator->x1) ? round($calculator->x1, 4) : ''
             ]);
             array_push($values2, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->x2, 4)
+                'value' => !is_null($calculator->x2) ? round($calculator->x2, 4) : ''
             ]);
             array_push($values3, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->x3, 4)
+                'value' => !is_null($calculator->x3) ? round($calculator->x3, 4) : ''
             ]);
             array_push($values4, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->x4, 4)
+                'value' => !is_null($calculator->x4) ? round($calculator->x4, 4) : ''
             ]);
             array_push($values5, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->x5, 4)
+                'value' => !is_null($calculator->x5) ? round($calculator->x5, 4) : ''
             ]);
             array_push($values6, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->zScore, 4)
+                'value' => !is_null($calculator->zScore) ? round($calculator->zScore, 4) : ''
             ]);
             array_push($values7, [
                 'period' => $quarter != 0 ? "Q$quarter $year" : "$year",
                 'year' => $year,
                 'quarter' => $quarter,
-                'value' => round($calculator->z2Score, 4)
+                'value' => !is_null($calculator->z2Score) ? round($calculator->z2Score, 4) : ''
             ]);
             $previous = getPreviousPeriod($year, $quarter);
             $year = $previous['year'];
