@@ -59,8 +59,8 @@ class MScoreCalculator extends BaseCalculator
             $quarterT_1 = $selectedQuarter;
             $ppeT = $this->financialStatement->balance_statement->getItem('1020201')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('1020202')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('1020402')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('10203')->getValue($selectedYear, $selectedQuarter);
             $ppeT_1 = $this->financialStatement->balance_statement->getItem('1020201')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->balance_statement->getItem('1020202')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->balance_statement->getItem('1020402')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->balance_statement->getItem('10203')->getValue($yearT_1, $quarterT_1);
-            $current_receivablesT = $this->financialStatement->balance_statement->getItem('1010301')->getValue($selectedYear, $selectedQuarter);
-            $current_receivablesT_1 = $this->financialStatement->balance_statement->getItem('1010301')->getValue($yearT_1, $quarterT_1);
+            $receivablesT = $this->financialStatement->balance_statement->getItem('1010301')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('1020101')->getValue($selectedYear, $selectedQuarter);
+            $receivablesT_1 = $this->financialStatement->balance_statement->getItem('1010301')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->balance_statement->getItem('1020101')->getValue($yearT_1, $quarterT_1);
             $current_assetsT = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
             $current_assetsT_1 = $this->financialStatement->balance_statement->getItem('101')->getValue($yearT_1, $quarterT_1);
             $total_assetsT = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter);
@@ -74,7 +74,7 @@ class MScoreCalculator extends BaseCalculator
                 $deprecationT_1 = $this->financialStatement->cash_flow_statement->getItem('10201')->getValue($yearT_1, $quarterT_1);
                 $sgaT = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter);
                 $sgaT_1 = $this->financialStatement->income_statement->getItem('9')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->income_statement->getItem('10')->getValue($yearT_1, $quarterT_1);
-                $net_profitT = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
+                $net_profit = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter);
                 $cfoT = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter);
             } else {
                 // Calculate in the combination of 04 consecutive periods including the given period
@@ -86,12 +86,12 @@ class MScoreCalculator extends BaseCalculator
                 $deprecationT_1 = $this->financialStatement->cash_flow_statement->getItem('10201')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
                 $sgaT = $this->financialStatement->income_statement->getItem('9')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3) + $this->financialStatement->income_statement->getItem('10')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
                 $sgaT_1 = $this->financialStatement->income_statement->getItem('9')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3) + $this->financialStatement->income_statement->getItem('10')->getAccumulatedValueFromPastPeriod($yearT_1, $quarterT_1, 3);
-                $net_profitT = $this->financialStatement->income_statement->getItem('21')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
+                $net_profit = $this->financialStatement->income_statement->getItem('21')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
                 $cfoT = $this->financialStatement->cash_flow_statement->getItem('104')->getAccumulatedValueFromPastPeriod($selectedYear, $selectedQuarter, 3);
             }
             if ($revenueT != 0 && $revenueT_1 != 0) {
-                $dsriT = $current_receivablesT / $revenueT;
-                $dsriT_1 = $current_receivablesT_1 / $revenueT_1;
+                $dsriT = $receivablesT / $revenueT;
+                $dsriT_1 = $receivablesT_1 / $revenueT_1;
                 $gmiT = $gross_profitT / $revenueT;
                 $gmiT_1 = $gross_profitT_1 / $revenueT_1;
                 $sgaiT = $sgaT / $revenueT;
@@ -111,7 +111,7 @@ class MScoreCalculator extends BaseCalculator
                 $aqiT_1 = 1 - ($current_assetsT_1 + $ppeT_1) / $total_assetsT_1;
                 $lvgiT = ($this->financialStatement->balance_statement->getItem('30101')->getValue($selectedYear, $selectedQuarter) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter)) / $total_assetsT;
                 $lvgiT_1 = ($this->financialStatement->balance_statement->getItem('30101')->getValue($yearT_1, $quarterT_1) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($yearT_1, $quarterT_1)) / $total_assetsT_1;
-                $this->tata = ($net_profitT - $cfoT) / $total_assetsT;
+                $this->tata = ($net_profit - $cfoT) / $total_assetsT;
                 if ($aqiT_1 != 0) {
                     $this->aqi = $aqiT / $aqiT_1;
                 }
