@@ -170,7 +170,7 @@ trait CostStructureWriter
             'alias' => 'Selling and Enterprise Management Expenses/Gross Profit',
             'group' => 'Chỉ số Cơ cấu chi phí',
             'unit' => '%',
-            'description' => 'Chỉ số này cho biết chi phí lãi vay chiếm tỉ trọng bao nhiêu trong doanh thu thuần. Chỉ số này cho biết chi phí bán hàng và quản lý doanh nghiệp chiếm tỷ trọng bao nhiêu trong lợi nhuận gộp. <strong style="color:#d2691e;">Theo Buffet nếu chỉ số này dưới 30% thì là tuyệt vời, một số công ty có lợi thế cạnh tranh bền vững cũng có thể có chỉ số này nằm trong khoảng 30%-80%. Nhưng nếu doanh nghiệp duy trì chi phí này ở mức gần 100% hoặc cao hơn trong nhiều năm thì đó có thể là một doanh nghiệp trong ngành có sự cạnh tranh gay gắt. Kể cả khi hệ số này thấp thì cũng cần đánh giá thêm khả năng kinh tế dài hạn của doanh nghiệp dựa trên chi phí R&D, chi phí đầu tư TSCĐ (CAPEX) và chi phí lãi vay</strong>',
+            'description' => 'Chỉ số này cho biết chi phí bán hàng và quản lý doanh nghiệp chiếm tỷ trọng bao nhiêu trong lợi nhuận gộp. <strong style="color:#d2691e;">Theo Buffet nếu chỉ số này dưới 30% thì là tuyệt vời, một số công ty có lợi thế cạnh tranh bền vững cũng có thể có chỉ số này nằm trong khoảng 30%-80%. Nhưng nếu doanh nghiệp duy trì chi phí này ở mức gần 100% hoặc cao hơn trong nhiều năm thì đó có thể là một doanh nghiệp trong ngành có sự cạnh tranh gay gắt. Kể cả khi hệ số này thấp thì cũng cần đánh giá thêm khả năng kinh tế dài hạn của doanh nghiệp dựa trên chi phí R&D, chi phí đầu tư TSCĐ (CAPEX) và chi phí lãi vay</strong>',
             'values' => $values
         ]);
         return $this;
