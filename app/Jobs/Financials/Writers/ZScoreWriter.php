@@ -85,7 +85,7 @@ trait ZScoreWriter
             'values' => $values1
         ]);
         array_push($this->content, [
-            'name' => 'Tổng lợi nhuận giữa lại 4 quý gần nhất / Tổng tài sản',
+            'name' => 'Tổng lợi nhuận giữ lại 4 quý gần nhất / Tổng tài sản',
             'alias' => 'Retained Earnings / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
