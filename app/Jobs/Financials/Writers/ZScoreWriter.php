@@ -77,7 +77,7 @@ trait ZScoreWriter
             $quarter = $previous['quarter'];
         }
         array_push($this->content, [
-            'name' => 'Vốn lưu động / Tổng tài sản',
+            'name' => 'Vốn lưu động / Tổng tài sản (X1)',
             'alias' => 'Net Working Capitals / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
@@ -85,7 +85,7 @@ trait ZScoreWriter
             'values' => $values1
         ]);
         array_push($this->content, [
-            'name' => 'Tổng lợi nhuận giữ lại 4 quý gần nhất / Tổng tài sản',
+            'name' => 'Tổng lợi nhuận giữ lại 4 quý gần nhất / Tổng tài sản (X2)',
             'alias' => 'Retained Earnings / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
@@ -93,7 +93,7 @@ trait ZScoreWriter
             'values' => $values2
         ]);
         array_push($this->content, [
-            'name' => 'Tổng lợi nhuận trước thuế và lãi vay 4 quý gần nhất / Tổng tài sản',
+            'name' => 'Tổng lợi nhuận trước thuế và lãi vay 4 quý gần nhất / Tổng tài sản (X3)',
             'alias' => 'EBIT / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
@@ -101,7 +101,7 @@ trait ZScoreWriter
             'values' => $values3
         ]);
         array_push($this->content, [
-            'name' => 'VCSH / Tổng nợ',
+            'name' => 'VCSH / Tổng nợ (X4)',
             'alias' => 'Equities / Total Liabilities',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
@@ -109,7 +109,7 @@ trait ZScoreWriter
             'values' => $values4
         ]);
         array_push($this->content, [
-            'name' => 'Tổng doanh thu 4 quý gần nhất / Tổng tài sản',
+            'name' => 'Tổng doanh thu 4 quý gần nhất / Tổng tài sản (X5)',
             'alias' => 'Revenues / Total Assets',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
@@ -121,7 +121,7 @@ trait ZScoreWriter
             'alias' => 'Z-Score',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
-            'description' => 'Chỉ số đánh giá nguy cơ phá sản của doanh nghiệp sản xuất trong vòng 2 năm tới được đưa ra bởi <strong>Altman </strong>. Nếu <span style="color:rgb(230,76,76);"><strong>Z-Score &lt;= 1.81</strong></span> thì doanh nghiệp nằm trong vùng nguy hiểm có nguy cơ phá sản cao, nếu <span style="color:hsl(60,75%,60%);">1.81 &gt; Z-Score &lt; 2.99</span> thì doanh nghiệp nằm trong vùng cảnh báo về mức độ căng thẳng tài chính, nếu <span style="color:hsl(150,75%,60%);"><strong>Z-Score &gt;= 2.99</strong></span> thì doanh nghiệp nằm trong vùng an toàn chưa có nguy cơ phá sản. Chỉ số này được tính toán dựa trên số liệu của báo cáo tài chính 4 quý gần nhất bao gồm quý đang xét hoặc dựa trên báo cáo tài chính của cả năm',
+            'description' => 'Chỉ số đánh giá nguy cơ phá sản của doanh nghiệp sản xuất trong vòng 2 năm tới được đưa ra bởi <strong>Altman </strong>. Nếu <span style="color:rgb(230,76,76);"><strong>Z-Score &lt;= 1.81</strong></span> thì doanh nghiệp nằm trong vùng nguy hiểm có nguy cơ phá sản cao, nếu <span style="color:hsl(60,75%,60%);">1.81 &gt; Z-Score &lt; 2.99</span> thì doanh nghiệp nằm trong vùng cảnh báo về mức độ căng thẳng tài chính, nếu <span style="color:hsl(150,75%,60%);"><strong>Z-Score &gt;= 2.99</strong></span> thì doanh nghiệp nằm trong vùng an toàn chưa có nguy cơ phá sản. Chỉ số này được tính toán dựa trên số liệu của báo cáo tài chính 4 quý gần nhất bao gồm quý đang xét hoặc dựa trên báo cáo tài chính của cả năm. <strong style="color:#FF00FF;">Z-Score = 1.2 * X1 + 1.4 * X2 + 3.3 * X3 + 0.64 * X4 + 0.999 * X5</strong>',
             'values' => $values6
         ]);
         array_push($this->content, [
@@ -129,7 +129,7 @@ trait ZScoreWriter
             'alias' => 'Z2-Score',
             'group' => "Phân tích mô hình Altman Z-Score",
             'unit' => 'scalar',
-            'description' => 'Chỉ số đánh giá nguy cơ phá sản của doanh nghiệp sản xuất trong vòng 2 năm tới được đưa ra bởi <strong>Altman </strong>. Nếu <span style="color:rgb(230,76,76);"><strong>Z2-Score &lt;= 1.1</strong></span> thì doanh nghiệp nằm trong vùng nguy hiểm có nguy cơ phá sản cao, nếu <span style="color:hsl(60,75%,60%);">1.1 &gt; Z2-Score &lt; 2.6</span> thì doanh nghiệp nằm trong vùng cảnh báo về mức độ căng thẳng tài chính, nếu <span style="color:hsl(150,75%,60%);"><strong>Z2-Score &gt;= 2.6</strong></span> thì doanh nghiệp nằm trong vùng an toàn chưa có nguy cơ phá sản. Chỉ số này được tính toán dựa trên số liệu của báo cáo tài chính 4 quý gần nhất bao gồm quý đang xét hoặc dựa trên báo cáo tài chính của cả năm',
+            'description' => 'Chỉ số đánh giá nguy cơ phá sản của doanh nghiệp sản xuất trong vòng 2 năm tới được đưa ra bởi <strong>Altman </strong>. Nếu <span style="color:rgb(230,76,76);"><strong>Z2-Score &lt;= 1.1</strong></span> thì doanh nghiệp nằm trong vùng nguy hiểm có nguy cơ phá sản cao, nếu <span style="color:hsl(60,75%,60%);">1.1 &gt; Z2-Score &lt; 2.6</span> thì doanh nghiệp nằm trong vùng cảnh báo về mức độ căng thẳng tài chính, nếu <span style="color:hsl(150,75%,60%);"><strong>Z2-Score &gt;= 2.6</strong></span> thì doanh nghiệp nằm trong vùng an toàn chưa có nguy cơ phá sản. Chỉ số này được tính toán dựa trên số liệu của báo cáo tài chính 4 quý gần nhất bao gồm quý đang xét hoặc dựa trên báo cáo tài chính của cả năm. <strong style="color:#FF00FF;">Z2-Score = 6.56 * X1 + 3.26 * X2 + 6.72 * X3 + 1.05 * X4</strong>',
             'values' => $values7
         ]);
         return $this;
