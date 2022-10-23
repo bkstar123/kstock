@@ -69,6 +69,21 @@ class StatementItem
     }
 
     /**
+     * Get all values of a statement content item
+     *
+     * @return array
+     */
+    public function getValues()
+    {
+        return array_map(function($value) {
+            return [
+                $value['period'],
+                $value['value']
+            ];
+        }, $this->values);
+    }
+
+    /**
      * Get the value of a statement content item by year and quarter
      *
      * @param integer $year
@@ -84,16 +99,6 @@ class StatementItem
             }
         ));
         return (float) ($res['value'] ?? '');
-    }
-
-    /**
-     * Get all values of a statement content item
-     *
-     * @return array
-     */
-    public function getValues()
-    {
-        return array_pluck($this->values, 'value');
     }
 
     /**
