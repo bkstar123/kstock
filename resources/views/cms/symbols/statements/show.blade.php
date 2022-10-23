@@ -192,24 +192,116 @@
                     </div>
                     <div class="tab-pane" id="graphs">
                         @if(!empty($financial_statement->analysis_report))
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Chỉ số sinh lời</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Chỉ số sinh lời</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="roaa-container"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="roea-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="ros-container"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="gpm-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="rota-container"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="ebit-margin-container"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="roce-container"></div>
+                                            </div>
+                                        </div>     
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div id="roaa-container"></div>
-                                    <div id="roea-container"></div>
-                                    <div id="ros-container"></div>
-                                    <div id="gpm-container"></div>
-                                    <div id="rota-container"></div>
-                                    <div id="ebit-margin-container"></div>
-                                    <div id="roce-container"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Chỉ số thanh toán</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="liquidity-container"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="interest-coverage-ratio-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Chỉ số dòng tiền</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="cashflow-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Chỉ số CAPEX</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="cfo-to-capex-container"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="capex-to-net-profit-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Chỉ số hiệu quả hoạt động</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="effectiveness-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @else
                         No graphs to be shown
                         @endif
@@ -224,266 +316,36 @@
 @push('scriptBottom')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        Highcharts.theme = {
-            colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', 
-                     '#FF9655', '#FFF263', '#6AF9C4'],
-            chart: {
-                backgroundColor: {
-                    linearGradient: [0, 0, 500, 500],
-                    stops: [
-                        [0, 'rgb(255, 255, 255)'],
-                        [1, 'rgb(240, 240, 255)']
-                    ]
-                },
-            },
-            title: {
-                style: {
-                    color: '#000',
-                    font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-                }
-            },
-            subtitle: {
-                style: {
-                    color: '#666666',
-                    font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-                }
-            },
-            legend: {
-                itemStyle: {
-                    font: '9pt Trebuchet MS, Verdana, sans-serif',
-                    color: 'black'
-                },
-                itemHoverStyle:{
-                    color: 'gray'
-                }   
-            }
-        };
-        Highcharts.setOptions(Highcharts.theme);
-        var roaaChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'roaa-container'
-            },
-            title: {
-                text: 'Tỷ suất lợi nhuận trên tổng tài sản bình quân'
-            },
-            subtitle: {
-                text: 'ROAA'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Tỷ suất lợi nhuận trên tổng tài sản bình quân (ROAA)',
-                    data: []
-                }
-            ]
-        });
-        var roeaChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'roea-container'
-            },
-            title: {
-                text: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân'
-            },
-            subtitle: {
-                text: 'ROEA'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (ROEA)',
-                    data: []
-                }
-            ]
-        });
-        var rosChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'ros-container'
-            },
-            title: {
-                text: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ'
-            },
-            subtitle: {
-                text: 'ROS'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (ROS)',
-                    data: []
-                }
-            ]
-        });
-        var gpmChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'gpm-container'
-            },
-            title: {
-                text: 'Biên lợi nhuận gộp'
-            },
-            subtitle: {
-                text: 'GPM'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Biên lợi nhuận gộp (GPM)',
-                    data: []
-                }
-            ]
-        });
-        var rotaChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'rota-container'
-            },
-            title: {
-                text: 'Tỷ suất lợi nhuận trước thuế và lãi vay trên tổng tài sản bình quân'
-            },
-            subtitle: {
-                text: 'ROTA'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Tỷ suất lợi nhuận trước thuế và lãi vay trên tổng tài sản bình quân (ROTA)',
-                    data: []
-                }
-            ]
-        });
-        var ebitMarginChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'ebit-margin-container'
-            },
-            title: {
-                text: 'Biên lợi nhuận trước thuế và lãi vay trên doanh thu thuần'
-            },
-            subtitle: {
-                text: 'EBIT / Doanh thu thuần'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Biên lợi nhuận trước thuế và lãi vay trên doanh thu thuần',
-                    data: []
-                }
-            ]
-        });
-        var roceChart = Highcharts.chart({
-            chart: {
-                type: 'line',
-                renderTo: 'roce-container'
-            },
-            title: {
-                text: 'Tỷ suất lợi nhuận trên vốn dài hạn bình quân'
-            },
-            subtitle: {
-                text: 'ROCE'
-            },
-            xAxis: {
-                title: {
-                    text: 'Period',                   
-                },
-                type: 'category',
-                crosshair: true,
-            },
-            yAxis: {
-                title: {
-                    text: '%'
-                },
-                crosshair: true,
-            },
-            series: [
-                {
-                    name: 'Tỷ suất lợi nhuận trên vốn dài hạn bình quân (ROCE)',
-                    data: []
-                }
-            ]
-        });
-        roaaChart.series[0].setData(@json($financial_statement->analysis_report->getItem('ROAA')->getValues()));
-        roeaChart.series[0].setData(@json($financial_statement->analysis_report->getItem('ROEA')->getValues()));
-        rosChart.series[0].setData(@json($financial_statement->analysis_report->getItem('ROS2')->getValues()));
-        gpmChart.series[0].setData(@json($financial_statement->analysis_report->getItem('Gross profit margin')->getValues()));
-        rotaChart.series[0].setData(@json($financial_statement->analysis_report->getItem('ROTA')->getValues()));
-        ebitMarginChart.series[0].setData(@json($financial_statement->analysis_report->getItem('EBIT margin')->getValues()));
-        roceChart.series[0].setData(@json($financial_statement->analysis_report->getItem('ROCE')->getValues()));
-    });
+    // Chi so sinh loi
+    var roaaData = @json($financial_statement->analysis_report->getItem('ROAA')->getValues());
+    var roeaData = @json($financial_statement->analysis_report->getItem('ROEA')->getValues());
+    var rosData = @json($financial_statement->analysis_report->getItem('ROS2')->getValues());
+    var gpmData = @json($financial_statement->analysis_report->getItem('Gross profit margin')->getValues());
+    var rotaData = @json($financial_statement->analysis_report->getItem('ROTA')->getValues());
+    var ebitMarginData = @json($financial_statement->analysis_report->getItem('EBIT margin')->getValues());
+    var roceData = @json($financial_statement->analysis_report->getItem('ROCE')->getValues());
+
+    // Chi so thanh toan
+    var overallSolvencyRatioData = @json($financial_statement->analysis_report->getItem('Overall Solvency Ratio')->getValues());
+    var currentRatioData = @json($financial_statement->analysis_report->getItem('Current Ratio')->getValues());
+    var quickRatioData = @json($financial_statement->analysis_report->getItem('Quick Ratio 1')->getValues());
+    var quickRatio2Data = @json($financial_statement->analysis_report->getItem('Quick Ratio 2')->getValues());
+    var cashRatioData = @json($financial_statement->analysis_report->getItem('Cash Ratio')->getValues());
+    var interestCoverageRatioData = @json($financial_statement->analysis_report->getItem('Interest Coverage Ratio')->getValues());
+
+    // Chi so dong tien
+    var cfoToRevenueData = @json($financial_statement->analysis_report->getItem('CFO/Revenue')->getValues());
+    var fcfToRevenueData = @json($financial_statement->analysis_report->getItem('FCF/Revenue')->getValues());
+
+    // Chi so CAPEX
+    var cfoToCapex = @json($financial_statement->analysis_report->getItem('CFO/CAPEX')->getValues());
+    var capexToNetProfitData = @json($financial_statement->analysis_report->getItem('CAPEX/NetProfit')->getValues());
+
+    // Chi so hieu qua hoat dong
+    var averageCollectionPeriodData = @json($financial_statement->analysis_report->getItem('Average Collection Period')->getValues());
+    var averageAgeOfInventoryData = @json($financial_statement->analysis_report->getItem('Average Age of Inventory')->getValues());
+    var averageAccountPayableDurationData = @json($financial_statement->analysis_report->getItem('Average Account Payable Duration')->getValues());
+    var cashConversionCycleData = @json($financial_statement->analysis_report->getItem('Cash Conversion Cycle')->getValues());
 </script>
+<script src="/js/stock-symbols/graph_report.min.js"></script>
 @endpush

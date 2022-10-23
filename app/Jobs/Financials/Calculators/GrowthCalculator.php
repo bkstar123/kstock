@@ -90,11 +90,10 @@ class GrowthCalculator extends BaseCalculator
             if ($revenueYoY != 0) {
                 $this->revenueGrowthYoY = round(100 * ($selectedPeriodRevenue - $revenueYoY) / abs($revenueYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $revenueQoQ = $this->financialStatement->income_statement->getItem('3')->getValue($selectedYear, $selectedQuarter-1);
-                if ($revenueQoQ != 0) {
-                    $this->revenueGrowthQoQ = round(100 * ($selectedPeriodRevenue - $revenueQoQ) / abs($revenueQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $revenueQoQ = $this->financialStatement->income_statement->getItem('3')->getValue($previous['year'], $previous['quarter']);
+            if ($revenueQoQ != 0) {
+                $this->revenueGrowthQoQ = round(100 * ($selectedPeriodRevenue - $revenueQoQ) / abs($revenueQoQ), 2);
             }
         }
         return $this;
@@ -119,11 +118,10 @@ class GrowthCalculator extends BaseCalculator
             if ($grossProfitYoY != 0) {
                 $this->grossProfitGrowthYoY = round(100 * ($selectedPeriodGrossProfit - $grossProfitYoY) / abs($grossProfitYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $grossProfitQoQ = $this->financialStatement->income_statement->getItem('5')->getValue($selectedYear, $selectedQuarter-1);
-                if ($grossProfitQoQ != 0) {
-                    $this->grossProfitGrowthQoQ = round(100 * ($selectedPeriodGrossProfit - $grossProfitQoQ) / abs($grossProfitQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $grossProfitQoQ = $this->financialStatement->income_statement->getItem('5')->getValue($previous['year'], $previous['quarter']);
+            if ($grossProfitQoQ != 0) {
+                $this->grossProfitGrowthQoQ = round(100 * ($selectedPeriodGrossProfit - $grossProfitQoQ) / abs($grossProfitQoQ), 2);
             }
         }
         return $this;
@@ -148,11 +146,10 @@ class GrowthCalculator extends BaseCalculator
             if ($eBTYoY != 0) {
                 $this->eBTGrowthYoY = round(100 * ($selectedPeriodEBT - $eBTYoY) / abs($eBTYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $eBTQoQ = $this->financialStatement->income_statement->getItem('15')->getValue($selectedYear, $selectedQuarter-1);
-                if ($eBTQoQ != 0) {
-                    $this->eBTGrowthQoQ = round(100 * ($selectedPeriodEBT - $eBTQoQ) / abs($eBTQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $eBTQoQ = $this->financialStatement->income_statement->getItem('15')->getValue($previous['year'], $previous['quarter']);
+            if ($eBTQoQ != 0) {
+                $this->eBTGrowthQoQ = round(100 * ($selectedPeriodEBT - $eBTQoQ) / abs($eBTQoQ), 2);
             }
         }
         return $this;
@@ -177,11 +174,10 @@ class GrowthCalculator extends BaseCalculator
             if ($netProfitOfParentShareHolderYoY != 0) {
                 $this->netProfitOfParentShareHolderGrowthYoY = round(100 * ($selectedPeriodNetProfitOfParentShareHolder - $netProfitOfParentShareHolderYoY) / abs($netProfitOfParentShareHolderYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $netProfitOfParentShareHolderQoQ = $this->financialStatement->income_statement->getItem('21')->getValue($selectedYear, $selectedQuarter-1);
-                if ($netProfitOfParentShareHolderQoQ != 0) {
-                    $this->netProfitOfParentShareHolderGrowthQoQ = round(100 * ($selectedPeriodNetProfitOfParentShareHolder - $netProfitOfParentShareHolderQoQ) / abs($netProfitOfParentShareHolderQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $netProfitOfParentShareHolderQoQ = $this->financialStatement->income_statement->getItem('21')->getValue($previous['year'], $previous['quarter']);
+            if ($netProfitOfParentShareHolderQoQ != 0) {
+                $this->netProfitOfParentShareHolderGrowthQoQ = round(100 * ($selectedPeriodNetProfitOfParentShareHolder - $netProfitOfParentShareHolderQoQ) / abs($netProfitOfParentShareHolderQoQ), 2);
             }
         }
         return $this;
@@ -206,11 +202,10 @@ class GrowthCalculator extends BaseCalculator
             if ($totalAssetsYoY != 0) {
                 $this->totalAssetGrowthYoY = round(100 * ($selectedPeriodTotalAssets - $totalAssetsYoY) / abs($totalAssetsYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $totalAssetsQoQ = $this->financialStatement->balance_statement->getItem('2')->getValue($selectedYear, $selectedQuarter-1);
-                if ($totalAssetsQoQ != 0) {
-                    $this->totalAssetGrowthQoQ = round(100 * ($selectedPeriodTotalAssets - $totalAssetsQoQ) / abs($totalAssetsQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $totalAssetsQoQ = $this->financialStatement->balance_statement->getItem('2')->getValue($previous['year'], $previous['quarter']);
+            if ($totalAssetsQoQ != 0) {
+                $this->totalAssetGrowthQoQ = round(100 * ($selectedPeriodTotalAssets - $totalAssetsQoQ) / abs($totalAssetsQoQ), 2);
             }
         }
         return $this;
@@ -235,11 +230,10 @@ class GrowthCalculator extends BaseCalculator
             if ($longTermLiabilityYoY != 0) {
                 $this->longTermLiabilityGrowthYoY = round(100 * ($selectedPeriodLongTermLiability - $longTermLiabilityYoY) / abs($longTermLiabilityYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $longTermLiabilityQoQ = $this->financialStatement->balance_statement->getItem('30102')->getValue($selectedYear, $selectedQuarter-1);
-                if ($longTermLiabilityQoQ != 0) {
-                    $this->longTermLiabilityGrowthQoQ = round(100 * ($selectedPeriodLongTermLiability - $longTermLiabilityQoQ) / abs($longTermLiabilityQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $longTermLiabilityQoQ = $this->financialStatement->balance_statement->getItem('30102')->getValue($previous['year'], $previous['quarter']);
+            if ($longTermLiabilityQoQ != 0) {
+                $this->longTermLiabilityGrowthQoQ = round(100 * ($selectedPeriodLongTermLiability - $longTermLiabilityQoQ) / abs($longTermLiabilityQoQ), 2);
             }
         }
         return $this;
@@ -264,11 +258,10 @@ class GrowthCalculator extends BaseCalculator
             if ($liabilityYoY != 0) {
                 $this->liabilityGrowthYoY = round(100 * ($selectedPeriodLiability - $liabilityYoY) / abs($liabilityYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $liabilityQoQ = $this->financialStatement->balance_statement->getItem('301')->getValue($selectedYear, $selectedQuarter-1);
-                if ($liabilityQoQ != 0) {
-                    $this->liabilityGrowthQoQ = round(100 * ($selectedPeriodLiability - $liabilityQoQ) / abs($liabilityQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $liabilityQoQ = $this->financialStatement->balance_statement->getItem('301')->getValue($previous['year'], $previous['quarter']);
+            if ($liabilityQoQ != 0) {
+                $this->liabilityGrowthQoQ = round(100 * ($selectedPeriodLiability - $liabilityQoQ) / abs($liabilityQoQ), 2);
             }
         }
         return $this;
@@ -293,11 +286,10 @@ class GrowthCalculator extends BaseCalculator
             if ($equityYoY != 0) {
                 $this->equityGrowthYoY = round(100 * ($selectedPeriodEquity - $equityYoY) / abs($equityYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $equityQoQ = $this->financialStatement->balance_statement->getItem('302')->getValue($selectedYear, $selectedQuarter-1);
-                if ($equityQoQ != 0) {
-                    $this->equityGrowthQoQ = round(100 * ($selectedPeriodEquity - $equityQoQ) / abs($equityQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $equityQoQ = $this->financialStatement->balance_statement->getItem('302')->getValue($previous['year'], $previous['quarter']);
+            if ($equityQoQ != 0) {
+                $this->equityGrowthQoQ = round(100 * ($selectedPeriodEquity - $equityQoQ) / abs($equityQoQ), 2);
             }
         }
         return $this;
@@ -322,11 +314,10 @@ class GrowthCalculator extends BaseCalculator
             if ($charterCapitalYoY != 0) {
                 $this->charterCapitalGrowthYoY = round(100 * ($selectedPeriodCharterCapital - $charterCapitalYoY) / abs($charterCapitalYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $charterCapitalQoQ = $this->financialStatement->balance_statement->getItem('3020101')->getValue($selectedYear, $selectedQuarter-1);
-                if ($charterCapitalQoQ != 0) {
-                    $this->charterCapitalGrowthQoQ = round(100 * ($selectedPeriodCharterCapital - $charterCapitalQoQ) / abs($charterCapitalQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $charterCapitalQoQ = $this->financialStatement->balance_statement->getItem('3020101')->getValue($previous['year'], $previous['quarter']);
+            if ($charterCapitalQoQ != 0) {
+                $this->charterCapitalGrowthQoQ = round(100 * ($selectedPeriodCharterCapital - $charterCapitalQoQ) / abs($charterCapitalQoQ), 2);
             }
         }
         return $this;
@@ -351,11 +342,10 @@ class GrowthCalculator extends BaseCalculator
             if ($inventoryYoY != 0) {
                 $this->inventoryGrowthYoY = round(100 * ($selectedPeriodInventory - $inventoryYoY) / abs($inventoryYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $inventoryQoQ = $this->financialStatement->balance_statement->getItem('10104')->getValue($selectedYear, $selectedQuarter-1);
-                if ($inventoryQoQ != 0) {
-                    $this->inventoryGrowthQoQ = round(100 * ($selectedPeriodInventory - $inventoryQoQ) / abs($inventoryQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $inventoryQoQ = $this->financialStatement->balance_statement->getItem('10104')->getValue($previous['year'], $previous['quarter']);
+            if ($inventoryQoQ != 0) {
+                $this->inventoryGrowthQoQ = round(100 * ($selectedPeriodInventory - $inventoryQoQ) / abs($inventoryQoQ), 2);
             }
         }
         return $this;
@@ -380,8 +370,9 @@ class GrowthCalculator extends BaseCalculator
             if ($fcfYoY != 0) {
                 $this->fcfGrowthYoY = round(100 * ($selectedPeriodFCF - $fcfYoY) / abs($fcfYoY), 2);
             }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
             if ($selectedQuarter > 1) {
-                $fcfQoQ = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($selectedYear, $selectedQuarter-1);
+                $fcfQoQ = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($previous['year'], $previous['quarter']);
                 if ($fcfQoQ != 0) {
                     $this->fcfGrowthQoQ = round(100 * ($selectedPeriodFCF - $fcfQoQ) / abs($fcfQoQ), 2);
                 }
@@ -409,11 +400,10 @@ class GrowthCalculator extends BaseCalculator
             if ($cogsYoY != 0) {
                 $this->cogsGrowthYoY = round(100 * ($selectedPeriodCogs - $cogsYoY) / abs($cogsYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $cogsQoQ = $this->financialStatement->income_statement->getItem('4')->getValue($selectedYear, $selectedQuarter-1);
-                if ($cogsQoQ != 0) {
-                    $this->cogsGrowthQoQ = round(100 * ($selectedPeriodCogs - $cogsQoQ) / abs($cogsQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $cogsQoQ = $this->financialStatement->income_statement->getItem('4')->getValue($previous['year'], $previous['quarter']);
+            if ($cogsQoQ != 0) {
+                $this->cogsGrowthQoQ = round(100 * ($selectedPeriodCogs - $cogsQoQ) / abs($cogsQoQ), 2);
             }
         }
         return $this;
@@ -438,11 +428,10 @@ class GrowthCalculator extends BaseCalculator
             if ($operationExpenseYoY != 0) {
                 $this->operationExpenseGrowthYoY = round(100 * ($selectedPeriodOperationExpense - $operationExpenseYoY) / abs($operationExpenseYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $operationExpenseQoQ = $this->financialStatement->income_statement->getItem('9')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->income_statement->getItem('10')->getValue($selectedYear, $selectedQuarter-1);
-                if ($operationExpenseQoQ != 0) {
-                    $this->operationExpenseGrowthQoQ = round(100 * ($selectedPeriodOperationExpense - $operationExpenseQoQ) / abs($operationExpenseQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $operationExpenseQoQ = $this->financialStatement->income_statement->getItem('9')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->income_statement->getItem('10')->getValue($previous['year'], $previous['quarter']);
+            if ($operationExpenseQoQ != 0) {
+                $this->operationExpenseGrowthQoQ = round(100 * ($selectedPeriodOperationExpense - $operationExpenseQoQ) / abs($operationExpenseQoQ), 2);
             }
         }
         return $this;
@@ -467,11 +456,10 @@ class GrowthCalculator extends BaseCalculator
             if ($interestExpenseYoY != 0) {
                 $this->interestExpenseGrowthYoY = round(100 * ($selectedPeriodInterestExpense - $interestExpenseYoY) / abs($interestExpenseYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $interestExpenseQoQ = $this->financialStatement->income_statement->getItem('701')->getValue($selectedYear, $selectedQuarter-1);
-                if ($interestExpenseQoQ != 0) {
-                    $this->interestExpenseGrowthQoQ = round(100 * ($selectedPeriodInterestExpense - $interestExpenseQoQ) / abs($interestExpenseQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $interestExpenseQoQ = $this->financialStatement->income_statement->getItem('701')->getValue($previous['year'], $previous['quarter']);
+            if ($interestExpenseQoQ != 0) {
+                $this->interestExpenseGrowthQoQ = round(100 * ($selectedPeriodInterestExpense - $interestExpenseQoQ) / abs($interestExpenseQoQ), 2);
             }
         }
         return $this;
@@ -496,11 +484,10 @@ class GrowthCalculator extends BaseCalculator
             if ($debtYoY != 0) {
                 $this->debtGrowthYoY = round(100 * ($selectedPeriodDebt - $debtYoY) / abs($debtYoY), 2);
             }
-            if ($selectedQuarter > 1) {
-                $debtQoQ = $this->financialStatement->balance_statement->getItem('3010101')->getValue($selectedYear, $selectedQuarter-1) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($selectedYear, $selectedQuarter-1);
-                if ($debtQoQ != 0) {
-                    $this->debtGrowthQoQ = round(100 * ($selectedPeriodDebt - $debtQoQ) / abs($debtQoQ), 2);
-                }
+            $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
+            $debtQoQ = $this->financialStatement->balance_statement->getItem('3010101')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->balance_statement->getItem('3010206')->getValue($previous['year'], $previous['quarter']);
+            if ($debtQoQ != 0) {
+                $this->debtGrowthQoQ = round(100 * ($selectedPeriodDebt - $debtQoQ) / abs($debtQoQ), 2);
             }
         }
         return $this;
