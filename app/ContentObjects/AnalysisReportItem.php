@@ -60,4 +60,14 @@ class AnalysisReportItem
         $this->description = $description;
         $this->values = $values;
     }
+
+    public function getValues()
+    {
+        return array_reverse(array_map(function($value) {
+            return [
+                $value['period'],
+                $value['value']
+            ];
+        }, $this->values));
+    }
 }
