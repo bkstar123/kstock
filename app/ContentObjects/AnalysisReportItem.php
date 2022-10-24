@@ -63,7 +63,7 @@ class AnalysisReportItem
 
     public function getValues()
     {
-        return array_reverse(array_map(function($value) {
+        return array_reverse(array_map(function ($value) {
             return [
                 $value['period'],
                 $value['value']

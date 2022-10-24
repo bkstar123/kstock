@@ -23,6 +23,7 @@ mix.js('resources/cms-assets/js/app.js', 'public/cms-assets/js')
         'resources/cms-assets/js/stock-symbols/graph-reports/cashflow.js',
         'resources/cms-assets/js/stock-symbols/graph-reports/capex.js',
         'resources/cms-assets/js/stock-symbols/graph-reports/effectiveness.js',
+        'resources/cms-assets/js/stock-symbols/graph-reports/others.js',
     ], 'public/js/stock-symbols/graph_report.min.js')
     .sourceMaps()
     .sass('resources/cms-assets/sass/app.scss', 'public/cms-assets/css')

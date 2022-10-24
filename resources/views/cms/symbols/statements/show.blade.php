@@ -302,6 +302,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Các biểu đồ tài chính khác</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="revenue-net-profit-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @else
                         No graphs to be shown
                         @endif
@@ -314,7 +330,8 @@
 @endsection
 
 @push('scriptBottom')
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{ url('/js/vendor/highcharts/highcharts.js') }}"></script>
+<script src="{{ url('/js/vendor/highcharts/themes/default.js') }}"></script>
 <script type="text/javascript">
     // Chi so sinh loi
     var roaaData = @json($financial_statement->analysis_report->getItem('ROAA')->getValues());
@@ -346,6 +363,16 @@
     var averageAgeOfInventoryData = @json($financial_statement->analysis_report->getItem('Average Age of Inventory')->getValues());
     var averageAccountPayableDurationData = @json($financial_statement->analysis_report->getItem('Average Account Payable Duration')->getValues());
     var cashConversionCycleData = @json($financial_statement->analysis_report->getItem('Cash Conversion Cycle')->getValues());
+
+    // Cac thong tin tai chinh khac
+    var revenueData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('3')->getValues()));
+    var earningsAfterTaxParentCompanyData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('21')->getValues()));
 </script>
 <script src="/js/stock-symbols/graph_report.min.js"></script>
 @endpush
