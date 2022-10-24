@@ -75,7 +75,7 @@ class StatementItem
      */
     public function getValues()
     {
-        return array_map(function($value) {
+        return array_map(function ($value) {
             return [
                 $value['period'],
                 $value['value']
