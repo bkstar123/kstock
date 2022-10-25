@@ -26,7 +26,13 @@ $(document).ready(function () {
         series: [
             {
                 name: 'CFO/CAPEX',
-                data: []
+                data: [],
+                zones: [
+                    {
+                        value: 1,
+                        dashStyle: 'dot',
+                    }, 
+                ]
             },
         ]
     });

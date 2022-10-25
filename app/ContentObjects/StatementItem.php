@@ -81,7 +81,7 @@ class StatementItem
                 $value['period'],
                 $value['value']
             ];
-        }, $this->values), function($value, $key) use ($count) {
+        }, $this->values), function ($value, $key) use ($count) {
             return $key >= $count - (int) config('settings.limits', 5);
         }));
     }

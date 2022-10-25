@@ -27,6 +27,10 @@ $(document).ready(function () {
             {
                 name: 'Tỷ suất lợi nhuận trên tổng tài sản bình quân (ROAA)',
                 data: []
+            },
+            {
+                name: 'Tỷ suất lợi nhuận trên tổng tài sản (ROA)',
+                data: []
             }
         ]
     });
@@ -58,6 +62,10 @@ $(document).ready(function () {
             {
                 name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (ROEA)',
                 data: []
+            },
+            {
+                name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu (ROE)',
+                data: []
             }
         ]
     });
@@ -88,6 +96,10 @@ $(document).ready(function () {
         series: [
             {
                 name: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (ROS)',
+                data: []
+            },
+            {
+                name: 'Tỷ suất lợi nhuận sau thuế thu nhập doanh nghiệp',
                 data: []
             }
         ]
@@ -216,11 +228,51 @@ $(document).ready(function () {
            }
         ]
     });
+    var ebitdaChart = Highcharts.chart({
+        chart: {
+            type: 'line',
+            renderTo: 'ebitda-margin-container'
+        },
+        title: {
+            text: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao'
+        },
+        subtitle: {
+            text: 'EBITDA Margin'
+        },
+        xAxis: {
+            title: {
+                text: 'Period',                   
+            },
+            type: 'category',
+            crosshair: true,
+        },
+        yAxis: {
+            title: {
+                text: '%'
+            },
+            crosshair: true,
+        },
+        series: [
+            {
+                name: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao (tính theo bảng CĐKT và báo cáo kết quả HĐKD)',
+                data: []
+            },
+            {
+                name: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao (tính theo báo cáo lưu chuyển tiền tệ)',
+                data: []
+            }
+        ]
+    });
     roaaChart.series[0].setData(roaaData);
+    roaaChart.series[1].setData(roaData);
     roeaChart.series[0].setData(roeaData);
+    roeaChart.series[1].setData(roeData);
     rosChart.series[0].setData(ros2Data);
+    rosChart.series[1].setData(rosData);
     gpmChart.series[0].setData(gpmData);
     rotaChart.series[0].setData(rotaData);
     ebitMarginChart.series[0].setData(ebitMarginData);
     roceChart.series[0].setData(roceData);
+    ebitdaChart.series[0].setData(ebitda1Data);
+    ebitdaChart.series[1].setData(ebitda2Data);
 });
