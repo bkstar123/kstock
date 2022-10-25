@@ -54,7 +54,7 @@
                         @if(!empty($financial_statement->balance_statement))
                         <table>
                             <tr>
-                                @if(config('settings.display_statement_item_code') == 'yes')
+                                @if(config('settings.display_statement_item_code') == 'on')
                                     <th>Code</th>
                                 @endif
                                 <th>Name</th>
@@ -62,7 +62,7 @@
                             </tr>
                             @foreach($financial_statement->balance_statement->getItems() as $item)
                             <tr>
-                                @if(config('settings.display_statement_item_code') == 'yes')
+                                @if(config('settings.display_statement_item_code') == 'on')
                                     <td>{{ $item->id }}</td>
                                 @endif
                                 <td>{{ $item->name }}</td>
@@ -78,7 +78,7 @@
                         @if(!empty($financial_statement->income_statement))
                         <table>
                             <tr>
-                                @if(config('settings.display_statement_item_code') == 'yes')
+                                @if(config('settings.display_statement_item_code') == 'on')
                                     <th>Code</th>
                                 @endif
                                 <th>Name</th>
@@ -86,7 +86,7 @@
                             </tr>
                             @foreach($financial_statement->income_statement->getItems() as $item)
                             <tr>
-                                @if(config('settings.display_statement_item_code') == 'yes')
+                                @if(config('settings.display_statement_item_code') == 'on')
                                     <td>{{ $item->id }}</td>
                                 @endif
                                 <td>{{ $item->name }}</td>
@@ -102,7 +102,7 @@
                         @if(!empty($financial_statement->cash_flow_statement))
                         <table>
                             <tr>
-                                @if(config('settings.display_statement_item_code') == 'yes')
+                                @if(config('settings.display_statement_item_code') == 'on')
                                     <th>Code</th>
                                 @endif
                                 <th>Name</th>
@@ -110,7 +110,7 @@
                             </tr>
                             @foreach($financial_statement->cash_flow_statement->getItems() as $item)
                             <tr>
-                                @if(config('settings.display_statement_item_code') == 'yes')
+                                @if(config('settings.display_statement_item_code') == 'on')
                                     <td>{{ $item->id }}</td>
                                 @endif
                                 <td>{{ $item->name }}</td>
@@ -331,7 +331,7 @@
 
 @push('scriptBottom')
 <script src="{{ url('/js/vendor/highcharts/highcharts.js') }}"></script>
-<script src="{{ url('/js/vendor/highcharts/themes/default.js') }}"></script>
+<script src="{{ url('/js/vendor/highcharts/themes/' . config('settings.graph_theme') . '.js') }}"></script>
 <script type="text/javascript">
     // Chi so sinh loi
     var roaaData = @json($financial_statement->analysis_report->getItem('ROAA')->getValues());

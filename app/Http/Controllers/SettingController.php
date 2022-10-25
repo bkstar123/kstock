@@ -14,7 +14,12 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return view('cms.settings.index');
+        $graphThemes = array_map(function ($filename) {
+            return pathinfo($filename)['filename'];
+        }, array_filter(scandir(public_path('js/vendor/highcharts/themes')), function ($filename) {
+            return $filename != '.' && $filename != '..';
+        }));
+        return view('cms.settings.index', compact('graphThemes'));
     }
 
     /**
@@ -29,6 +34,7 @@ class SettingController extends Controller
             'limits' => 'numeric|min:2|max:10'
         ]);
         $settings = $request->except('_token');
+        $settings['display_statement_item_code'] = $request->display_statement_item_code ?? 'off';
         foreach ($settings as $key => $value) {
             Setting::set($key, $value);
         }
