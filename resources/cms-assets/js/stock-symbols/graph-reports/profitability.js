@@ -218,7 +218,7 @@ $(document).ready(function () {
     });
     roaaChart.series[0].setData(roaaData);
     roeaChart.series[0].setData(roeaData);
-    rosChart.series[0].setData(rosData);
+    rosChart.series[0].setData(ros2Data);
     gpmChart.series[0].setData(gpmData);
     rotaChart.series[0].setData(rotaData);
     ebitMarginChart.series[0].setData(ebitMarginData);

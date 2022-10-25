@@ -231,7 +231,7 @@
                                         </div>     
                                     </div>
                                 </div>
-                            </div>
+                            </div><hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -250,7 +250,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -266,7 +266,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -285,7 +285,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -301,7 +301,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -336,7 +336,7 @@
     // Chi so sinh loi
     var roaaData = @json($financial_statement->analysis_report->getItem('ROAA')->getValues());
     var roeaData = @json($financial_statement->analysis_report->getItem('ROEA')->getValues());
-    var rosData = @json($financial_statement->analysis_report->getItem('ROS2')->getValues());
+    var ros2Data = @json($financial_statement->analysis_report->getItem('ROS2')->getValues());
     var gpmData = @json($financial_statement->analysis_report->getItem('Gross profit margin')->getValues());
     var rotaData = @json($financial_statement->analysis_report->getItem('ROTA')->getValues());
     var ebitMarginData = @json($financial_statement->analysis_report->getItem('EBIT margin')->getValues());

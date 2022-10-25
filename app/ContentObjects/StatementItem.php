@@ -75,12 +75,15 @@ class StatementItem
      */
     public function getValues()
     {
-        return array_map(function ($value) {
+        $count = count($this->values);
+        return array_merge([], \Arr::where(array_map(function ($value) {
             return [
                 $value['period'],
                 $value['value']
             ];
-        }, $this->values);
+        }, $this->values), function($value, $key) use ($count) {
+            return $key >= $count - (int) config('settings.limits', 5);
+        }));
     }
 
     /**
