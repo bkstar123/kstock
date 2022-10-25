@@ -1,11 +1,11 @@
 $(document).ready(function () {
     var cashflowChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'column',
             renderTo: 'cashflow-container'
         },
         title: {
-            text: ' Hệ số dòng tiền thuần hoạt động kinh doanh, dòng tiền tự do trên doanh thu thuần'
+            text: ' Hệ số dòng tiền hoạt động kinh doanh và dòng tiền tự do trên doanh thu thuần'
         },
         subtitle: {
             text: 'CFO/Revenue - FCF/Revenue'
@@ -17,23 +17,68 @@ $(document).ready(function () {
             type: 'category',
             crosshair: true,
         },
-        yAxis: {
-            title: {
-                text: '%'
+        yAxis: [
+            {
+                title: {
+                    text: '%'
+                },
+                crosshair: true,
             },
-            crosshair: true,
-        },
+            {
+                title: {
+                    text: 'FCF/CFO (%)'
+                },
+                crosshair: true,
+                opposite: true
+            }
+        ],
         series: [
             {
                 name: 'CFO/Doanh thu thuần',
-                data: []
+                data: [],
+                yAxis: 0,
+                zones: [
+                    {
+                        value: 0,
+                        dashStyle: 'dot'
+                    }, 
+                ]
             },
             {
                 name: 'FCF/Doanh thu thuần',
-                data: []
+                data: [],
+                yAxis: 0,
+                zones: [
+                    {
+                        value: 0,
+                        dashStyle: 'dot'
+                    }, 
+                ]
+            },
+            {
+                name: 'FCF/CFO',
+                data: [],
+                yAxis: 1,
+                type: 'line',
+                dataLabels: {
+                    enabled: true
+                },
+                zones: [
+                    {
+                        value: 0,
+                        dashStyle: 'dot'
+                    }, 
+                    {
+                        value: 100,
+                    }, 
+                    {
+                        dashStyle: 'dot'
+                    }, 
+                ]
             }
         ]
     });
     cashflowChart.series[0].setData(cfoToRevenueData);
     cashflowChart.series[1].setData(fcfToRevenueData);
+    cashflowChart.series[2].setData(fcfToCfoData);
 });

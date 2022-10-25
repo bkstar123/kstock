@@ -225,8 +225,11 @@
                                             </div>
                                         </div><br>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div id="roce-container" style="width:100%;"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="ebitda-margin-container" style="width:100%;"></div>
                                             </div>
                                         </div>     
                                     </div>
@@ -295,8 +298,11 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div id="effectiveness-container"> style="width:100%;"</div>
+                                            <div class="col-md-6">
+                                                <div id="effectiveness-container" style="width:100%;"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="other-effectiveness-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -306,13 +312,13 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h3 class="card-title">Các biểu đồ tài chính khác</h3>
+                                            <h3 class="card-title">Báo cáo kết quả kinh doanh</h3>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="revenue-net-profit-container" style="width:100%;"></div>
+                                                <div id="profit-cost-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -335,12 +341,17 @@
 <script type="text/javascript">
     // Chi so sinh loi
     var roaaData = @json($financial_statement->analysis_report->getItem('ROAA')->getValues());
+    var roaData = @json($financial_statement->analysis_report->getItem('ROA')->getValues());
     var roeaData = @json($financial_statement->analysis_report->getItem('ROEA')->getValues());
+    var roeData = @json($financial_statement->analysis_report->getItem('ROE')->getValues());
+    var rosData = @json($financial_statement->analysis_report->getItem('ROS')->getValues());
     var ros2Data = @json($financial_statement->analysis_report->getItem('ROS2')->getValues());
     var gpmData = @json($financial_statement->analysis_report->getItem('Gross profit margin')->getValues());
     var rotaData = @json($financial_statement->analysis_report->getItem('ROTA')->getValues());
     var ebitMarginData = @json($financial_statement->analysis_report->getItem('EBIT margin')->getValues());
     var roceData = @json($financial_statement->analysis_report->getItem('ROCE')->getValues());
+    var ebitda1Data = @json($financial_statement->analysis_report->getItem('EBITDA margin 1')->getValues());
+    var ebitda2Data = @json($financial_statement->analysis_report->getItem('EBITDA margin 2')->getValues());
 
     // Chi so thanh toan
     var overallSolvencyRatioData = @json($financial_statement->analysis_report->getItem('Overall Solvency Ratio')->getValues());
@@ -353,6 +364,7 @@
     // Chi so dong tien
     var cfoToRevenueData = @json($financial_statement->analysis_report->getItem('CFO/Revenue')->getValues());
     var fcfToRevenueData = @json($financial_statement->analysis_report->getItem('FCF/Revenue')->getValues());
+    var fcfToCfoData = @json($financial_statement->analysis_report->getItem('FCF/CFO')->getValues());
 
     // Chi so CAPEX
     var cfoToCapex = @json($financial_statement->analysis_report->getItem('CFO/CAPEX')->getValues());
@@ -363,8 +375,11 @@
     var averageAgeOfInventoryData = @json($financial_statement->analysis_report->getItem('Average Age of Inventory')->getValues());
     var averageAccountPayableDurationData = @json($financial_statement->analysis_report->getItem('Average Account Payable Duration')->getValues());
     var cashConversionCycleData = @json($financial_statement->analysis_report->getItem('Cash Conversion Cycle')->getValues());
+    var totalAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Total Asset Turnover Ratio')->getValues());
+    var fixedAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Fixed Asset Turnover Ratio')->getValues());
+    var equityTurnoverData = @json($financial_statement->analysis_report->getItem('Equity Turnover Ratio')->getValues());
 
-    // Cac thong tin tai chinh khac
+    // Income
     var revenueData = @json(array_map(function($value) {
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
@@ -373,6 +388,35 @@
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
     }, $financial_statement->income_statement->getItem('21')->getValues()));
+    var grossProfitData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('5')->getValues()));
+    var cogsData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('4')->getValues()));
+    var financialExpenseData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('7')->getValues()));
+    var sellingExpenseData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('9')->getValues()));
+    var generalAdminExpenseData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('10')->getValues()));
+    var eBTData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('15')->getValues()));
+    var financialRevenueData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('6')->getValues()));
+    var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
 </script>
 <script src="/js/stock-symbols/graph_report.min.js"></script>
 @endpush
