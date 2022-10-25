@@ -70,27 +70,40 @@
             <div class="tab-pane" id="displayStatementItemCode">
                 <div class="card">
 				    <div class="card-header">
-					    <h3>Display Codes Of Statement Items</h3>
+					    <h3>Display Options</h3>
 					</div>
 					<div class="card-body">
 					    <form action="{{ route('cms.settings.update') }}" method="POST">
 					        @csrf
 					        <div class="form-group">
-					        	<label for="display_statement_item_true">YES</label>
-					        	<input class="form-control" 
-					        	       type="radio" 
-					        	       id="display_statement_item_code_true"
-					        	       name="display_statement_item_code"
-					        	       {{ config('settings.display_statement_item_code') != 'yes' ?: "checked"}}
-					        	       value="yes" />
-					        	<label for="display_statement_item_false">NO</label>
-					        	<input class="form-control" 
-					        	       type="radio" 
-					        	       id="display_statement_item_code_false"
-					        	       name="display_statement_item_code"
-					        	       {{ config('settings.display_statement_item_code') != 'no' ?: "checked"}}
-					        	       value="no" />
-					        </div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="icheck-warning">
+											<input class="form-control"
+											       type="checkbox"
+											       id="display_statement_item_code"
+											       {{ config('settings.display_statement_item_code') != 'on' ?: "checked"}}
+											       name="display_statement_item_code">
+											       <label for="display_statement_item_code"> Display codes of statement items</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-12">
+										<label for="graph_theme"> 
+										    Select a theme for graphs
+										</label>
+										<select class="form-control" name="graph_theme" id="graph_theme">
+											<option value="" disabled selected>Please select a theme</option>
+											@foreach($graphThemes as $theme)
+											    <option value="{{ $theme }}" {{ config('settings.graph_theme') != $theme ?: "selected"}}>{{ $theme }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+							</div>
 					        <div class="col-12 text-right">
                                 <button class="btn btn-success" type="submit">
                                     <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
