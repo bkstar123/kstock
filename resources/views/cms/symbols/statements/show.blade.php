@@ -202,31 +202,31 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div id="roaa-container"></div>
+                                                <div id="roaa-container" style="width:100%;"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div id="roea-container"></div>
+                                                <div id="roea-container" style="width:100%;"></div>
                                             </div>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div id="ros-container"></div>
+                                                <div id="ros-container" style="width:100%;"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div id="gpm-container"></div>
+                                                <div id="gpm-container" style="width:100%;"></div>
                                             </div>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div id="rota-container"></div>
+                                                <div id="rota-container" style="width:100%;"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div id="ebit-margin-container"></div>
+                                                <div id="ebit-margin-container" style="width:100%;"></div>
                                             </div>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="roce-container"></div>
+                                                <div id="roce-container" style="width:100%;"></div>
                                             </div>
                                         </div>     
                                     </div>
@@ -242,10 +242,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div id="liquidity-container"></div>
+                                                <div id="liquidity-container" style="width:100%;"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div id="interest-coverage-ratio-container"></div>
+                                                <div id="interest-coverage-ratio-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -261,7 +261,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="cashflow-container"></div>
+                                                <div id="cashflow-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -277,10 +277,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div id="cfo-to-capex-container"></div>
+                                                <div id="cfo-to-capex-container" style="width:100%;"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div id="capex-to-net-profit-container"></div>
+                                                <div id="capex-to-net-profit-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="effectiveness-container"></div>
+                                                <div id="effectiveness-container"> style="width:100%;"</div>
                                             </div>
                                         </div>
                                     </div>
@@ -312,7 +312,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="revenue-net-profit-container"></div>
+                                                <div id="revenue-net-profit-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
