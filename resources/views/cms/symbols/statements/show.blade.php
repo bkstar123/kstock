@@ -264,7 +264,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="cashflow-container" style="width:100%;"></div>
+                                                <div id="cash-flow-ratio-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -299,10 +299,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div id="effectiveness-container" style="width:100%;"></div>
+                                                <div id="effectiveness-ratio-container" style="width:100%;"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div id="other-effectiveness-container" style="width:100%;"></div>
+                                                <div id="other-effectiveness-ratio-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -318,7 +318,23 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="profit-cost-container" style="width:100%;"></div>
+                                                <div id="income-statement-container" style="width:100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Báo cáo lưu chuyển tiền tệ</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="cash-flows-statement-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -379,7 +395,7 @@
     var fixedAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Fixed Asset Turnover Ratio')->getValues());
     var equityTurnoverData = @json($financial_statement->analysis_report->getItem('Equity Turnover Ratio')->getValues());
 
-    // Income
+    // Bao cao ket qua HDKD
     var revenueData = @json(array_map(function($value) {
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
@@ -416,7 +432,33 @@
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
     }, $financial_statement->income_statement->getItem('6')->getValues()));
+    var interestExpenseData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->income_statement->getItem('701')->getValues()));
     var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
+
+    //Bao cao luu chuyen tien te
+    var cfoData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('104')->getValues()));
+    var cfiData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('212')->getValues()));
+    var cffData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('311')->getValues()));
+    var cashMovingData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('4')->getValues()));
+    var cashEndData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('7')->getValues()));
 </script>
 <script src="/js/stock-symbols/graph_report.min.js"></script>
 @endpush
