@@ -371,11 +371,9 @@ class GrowthCalculator extends BaseCalculator
                 $this->fcfGrowthYoY = round(100 * ($selectedPeriodFCF - $fcfYoY) / abs($fcfYoY), 2);
             }
             $previous = getPreviousPeriod($selectedYear, $selectedQuarter);
-            if ($selectedQuarter > 1) {
-                $fcfQoQ = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($previous['year'], $previous['quarter']);
-                if ($fcfQoQ != 0) {
-                    $this->fcfGrowthQoQ = round(100 * ($selectedPeriodFCF - $fcfQoQ) / abs($fcfQoQ), 2);
-                }
+            $fcfQoQ = $this->financialStatement->cash_flow_statement->getItem('104')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->cash_flow_statement->getItem('201')->getValue($previous['year'], $previous['quarter']) + $this->financialStatement->cash_flow_statement->getItem('202')->getValue($previous['year'], $previous['quarter']);
+            if ($fcfQoQ != 0) {
+                $this->fcfGrowthQoQ = round(100 * ($selectedPeriodFCF - $fcfQoQ) / abs($fcfQoQ), 2);
             }
         }
         return $this;

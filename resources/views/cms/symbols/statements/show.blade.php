@@ -360,6 +360,8 @@
 <script src="{{ url('/js/vendor/highcharts/highcharts.js') }}"></script>
 <script src="{{ url('/js/vendor/highcharts/themes/' . config('settings.graph_theme') . '.js') }}"></script>
 <script type="text/javascript">
+// Cac chi so tai chinh
+@if(!empty($financial_statement->analysis_report))
     // Chi so sinh loi
     var roaaData = @json($financial_statement->analysis_report->getItem('ROAA')->getValues());
     var roaData = @json($financial_statement->analysis_report->getItem('ROA')->getValues());
@@ -399,8 +401,10 @@
     var totalAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Total Asset Turnover Ratio')->getValues());
     var fixedAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Fixed Asset Turnover Ratio')->getValues());
     var equityTurnoverData = @json($financial_statement->analysis_report->getItem('Equity Turnover Ratio')->getValues());
+@endif
 
-    // Bao cao ket qua HDKD
+// Bao cao ket qua HDKD
+@if(!empty($financial_statement->income_statement))
     var revenueData = @json(array_map(function($value) {
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
@@ -442,8 +446,10 @@
         return $value;
     }, $financial_statement->income_statement->getItem('701')->getValues()));
     var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
+@endif
 
-    //Bao cao luu chuyen tien te
+//Bao cao luu chuyen tien te
+@if(!empty($financial_statement->cash_flow_statement))
     var cfoData = @json(array_map(function($value) {
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
@@ -493,6 +499,7 @@
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
     }, $financial_statement->cash_flow_statement->getItem('304')->getValues()));
+@endif
 </script>
 <script src="/js/stock-symbols/graph_report.min.js"></script>
 @endpush

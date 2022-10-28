@@ -60,7 +60,7 @@ $(document).ready(function () {
             renderTo: 'important-constituent-cash-flows-container'
         },
         title: {
-            text: 'Một số dòng tiền thành phần quan trọng trong dòng tiền HĐKD, dòng tiền đầu tư và dòng tiền tài chính'
+            text: 'Một số của thành phần quan trọng trong dòng tiền HĐKD, dòng tiền đầu tư và dòng tiền tài chính'
         },
         subtitle: {
             text: 'Some important constituent cash flows in CFO, CFI, and CFF'
