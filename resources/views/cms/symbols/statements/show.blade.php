@@ -401,104 +401,104 @@
     var totalAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Total Asset Turnover Ratio')->getValues());
     var fixedAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Fixed Asset Turnover Ratio')->getValues());
     var equityTurnoverData = @json($financial_statement->analysis_report->getItem('Equity Turnover Ratio')->getValues());
-@endif
 
-// Bao cao ket qua HDKD
-@if(!empty($financial_statement->income_statement))
-    var revenueData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('3')->getValues()));
-    var earningsAfterTaxParentCompanyData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('21')->getValues()));
-    var grossProfitData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('5')->getValues()));
-    var cogsData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('4')->getValues()));
-    var financialExpenseData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('7')->getValues()));
-    var sellingExpenseData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('9')->getValues()));
-    var generalAdminExpenseData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('10')->getValues()));
-    var eBTData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('15')->getValues()));
-    var financialRevenueData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('6')->getValues()));
-    var interestExpenseData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->income_statement->getItem('701')->getValues()));
-    var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
-@endif
+    // Bao cao ket qua HDKD
+    @if(!empty($financial_statement->income_statement))
+        var revenueData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('3')->getValues()));
+        var earningsAfterTaxParentCompanyData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('21')->getValues()));
+        var grossProfitData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('5')->getValues()));
+        var cogsData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('4')->getValues()));
+        var financialExpenseData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('7')->getValues()));
+        var sellingExpenseData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('9')->getValues()));
+        var generalAdminExpenseData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('10')->getValues()));
+        var eBTData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('15')->getValues()));
+        var financialRevenueData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('6')->getValues()));
+        var interestExpenseData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('701')->getValues()));
+        var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
+    @endif
 
-//Bao cao luu chuyen tien te
-@if(!empty($financial_statement->cash_flow_statement))
-    var cfoData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('104')->getValues()));
-    var cfiData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('212')->getValues()));
-    var cffData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('311')->getValues()));
-    var cashMovingData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('4')->getValues()));
-    var cashEndData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('7')->getValues()));
+    //Bao cao luu chuyen tien te
+    @if(!empty($financial_statement->cash_flow_statement))
+        var cfoData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('104')->getValues()));
+        var cfiData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('212')->getValues()));
+        var cffData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('311')->getValues()));
+        var cashMovingData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('4')->getValues()));
+        var cashEndData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('7')->getValues()));
 
-    var deprecationData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('10201')->getValues()));
-    var receivableAccountChangenData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('10301')->getValues()));
-    var inventoryAccountChangenData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('10302')->getValues()));
-    var payableAccountChangenData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('10303')->getValues()));
-    var payForCapexData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('201')->getValues()));
-    var receiveFromCapexData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('202')->getValues()));
-    var payForDebtPrincipalxData = @json(array_map(function($value) {
-        $value[1] = readVietnameseDongForHuman($value[1]);
-        return $value;
-    }, $financial_statement->cash_flow_statement->getItem('304')->getValues()));
+        var deprecationData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10201')->getValues()));
+        var receivableAccountChangenData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10301')->getValues()));
+        var inventoryAccountChangenData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10302')->getValues()));
+        var payableAccountChangenData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10303')->getValues()));
+        var payForCapexData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('201')->getValues()));
+        var receiveFromCapexData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('202')->getValues()));
+        var payForDebtPrincipalxData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('304')->getValues()));
+    @endif
 @endif
 </script>
 <script src="/js/stock-symbols/graph_report.min.js"></script>
