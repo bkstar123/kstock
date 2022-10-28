@@ -336,6 +336,11 @@
                                             <div class="col-md-12">
                                                 <div id="cash-flows-statement-container" style="width:100%;"></div>
                                             </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="important-constituent-cash-flows-container" style="width:100%;"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -459,6 +464,35 @@
         $value[1] = readVietnameseDongForHuman($value[1]);
         return $value;
     }, $financial_statement->cash_flow_statement->getItem('7')->getValues()));
+
+    var deprecationData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('10201')->getValues()));
+    var receivableAccountChangenData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('10301')->getValues()));
+    var inventoryAccountChangenData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('10302')->getValues()));
+    var payableAccountChangenData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('10303')->getValues()));
+    var payForCapexData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('201')->getValues()));
+    var receiveFromCapexData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('202')->getValues()));
+    var payForDebtPrincipalxData = @json(array_map(function($value) {
+        $value[1] = readVietnameseDongForHuman($value[1]);
+        return $value;
+    }, $financial_statement->cash_flow_statement->getItem('304')->getValues()));
 </script>
 <script src="/js/stock-symbols/graph_report.min.js"></script>
 @endpush
