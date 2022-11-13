@@ -312,6 +312,22 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
+                                            <h3 class="card-title">Chỉ số đòn bẩy tài chính</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="financial-leverage-container" style="width:100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
                                             <h3 class="card-title">Báo cáo kết quả kinh doanh</h3>
                                         </div>
                                     </div>
@@ -401,6 +417,13 @@
     var totalAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Total Asset Turnover Ratio')->getValues());
     var fixedAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Fixed Asset Turnover Ratio')->getValues());
     var equityTurnoverData = @json($financial_statement->analysis_report->getItem('Equity Turnover Ratio')->getValues());
+
+    // Chi so don bay tai chinh
+    var debtToEquitiesData = @json($financial_statement->analysis_report->getItem('Debts/Equities')->getValues());
+    var netDebtToEquitiesData = @json($financial_statement->analysis_report->getItem('Net Debts/Equities')->getValues());
+    var longTermDebtToEquityData = @json($financial_statement->analysis_report->getItem('Long Term Debts/Equities')->getValues());
+    var financialLeverageData = @json($financial_statement->analysis_report->getItem('Total Assets/Equities')->getValues());
+    var averageFinancialLeverageData = @json($financial_statement->analysis_report->getItem('Average Total Assets/Average Equities')->getValues());
 
     // Bao cao ket qua HDKD
     @if(!empty($financial_statement->income_statement))

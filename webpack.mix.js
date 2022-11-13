@@ -25,6 +25,7 @@ mix.js('resources/cms-assets/js/app.js', 'public/cms-assets/js')
         'resources/cms-assets/js/stock-symbols/graph-reports/effectiveness_ratios.js',
         'resources/cms-assets/js/stock-symbols/graph-reports/income_statement.js',
         'resources/cms-assets/js/stock-symbols/graph-reports/cash_flow_statement.js',
+        'resources/cms-assets/js/stock-symbols/graph-reports/financial_leverage.js',
     ], 'public/js/stock-symbols/graph_report.min.js')
     .sourceMaps()
     .sass('resources/cms-assets/sass/app.scss', 'public/cms-assets/css')
