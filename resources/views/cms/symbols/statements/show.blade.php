@@ -328,6 +328,25 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
+                                            <h3 class="card-title">Chỉ số tăng trưởng</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div id="growthQoQ-container" style="width:100%;"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="growthYoY-container" style="width:100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
                                             <h3 class="card-title">Báo cáo kết quả kinh doanh</h3>
                                         </div>
                                     </div>
@@ -424,6 +443,13 @@
     var longTermDebtToEquityData = @json($financial_statement->analysis_report->getItem('Long Term Debts/Equities')->getValues());
     var financialLeverageData = @json($financial_statement->analysis_report->getItem('Total Assets/Equities')->getValues());
     var averageFinancialLeverageData = @json($financial_statement->analysis_report->getItem('Average Total Assets/Average Equities')->getValues());
+
+    // Cac chi so tang truong QoQ
+    var revenueGrowthQoQData = @json($financial_statement->analysis_report->getItem('Revenue Growth QoQ')->getValues());
+    var inventoryGrowthQoQData = @json($financial_statement->analysis_report->getItem('Inventory Growth QoQ')->getValues());
+    var cogsGrowthQoQData = @json($financial_statement->analysis_report->getItem('COGS Growth QoQ')->getValues());
+    var grossProfitGrowthQoQData = @json($financial_statement->analysis_report->getItem('Gross Profit Growth QoQ')->getValues());
+    var operatingExpenseGrowthQoQData = @json($financial_statement->analysis_report->getItem('Operation Expense Growth QoQ')->getValues());
 
     // Bao cao ket qua HDKD
     @if(!empty($financial_statement->income_statement))
