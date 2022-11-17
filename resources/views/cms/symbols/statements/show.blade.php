@@ -450,6 +450,33 @@
     var cogsGrowthQoQData = @json($financial_statement->analysis_report->getItem('COGS Growth QoQ')->getValues());
     var grossProfitGrowthQoQData = @json($financial_statement->analysis_report->getItem('Gross Profit Growth QoQ')->getValues());
     var operatingExpenseGrowthQoQData = @json($financial_statement->analysis_report->getItem('Operation Expense Growth QoQ')->getValues());
+    var interestExpenseGrowthQoQData = @json($financial_statement->analysis_report->getItem('Interest Expense Growth QoQ')->getValues());
+    var eBTGrowthQoQData = @json($financial_statement->analysis_report->getItem('Earnings Before Tax Growth QoQ')->getValues());
+    var netProfitOfParentShareHolderGrowthQoQData = @json($financial_statement->analysis_report->getItem('Net Profit Of Parent ShareHolder Growth QoQ')->getValues());
+    var totalAssetsGrowthQoQData = @json($financial_statement->analysis_report->getItem('Total Asset Growth QoQ')->getValues());
+    var longTermLiabilityGrowthQoQData = @json($financial_statement->analysis_report->getItem('Long Term Liability Growth QoQ')->getValues());
+    var liabilityGrowthQoQData = @json($financial_statement->analysis_report->getItem('Liability Growth QoQ')->getValues());
+    var debtGrowthQoQData = @json($financial_statement->analysis_report->getItem('Debt Growth QoQ')->getValues());
+    var charterCapitalGrowthQoQData = @json($financial_statement->analysis_report->getItem('Charter Capital Growth QoQ')->getValues());
+    var equityGrowthQoQData = @json($financial_statement->analysis_report->getItem('Equity Growth QoQ')->getValues());
+    var fcfGrowthQoQData = @json($financial_statement->analysis_report->getItem('FCF Growth QoQ')->getValues());
+
+    // Cac chi so tang truong YoY
+    var revenueGrowthYoYData = @json($financial_statement->analysis_report->getItem('Revenue Growth YoY')->getValues());
+    var inventoryGrowthYoYData = @json($financial_statement->analysis_report->getItem('Inventory Growth YoY')->getValues());
+    var cogsGrowthYoYData = @json($financial_statement->analysis_report->getItem('COGS Growth QoQ')->getValues());
+    var grossProfitGrowthYoYData = @json($financial_statement->analysis_report->getItem('Gross Profit Growth YoY')->getValues());
+    var operatingExpenseGrowthYoYData = @json($financial_statement->analysis_report->getItem('Operation Expense Growth YoY')->getValues());
+    var interestExpenseGrowthYoYData = @json($financial_statement->analysis_report->getItem('Interest Expense Growth YoY')->getValues());
+    var eBTGrowthYoYData = @json($financial_statement->analysis_report->getItem('Earnings Before Tax Growth YoY')->getValues());
+    var netProfitOfParentShareHolderGrowthYoYData = @json($financial_statement->analysis_report->getItem('Net Profit Of Parent ShareHolder Growth YoY')->getValues());
+    var totalAssetsGrowthYoYData = @json($financial_statement->analysis_report->getItem('Total Asset Growth YoY')->getValues());
+    var longTermLiabilityGrowthYoYData = @json($financial_statement->analysis_report->getItem('Long Term Liability Growth YoY')->getValues());
+    var liabilityGrowthYoYData = @json($financial_statement->analysis_report->getItem('Liability Growth YoY')->getValues());
+    var debtGrowthYoYData = @json($financial_statement->analysis_report->getItem('Debt Growth YoY')->getValues());
+    var charterCapitalGrowthYoYData = @json($financial_statement->analysis_report->getItem('Charter Capital Growth YoY')->getValues());
+    var equityGrowthYoYData = @json($financial_statement->analysis_report->getItem('Equity Growth YoY')->getValues());
+    var fcfGrowthYoYData = @json($financial_statement->analysis_report->getItem('FCF Growth YoY')->getValues());
 
     // Bao cao ket qua HDKD
     @if(!empty($financial_statement->income_statement))
