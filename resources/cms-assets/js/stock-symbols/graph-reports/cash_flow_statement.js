@@ -54,16 +54,16 @@ $(document).ready(function () {
         ]
     });
 
-    var componentCashflowsChart = Highcharts.chart({
+    var cfoCashflowsChart = Highcharts.chart({
         chart: {
             type: 'column',
-            renderTo: 'important-constituent-cash-flows-container'
+            renderTo: 'cfo-cash-flows-container'
         },
         title: {
-            text: 'Một số của thành phần quan trọng trong dòng tiền HĐKD, dòng tiền đầu tư và dòng tiền tài chính'
+            text: 'Một số thành phần của dòng tiền HĐKD (CFO)'
         },
         subtitle: {
-            text: 'Some important constituent cash flows in CFO, CFI, and CFF'
+            text: 'CFO component cash flows'
         },
         xAxis: {
             title: {
@@ -87,6 +87,16 @@ $(document).ready(function () {
                 data: []
             },
             {
+                name: '(Lãi)/Lỗ chênh lệch tỷ giá hối đoái chưa thực hiện',
+                yAxis: 0,
+                data: [],
+            },
+            {
+                name: '(Lãi)/Lỗ từ hoạt động đầu tư',
+                yAxis: 0,
+                data: [],
+            },
+            {
                 name: 'Thay đổi các khoản phải thu',
                 yAxis: 0,
                 data: []
@@ -102,22 +112,53 @@ $(document).ready(function () {
                 data: []
             },
             {
+                name: 'Tiền lãi vay đã trả',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Thuế thu nhập doanh nghiệp đã nộp',
+                yAxis: 0,
+                data: []
+            },
+            
+        ]
+    });
+
+    var cfiCashflowsChart = Highcharts.chart({
+        chart: {
+            type: 'column',
+            renderTo: 'cfi-cash-flows-container'
+        },
+        title: {
+            text: 'Một số thành phần của dòng tiền đầu tư (CFI)'
+        },
+        subtitle: {
+            text: 'CFI components'
+        },
+        xAxis: {
+            title: {
+                text: 'Period',                   
+            },
+            type: 'category',
+            crosshair: true,
+        },
+        yAxis: [
+            {
+                title: {
+                    text: 'Tỷ VND'
+                },
+                crosshair: true,
+            },
+        ],
+        series: [
+            {
                 name: 'Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác',
                 yAxis: 0,
                 data: []
             },
             {
                 name: 'Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác',
-                yAxis: 0,
-                data: []
-            },
-            {
-                name: 'Tiền chi trả nợ gốc vay',
-                yAxis: 0,
-                data: []
-            },
-            {
-                name: 'Tiền vay ngắn hạn, dài hạn nhận được',
                 yAxis: 0,
                 data: []
             },
@@ -131,48 +172,69 @@ $(document).ready(function () {
                 yAxis: 0,
                 data: []
             },
+        ]
+    });
+
+    var cffCashflowsChart = Highcharts.chart({
+        chart: {
+            type: 'column',
+            renderTo: 'cff-cash-flows-container'
+        },
+        title: {
+            text: 'Một số thành phần của dòng tiền tài chính (CFF)'
+        },
+        subtitle: {
+            text: 'CFF component cash flows'
+        },
+        xAxis: {
+            title: {
+                text: 'Period',                   
+            },
+            type: 'category',
+            crosshair: true,
+        },
+        yAxis: [
             {
-                name: 'Tiền lãi vay đã trả',
+                title: {
+                    text: 'Tỷ VND'
+                },
+                crosshair: true,
+            },
+        ],
+        series: [
+            {
+                name: 'Tiền chi trả nợ gốc vay',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Thuế thu nhập doanh nghiệp đã nộp',
-                yAxis: 0,
-                data: []
-            },
-            {
-                name: '(Lãi)/Lỗ chênh lệch tỷ giá hối đoái chưa thực hiện',
+                name: 'Tiền vay ngắn hạn, dài hạn nhận được',
                 yAxis: 0,
                 data: [],
-                type: 'spline'
-            },
-            {
-                name: '(Lãi)/Lỗ từ hoạt động đầu tư',
-                yAxis: 0,
-                data: [],
-                type: 'spline'
             },
         ]
     });
+
     cashflowsChart.series[0].setData(cfoData);
     cashflowsChart.series[1].setData(cfiData);
     cashflowsChart.series[2].setData(cffData);
     cashflowsChart.series[3].setData(cashMovingData);
     cashflowsChart.series[4].setData(cashEndData);
 
-    componentCashflowsChart.series[0].setData(deprecationData);
-    componentCashflowsChart.series[1].setData(receivableAccountChangenData);
-    componentCashflowsChart.series[2].setData(inventoryAccountChangenData);
-    componentCashflowsChart.series[3].setData(payableAccountChangenData);
-    componentCashflowsChart.series[4].setData(payForCapexData);
-    componentCashflowsChart.series[5].setData(receiveFromCapexData);
-    componentCashflowsChart.series[6].setData(payForDebtPrincipalData);
-    componentCashflowsChart.series[7].setData(loanData);
-    componentCashflowsChart.series[8].setData(payForLoanToolData);
-    componentCashflowsChart.series[9].setData(receiveForLoanToolData);
-    componentCashflowsChart.series[10].setData(paidInterestData);
-    componentCashflowsChart.series[11].setData(paidTaxData);
-    componentCashflowsChart.series[12].setData(changeFromCurrencyConversionRateData);
-    componentCashflowsChart.series[13].setData(changeFromInvestingActivityData);
+    cfoCashflowsChart.series[0].setData(deprecationData);
+    cfoCashflowsChart.series[1].setData(changeFromCurrencyConversionRateData);
+    cfoCashflowsChart.series[2].setData(changeFromInvestingActivityData);
+    cfoCashflowsChart.series[3].setData(receivableAccountChangenData);
+    cfoCashflowsChart.series[4].setData(inventoryAccountChangenData);
+    cfoCashflowsChart.series[5].setData(payableAccountChangenData);
+    cfoCashflowsChart.series[6].setData(paidInterestData);
+    cfoCashflowsChart.series[7].setData(paidTaxData);   
+
+    cfiCashflowsChart.series[0].setData(payForCapexData); //CFI
+    cfiCashflowsChart.series[1].setData(receiveFromCapexData); //CFI
+    cfiCashflowsChart.series[2].setData(payForLoanToolData); //CFI
+    cfiCashflowsChart.series[3].setData(receiveForLoanToolData); //CFI
+
+    cffCashflowsChart.series[0].setData(payForDebtPrincipalData); //CFF
+    cffCashflowsChart.series[1].setData(loanData); // CFF
 });

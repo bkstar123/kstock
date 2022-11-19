@@ -358,7 +358,17 @@
                                         </div><br>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div id="important-constituent-cash-flows-container" style="width:100%;"></div>
+                                                <div id="cfo-cash-flows-container" style="width:100%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="cfi-cash-flows-container" style="width:100%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="cff-cash-flows-container" style="width:100%;"></div>
                                             </div>
                                         </div>
                                     </div>
