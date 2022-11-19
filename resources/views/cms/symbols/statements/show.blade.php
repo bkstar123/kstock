@@ -312,22 +312,6 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h3 class="card-title">Chỉ số đòn bẩy tài chính</h3>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div id="financial-leverage-container" style="width:100%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><hr>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
                                             <h3 class="card-title">Chỉ số tăng trưởng</h3>
                                         </div>
                                     </div>
@@ -377,6 +361,22 @@
                                                 <div id="important-constituent-cash-flows-container" style="width:100%;"></div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Bảng cân đối kế toán</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="financial-leverage-container" style="width:100%;"></div>
+                                            </div>
+                                        </div><br>
                                     </div>
                                 </div>
                             </div>
@@ -520,8 +520,20 @@
             $value[1] = readVietnameseDongForHuman($value[1]);
             return $value;
         }, $financial_statement->income_statement->getItem('701')->getValues()));
-        var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
+        var otherProfitData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('14')->getValues()));
+        var otherExpenseData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('13')->getValues()));
+        var taxData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->income_statement->getItem('18')->getValues()));
     @endif
+    var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
 
     //Bao cao luu chuyen tien te
     @if(!empty($financial_statement->cash_flow_statement))
@@ -570,10 +582,38 @@
             $value[1] = readVietnameseDongForHuman($value[1]);
             return $value;
         }, $financial_statement->cash_flow_statement->getItem('202')->getValues()));
-        var payForDebtPrincipalxData = @json(array_map(function($value) {
+        var payForDebtPrincipalData = @json(array_map(function($value) {
             $value[1] = readVietnameseDongForHuman($value[1]);
             return $value;
         }, $financial_statement->cash_flow_statement->getItem('304')->getValues()));
+        var loanData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('303')->getValues()));
+        var payForLoanToolData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('203')->getValues()));
+        var receiveForLoanToolData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('204')->getValues()));
+        var paidInterestData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10306')->getValues()));
+        var paidTaxData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10307')->getValues()));
+        var changeFromCurrencyConversionRateData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10205')->getValues()));
+        var changeFromInvestingActivityData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->cash_flow_statement->getItem('10207')->getValues()));
     @endif
 @endif
 </script>

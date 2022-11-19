@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var liquidityChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'liquidity-container'
         },
         title: {
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     var interestCoverageRatioChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'interest-coverage-ratio-container'
         },
         title: {

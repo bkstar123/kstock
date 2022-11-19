@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var growthQoQChart = Highcharts.chart({
         chart: {
-            type: 'column',
+            type: 'spline',
             renderTo: 'growthQoQ-container'
         },
         title: {
@@ -104,11 +104,11 @@ $(document).ready(function () {
 
     var growthYoYChart = Highcharts.chart({
         chart: {
-            type: 'column',
+            type: 'spline',
             renderTo: 'growthYoY-container'
         },
         title: {
-            text: 'Các chỉ số tăng trưởng so với quý liền kề (YoY)'
+            text: 'Các chỉ số tăng trưởng so với cùng kỳ năm trước (YoY)'
         },
         subtitle: {
             text: 'Growth ratios (YoY)'

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var financialLeverageChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'financial-leverage-container'
         },
         title: {

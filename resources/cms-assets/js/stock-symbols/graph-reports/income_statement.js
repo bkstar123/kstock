@@ -111,6 +111,24 @@ $(document).ready(function () {
                 color: '#dca3e6',
                 data: []
             },
+            {
+                name: 'Chi phí khác',
+                yAxis: 0,
+                color: '#99ccff',
+                data: []
+            },
+            {
+                name: 'Lợi nhuận khác (đã khấu trừ chi phí khác)',
+                yAxis: 0,
+                color: '#3333ff',
+                data: []
+            },
+            {
+                name: 'Chi phí thuế thu nhập doanh nghiệp',
+                yAxis: 0,
+                color: '#ffb3b3',
+                data: []
+            },
         ]
     });
     revenueChart.series[0].setData(revenueData);
@@ -126,4 +144,7 @@ $(document).ready(function () {
     revenueChart.series[10].setData(gpmData);
     revenueChart.series[11].setData(ros2Data);
     revenueChart.series[12].setData(operatingProfitToEBTData);
+    revenueChart.series[13].setData(otherExpenseData);
+    revenueChart.series[14].setData(otherProfitData);
+    revenueChart.series[15].setData(taxData);
 });

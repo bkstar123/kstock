@@ -59,7 +59,7 @@ $(document).ready(function () {
                 name: 'FCF/CFO',
                 data: [],
                 yAxis: 1,
-                type: 'line',
+                type: 'spline',
                 dataLabels: {
                     enabled: true
                 },

@@ -116,6 +116,43 @@ $(document).ready(function () {
                 yAxis: 0,
                 data: []
             },
+            {
+                name: 'Tiền vay ngắn hạn, dài hạn nhận được',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Tiền chi cho vay, mua các công cụ nợ của đơn vị khác',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Tiền lãi vay đã trả',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Thuế thu nhập doanh nghiệp đã nộp',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: '(Lãi)/Lỗ chênh lệch tỷ giá hối đoái chưa thực hiện',
+                yAxis: 0,
+                data: [],
+                type: 'spline'
+            },
+            {
+                name: '(Lãi)/Lỗ từ hoạt động đầu tư',
+                yAxis: 0,
+                data: [],
+                type: 'spline'
+            },
         ]
     });
     cashflowsChart.series[0].setData(cfoData);
@@ -130,5 +167,12 @@ $(document).ready(function () {
     componentCashflowsChart.series[3].setData(payableAccountChangenData);
     componentCashflowsChart.series[4].setData(payForCapexData);
     componentCashflowsChart.series[5].setData(receiveFromCapexData);
-    componentCashflowsChart.series[6].setData(payForDebtPrincipalxData);
+    componentCashflowsChart.series[6].setData(payForDebtPrincipalData);
+    componentCashflowsChart.series[7].setData(loanData);
+    componentCashflowsChart.series[8].setData(payForLoanToolData);
+    componentCashflowsChart.series[9].setData(receiveForLoanToolData);
+    componentCashflowsChart.series[10].setData(paidInterestData);
+    componentCashflowsChart.series[11].setData(paidTaxData);
+    componentCashflowsChart.series[12].setData(changeFromCurrencyConversionRateData);
+    componentCashflowsChart.series[13].setData(changeFromInvestingActivityData);
 });

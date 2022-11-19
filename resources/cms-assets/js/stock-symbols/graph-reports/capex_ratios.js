@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var cfoToCapexChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'cfo-to-capex-container'
         },
         title: {
@@ -38,7 +38,7 @@ $(document).ready(function () {
     });
     var capexToNetProfitChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'capex-to-net-profit-container'
         },
         title: {

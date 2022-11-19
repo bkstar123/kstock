@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var effectivenessChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'effectiveness-ratio-container'
         },
         title: {
@@ -44,7 +44,7 @@ $(document).ready(function () {
     });
     var otherEffectivenessChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'other-effectiveness-ratio-container'
         },
         title: {

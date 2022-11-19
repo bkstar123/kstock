@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var roaaChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'roaa-container'
         },
         title: {
@@ -36,7 +36,7 @@ $(document).ready(function () {
     });
     var roeaChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'roea-container'
         },
         title: {
@@ -71,7 +71,7 @@ $(document).ready(function () {
     });
     var rosChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'ros-container'
         },
         title: {
@@ -106,7 +106,7 @@ $(document).ready(function () {
     });
     var gpmChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'gpm-container'
         },
         title: {
@@ -137,7 +137,7 @@ $(document).ready(function () {
     });
     var rotaChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'rota-container'
         },
         title: {
@@ -168,7 +168,7 @@ $(document).ready(function () {
     });
     var ebitMarginChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'ebit-margin-container'
         },
         title: {
@@ -199,7 +199,7 @@ $(document).ready(function () {
     });
     var roceChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'roce-container'
         },
         title: {
@@ -230,7 +230,7 @@ $(document).ready(function () {
     });
     var ebitdaChart = Highcharts.chart({
         chart: {
-            type: 'line',
+            type: 'spline',
             renderTo: 'ebitda-margin-container'
         },
         title: {
