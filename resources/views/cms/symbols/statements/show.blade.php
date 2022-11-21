@@ -339,6 +339,11 @@
                                             <div class="col-md-12">
                                                 <div id="income-statement-container" style="width:100%;"></div>
                                             </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="cost-structure-container" style="width:100%;"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -360,12 +365,12 @@
                                             <div class="col-md-12">
                                                 <div id="cfo-cash-flows-container" style="width:100%;"></div>
                                             </div>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div id="cfi-cash-flows-container" style="width:100%;"></div>
                                             </div>
-                                        </div>
+                                        </div><br>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div id="cff-cash-flows-container" style="width:100%;"></div>
@@ -544,6 +549,11 @@
         }, $financial_statement->income_statement->getItem('18')->getValues()));
     @endif
     var operatingProfitToEBTData = @json($financial_statement->analysis_report->getItem('Operating Profit/EBT')->getValues());
+    var cogsToRevenueData = @json($financial_statement->analysis_report->getItem('Cogs/Revenue')->getValues());
+    var sellingExpenseToRevenueData = @json($financial_statement->analysis_report->getItem('Selling Expense/Revenue')->getValues());
+    var adminExpenseToRevenueData = @json($financial_statement->analysis_report->getItem('Administration Expense/Revenue')->getValues());
+    var interestCostToRevenueData = @json($financial_statement->analysis_report->getItem('Interest cost/Revenue')->getValues());
+    var selllingEnterpriseManagementExpenseToGrossProfitData = @json($financial_statement->analysis_report->getItem('Selling and Enterprise Management Expenses/Gross Profit')->getValues());
 
     //Bao cao luu chuyen tien te
     @if(!empty($financial_statement->cash_flow_statement))

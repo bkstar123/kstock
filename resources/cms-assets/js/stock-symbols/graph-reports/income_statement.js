@@ -131,6 +131,62 @@ $(document).ready(function () {
             },
         ]
     });
+
+    var costStructureChart = Highcharts.chart({
+        chart: {
+            type: 'column',
+            renderTo: 'cost-structure-container'
+        },
+        title: {
+            text: 'Cấu trúc chi phí'
+        },
+        subtitle: {
+            text: 'Cost structure'
+        },
+        xAxis: {
+            title: {
+                text: 'Period',                   
+            },
+            type: 'category',
+            crosshair: true,
+        },
+        yAxis: [
+            {
+                title: {
+                    text: '%'
+                },
+                crosshair: true,
+            },
+        ],
+        series: [
+            {
+                name: 'Giá vốn bán hàng / Doanh thu thuần',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Chi phí bán hàng / Doanh thu thuần',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Chi phí quản lý doanh nghiệp / doanh thu thuần',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Chi phí lãi vay / doanh thu thuần',
+                yAxis: 0,
+                data: []
+            },
+            {
+                name: 'Chi phí bán hàng & Chi phí QLDN / Lợi nhuận gộp',
+                yAxis: 0,
+                data: []
+            }
+        ]
+    });
+
     revenueChart.series[0].setData(revenueData);
     revenueChart.series[1].setData(cogsData);
     revenueChart.series[2].setData(grossProfitData);
@@ -147,4 +203,10 @@ $(document).ready(function () {
     revenueChart.series[13].setData(otherExpenseData);
     revenueChart.series[14].setData(otherProfitData);
     revenueChart.series[15].setData(taxData);
+
+    costStructureChart.series[0].setData(cogsToRevenueData);
+    costStructureChart.series[1].setData(sellingExpenseToRevenueData);
+    costStructureChart.series[2].setData(adminExpenseToRevenueData);
+    costStructureChart.series[3].setData(interestCostToRevenueData);
+    costStructureChart.series[4].setData(selllingEnterpriseManagementExpenseToGrossProfitData);
 });
