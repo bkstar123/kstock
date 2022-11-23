@@ -5,10 +5,10 @@ $(document).ready(function () {
             renderTo: 'financial-leverage-container'
         },
         title: {
-            text: 'Cấu trúc nợ, nợ vay và nguồn vốn'
+            text: 'Các chỉ số đòn bẩy tài chính'
         },
         subtitle: {
-            text: 'Liabilities, debts and equities'
+            text: 'Financial leverage ratios'
         },
         xAxis: {
             title: {
@@ -44,6 +44,30 @@ $(document).ready(function () {
                 name: 'Đòn bẩy tài chính bình quân (Tổng tài sản bình quân / VCSH bình quân)',
                 data: []
             },
+            {
+                name: 'Nợ vay ngắn hạn / Nợ vay',
+                data: []
+            },
+            {
+                name: 'Nợ vay ngắn hạn / Nợ ngắn hạn',
+                data: []
+            },
+            {
+                name: 'Nợ vay dài hạn / Nợ dài hạn',
+                data: []
+            },
+            {
+                name: 'Nợ vay / Tổng nợ',
+                data: []
+            },
+            {
+                name: 'Tổng nợ / Tổng tài sản',
+                data: []
+            },
+            {
+                name: 'Nợ ngắn hạn / Tổng nợ',
+                data: []
+            },
         ]
     });
     financialLeverageChart.series[0].setData(debtToEquitiesData);
@@ -51,4 +75,10 @@ $(document).ready(function () {
     financialLeverageChart.series[2].setData(longTermDebtToEquityData);
     financialLeverageChart.series[3].setData(financialLeverageData);
     financialLeverageChart.series[4].setData(averageFinancialLeverageData);
+    financialLeverageChart.series[5].setData(currrentDebtsToTotalDebtsData);
+    financialLeverageChart.series[6].setData(currentDebtsToCurrentLiabilitiesData);
+    financialLeverageChart.series[7].setData(longTermDebtsToLongTermLiabilitiesData);
+    financialLeverageChart.series[8].setData(debtsToLiabilitiesData);
+    financialLeverageChart.series[9].setData(liabilitiesToAssetsData);
+    financialLeverageChart.series[10].setData(currentLiabilitiesToTotalLiabilitiesData);
 });
