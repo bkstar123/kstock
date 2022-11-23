@@ -461,7 +461,6 @@
     var currrentDebtsToTotalDebtsData = @json($financial_statement->analysis_report->getItem('Currrent Debts/Total Debts')->getValues());
     var currentDebtsToCurrentLiabilitiesData = @json($financial_statement->analysis_report->getItem('Current Debts/Current Liabilities')->getValues());
     var longTermDebtsToLongTermLiabilitiesData = @json($financial_statement->analysis_report->getItem('Long Term Debts/Long Term Liabilities')->getValues());
-
     var debtsToLiabilitiesData = @json($financial_statement->analysis_report->getItem('Total Debts/Total Liabilities')->getValues());
     var liabilitiesToAssetsData = @json($financial_statement->analysis_report->getItem('Total Liabilities/Total Assets')->getValues());
     var currentLiabilitiesToTotalLiabilitiesData = @json($financial_statement->analysis_report->getItem('Short-term liabilities/Total liabilities')->getValues());
