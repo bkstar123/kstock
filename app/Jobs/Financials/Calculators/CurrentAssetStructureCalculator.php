@@ -59,7 +59,7 @@ class CurrentAssetStructureCalculator extends BaseCalculator
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $current_assets = $this->financialStatement->balance_statement->getItem('101')->getValue($selectedYear, $selectedQuarter);
-            $cash = $this->financialStatement->balance_statement->getItem('1010101')->getValue($selectedYear, $selectedQuarter);
+            $cash = $this->financialStatement->balance_statement->getItem('10101')->getValue($selectedYear, $selectedQuarter);
             if ($current_assets != 0) {
                 $this->cashToCurrentAssetRatio = round(100 * $cash / $current_assets, 2);
             }

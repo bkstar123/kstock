@@ -200,7 +200,7 @@ class LongTermAssetStructureCalculator extends BaseCalculator
             $selectedYear = $year ?? $this->financialStatement->year;
             $selectedQuarter = $quarter ?? $this->financialStatement->quarter;
             $long_term_assets = $this->financialStatement->balance_statement->getItem('102')->getValue($selectedYear, $selectedQuarter);
-            $constructionInProgress = $this->financialStatement->balance_statement->getItem('1020402')->getValue($selectedYear, $selectedQuarter);
+            $constructionInProgress = $this->financialStatement->balance_statement->getItem('10204')->getValue($selectedYear, $selectedQuarter);
             if ($long_term_assets != 0) {
                 $this->constructionInProgressToLongTermAssetRatio = round(100 * $constructionInProgress / $long_term_assets, 2);
             }

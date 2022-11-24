@@ -265,8 +265,8 @@ trait LongTermAssetStructureWriter
             $quarter = $previous['quarter'];
         }
         array_push($this->content, [
-            'name' => 'Chi phí xây dựng cơ bản dở dang/Tài sản dài hạn',
-            'alias' => 'Construction in Progress/Long Term Assets',
+            'name' => 'Tài sản dở dang dài hạn/Tài sản dài hạn',
+            'alias' => 'Long Term Assets in Progress/Long Term Assets',
             'group' => 'Chỉ số Cơ cấu tài sản dài hạn',
             'unit' => '%',
             'description' => 'Phản ánh tỉ trọng chi phí xây dựng cơ bản dở dang trên tổng tài sản dài hạn của doanh nghiệp',

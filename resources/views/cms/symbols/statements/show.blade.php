@@ -392,6 +392,11 @@
                                                 <div id="financial-leverage-container" style="width:100%;"></div>
                                             </div>
                                         </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="current-assets-structure-container" style="width:100%;"></div>
+                                            </div>
+                                        </div><br>
                                     </div>
                                 </div>
                             </div>
@@ -498,6 +503,13 @@
     var charterCapitalGrowthYoYData = @json($financial_statement->analysis_report->getItem('Charter Capital Growth YoY')->getValues());
     var equityGrowthYoYData = @json($financial_statement->analysis_report->getItem('Equity Growth YoY')->getValues());
     var fcfGrowthYoYData = @json($financial_statement->analysis_report->getItem('FCF Growth YoY')->getValues());
+
+    // Cau truc tai san ngan han
+    var cashAndEquivalentData = @json($financial_statement->analysis_report->getItem('Cash/Current Assets')->getValues());
+    var currentFinancialInvestingData = @json($financial_statement->analysis_report->getItem('Current Financial Investing/Current Assets')->getValues());
+    var currentReceivableAccountData = @json($financial_statement->analysis_report->getItem('Current Receivable Accounts/Current Assets')->getValues());
+    var inventoriesData = @json($financial_statement->analysis_report->getItem('Inventories/Current Assets')->getValues());
+    var otherCurrentAssetsData = @json($financial_statement->analysis_report->getItem('Other Current Assets/Current Assets')->getValues());
 
     // Bao cao ket qua HDKD
     @if(!empty($financial_statement->income_statement))

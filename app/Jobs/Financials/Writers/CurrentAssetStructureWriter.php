@@ -67,11 +67,11 @@ trait CurrentAssetStructureWriter
             $quarter = $previous['quarter'];
         }
         array_push($this->content, [
-            'name' => 'Tiền/Tài sản ngắn hạn',
+            'name' => 'Tiền và các khoản tương đương tiền/Tài sản ngắn hạn',
             'alias' => 'Cash/Current Assets',
             'group' => 'Chỉ số Cơ cấu tài sản ngắn hạn',
             'unit' => '%',
-            'description' => 'Phản ánh tỉ trọng tiền mặt trên tài sản ngắn hạn của doanh nghiệp',
+            'description' => 'Phản ánh tỉ trọng tiền mặt à các khoản tương đương tiền trên tài sản ngắn hạn của doanh nghiệp',
             'values' => $values
         ]);
         return $this;
