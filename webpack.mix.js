@@ -28,6 +28,8 @@ mix.js('resources/cms-assets/js/app.js', 'public/cms-assets/js')
         'resources/cms-assets/js/stock-symbols/graph-reports/financial_leverage_ratios.js',
         'resources/cms-assets/js/stock-symbols/graph-reports/growth_ratios.js',
         'resources/cms-assets/js/stock-symbols/graph-reports/current_assets_structure.js',
+        'resources/cms-assets/js/stock-symbols/graph-reports/long_term_assets_structure.js',
+        'resources/cms-assets/js/stock-symbols/graph-reports/assets_structure.js',
     ], 'public/js/stock-symbols/graph_report.min.js')
     .sourceMaps()
     .sass('resources/cms-assets/sass/app.scss', 'public/cms-assets/css')

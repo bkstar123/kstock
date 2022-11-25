@@ -394,7 +394,22 @@
                                         </div><br>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div id="assets-structure-container" style="width:100%;"></div>
+                                            </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <div id="current-assets-structure-container" style="width:100%;"></div>
+                                            </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="long-term-assets-structure-container" style="width:100%;"></div>
+                                            </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="fixed-assets-structure-container" style="width:100%;"></div>
                                             </div>
                                         </div><br>
                                     </div>
@@ -511,6 +526,26 @@
     var inventoriesData = @json($financial_statement->analysis_report->getItem('Inventories/Current Assets')->getValues());
     var otherCurrentAssetsData = @json($financial_statement->analysis_report->getItem('Other Current Assets/Current Assets')->getValues());
 
+    // Cau truc tai san dai han
+    var longTermReceivablesData = @json($financial_statement->analysis_report->getItem('Long Term Receivables/Long Term Assets')->getValues());
+    var fixedAssetsData = @json($financial_statement->analysis_report->getItem('Fixed Assets/Long Term Assets')->getValues());
+    var investingRealEstatesData = @json($financial_statement->analysis_report->getItem('Investing Real Estates/Long Term Assets')->getValues());
+    var longTermAssetsinProgressData = @json($financial_statement->analysis_report->getItem('Long Term Assets in Progress/Long Term Assets')->getValues());
+    var longTermFinancialInvestingData = @json($financial_statement->analysis_report->getItem('Long Term Financial Investing/Long Term Assets')->getValues());
+    var otherLongTermAssetsData = @json($financial_statement->analysis_report->getItem('Other Long Term Assets/Long Term Assets')->getValues()); 
+    var tangibleFixedAssetsData = @json($financial_statement->analysis_report->getItem('Tangible Fixed Assets/Fixed Assets')->getValues());
+    var financialLendingFixedAssetsData = @json($financial_statement->analysis_report->getItem('Financial Lending Fixed Assets/Fixed Assets')->getValues());
+    var intangibleFixedAssetsData = @json($financial_statement->analysis_report->getItem('Intangible Fixed Assets/Fixed Assets')->getValues());  
+
+    // Cau truc tai san  
+    var currentAssetsData = @json($financial_statement->analysis_report->getItem('Current Assets/Total Assets')->getValues());
+    var longTermAssetsData = @json($financial_statement->analysis_report->getItem('Long Term Assets/Total Assets')->getValues()); 
+    @if(!empty($financial_statement->income_statement))
+        var totalAssetData = @json(array_map(function($value) {
+            $value[1] = readVietnameseDongForHuman($value[1]);
+            return $value;
+        }, $financial_statement->balance_statement->getItem('2')->getValues()));
+    @endif
     // Bao cao ket qua HDKD
     @if(!empty($financial_statement->income_statement))
         var revenueData = @json(array_map(function($value) {
