@@ -331,6 +331,22 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
+                                            <h3 class="card-title">Phân tích Dupont cấp 5</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="dupont-level5-container" style="width:100%;"></div>
+                                            </div>
+                                        </div><br>
+                                    </div>
+                                </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
                                             <h3 class="card-title">Báo cáo kết quả kinh doanh</h3>
                                         </div>
                                     </div>
@@ -518,6 +534,13 @@
     var charterCapitalGrowthYoYData = @json($financial_statement->analysis_report->getItem('Charter Capital Growth YoY')->getValues());
     var equityGrowthYoYData = @json($financial_statement->analysis_report->getItem('Equity Growth YoY')->getValues());
     var fcfGrowthYoYData = @json($financial_statement->analysis_report->getItem('FCF Growth YoY')->getValues());
+
+    // Dupont analysis level 5
+    var earningAfterTaxParentCompanyToEBTData = @json($financial_statement->analysis_report->getItem('Dupont5-Earning After Tax of Parent Company To Earning Before Tax')->getValues());
+    var earningAfterTaxToEBTData = @json($financial_statement->analysis_report->getItem('Dupont5-Earning After Tax To Earning Before Tax')->getValues());
+    var earningBeforeTaxToEBITData = @json($financial_statement->analysis_report->getItem('Dupont5-Earning Before Tax To EBIT')->getValues());
+    var eBITMarginData = @json($financial_statement->analysis_report->getItem('Dupont5-EBIT Margin')->getValues());
+    var averageTotalAssetTurnoverData = @json($financial_statement->analysis_report->getItem('Dupont5-Average Total Asset Turnover')->getValues());
 
     // Cau truc tai san ngan han
     var cashAndEquivalentData = @json($financial_statement->analysis_report->getItem('Cash/Current Assets')->getValues());

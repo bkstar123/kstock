@@ -266,7 +266,7 @@ trait DupontWriter
         ]);
         array_push($this->content, [
             'name' => '==> ROEA',
-            'alias' => 'Dupont5-FinancialLeverage',
+            'alias' => 'Dupont5-ROEA',
             'group' => "Phân tích Dupont Level 5",
             'unit' => '%',
             'description' => 'Tỷ suất lợi nhuận trên VCSH bình quân',
