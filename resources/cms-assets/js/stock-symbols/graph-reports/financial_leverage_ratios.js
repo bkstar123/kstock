@@ -17,55 +17,69 @@ $(document).ready(function () {
             type: 'category',
             crosshair: true,
         },
-        yAxis: {
-            title: {
-                text: '%'
+        yAxis: [
+            {
+                title: {
+                    text: '%'
+                },
+                crosshair: true,
             },
-            crosshair: true,
-        },
+            {
+                title: {
+                    text: 'Lần'
+                },
+                crosshair: true,
+                opposite: true
+            }
+        ],
         series: [
             {
-                name: 'Tổng nợ vay / Vốn chủ sở hữu (Hệ số nợ vay)',
+                name: 'Tổng nợ vay / Vốn chủ sở hữu (Hệ số nợ vay - Lần)',
+                yAxis: 1,
                 data: []
             },
             {
-                name: 'Tổng nợ vay ròng / Vốn chủ sở hữu (Hệ số nợ vay ròng)',
+                name: 'Tổng nợ vay ròng / Vốn chủ sở hữu (Hệ số nợ vay ròng - Lần)',
+                yAxis: 1,
                 data: []
             },
             {
-                name: 'Tổng nợ vay dài hạn / Vốn chủ sở hữu (Hệ số nợ vay dài hạn)',
+                name: 'Tổng nợ vay dài hạn / Vốn chủ sở hữu (Hệ số nợ vay dài hạn - Lần)',
+                yAxis: 1,
                 data: []
             },
             {
-                name: 'Đòn bẩy tài chính (Tổng tài sản / VCSH)',
+                name: 'Đòn bẩy tài chính (Tổng tài sản / VCSH - Lần)',
+                yAxis: 1,
                 data: []
             },
             {
-                name: 'Đòn bẩy tài chính bình quân (Tổng tài sản bình quân / VCSH bình quân)',
+                name: 'Đòn bẩy tài chính bình quân (Tổng tài sản bình quân / VCSH bình quân - Lần)',
+                yAxis: 1,
                 data: []
             },
             {
-                name: 'Nợ vay ngắn hạn / Nợ vay',
+                name: 'Nợ vay ngắn hạn / Nợ vay (%)',
                 data: []
             },
             {
-                name: 'Nợ vay ngắn hạn / Nợ ngắn hạn',
+                name: 'Nợ vay ngắn hạn / Nợ ngắn hạn (%)',
                 data: []
             },
             {
-                name: 'Nợ vay dài hạn / Nợ dài hạn',
+                name: 'Nợ vay dài hạn / Nợ dài hạn (%)',
                 data: []
             },
             {
-                name: 'Nợ vay / Tổng nợ',
+                name: 'Nợ vay / Tổng nợ (%)',
                 data: []
             },
             {
-                name: 'Tổng nợ / Tổng tài sản',
+                name: 'Tổng nợ / Tổng tài sản (%)',
                 data: []
             },
             {
-                name: 'Nợ ngắn hạn / Tổng nợ',
+                name: 'Nợ ngắn hạn / Tổng nợ (%)',
                 data: []
             },
         ]

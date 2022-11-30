@@ -25,27 +25,27 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Các khoản phải thu dài hạn/Tài sản dài hạn',
+                name: 'Các khoản phải thu dài hạn/Tài sản dài hạn (%)',
                 data: []
             },
             {
-                name: 'Tài sản cố định/Tài sản dài hạn',
+                name: 'Tài sản cố định/Tài sản dài hạn (%)',
                 data: []
             },
             {
-                name: 'Bất động sản đầu tư/Tài sản dài hạn',
+                name: 'Bất động sản đầu tư/Tài sản dài hạn (%)',
                 data: []
             },
             {
-                name: 'Tài sản dở dang dài hạn/Tài sản dài hạn',
+                name: 'Tài sản dở dang dài hạn/Tài sản dài hạn (%)',
                 data: []
             },
             {
-                name: 'Các khoản đầu tư tài chính dài hạn/Tài sản dài hạn',
+                name: 'Các khoản đầu tư tài chính dài hạn/Tài sản dài hạn (%)',
                 data: []
             },
             {
-                name: 'Các tài sản dài hạn khác/Tài sản dài hạn',
+                name: 'Các tài sản dài hạn khác/Tài sản dài hạn (%)',
                 data: []
             },
         ]

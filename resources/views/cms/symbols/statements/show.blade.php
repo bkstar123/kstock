@@ -275,6 +275,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title">Chỉ số CAPEX</h3>
+                                            <h8><i>(Chỉ được tính toán nếu tiền chi cho CAPEX > tiền thu từ thanh lý CAPEX)</i>i></h8>
                                         </div>
                                     </div>
                                     <div class="card-body">

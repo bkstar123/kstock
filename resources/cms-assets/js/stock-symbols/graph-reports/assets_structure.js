@@ -34,18 +34,18 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Tài sản ngắn hạn / Tổng tài sản',
+                name: 'Tài sản ngắn hạn / Tổng tài sản (%)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tài sản dài hạn/Tổng tài sản',
+                name: 'Tài sản dài hạn/Tổng tài sản (%)',
                 yAxis: 0,
                 data: []
             },
             {
                 type: 'spline',
-                name: 'Tổng tài sản',
+                name: 'Tổng tài sản (Tỷ VND)',
                 yAxis: 1,
                 data: []
             },

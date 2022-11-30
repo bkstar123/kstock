@@ -25,19 +25,19 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Thời gian thu tiền khách hàng bình quân',
+                name: 'Thời gian thu tiền khách hàng bình quân (Ngày)',
                 data: []
             },
             {
-                name: 'Thời gian tồn kho bình quân',
+                name: 'Thời gian tồn kho bình quân (Ngày)',
                 data: []
             },
             {
-                name: 'Thời gian trả tiền nhà cung cấp bình quân',
+                name: 'Thời gian trả tiền nhà cung cấp bình quân (Ngày)',
                 data: []
             },
             {
-                name: 'Chu kỳ chuyển đổi tiền mặt',
+                name: 'Chu kỳ chuyển đổi tiền mặt (Ngày)',
                 data: []
             },
         ]
@@ -68,15 +68,15 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Vòng quay tổng tài sản',
+                name: 'Vòng quay tổng tài sản (Vòng)',
                 data: []
             },
             {
-                name: 'Vòng quay tài sản cố định',
+                name: 'Vòng quay tài sản cố định (Vòng)',
                 data: []
             },
             {
-                name: 'Vòng quay VCSH',
+                name: 'Vòng quay VCSH (Vòng)',
                 data: []
             }
         ]

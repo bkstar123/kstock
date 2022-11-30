@@ -25,23 +25,23 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tiền và các khoản tương đương tiền/Tài sản ngắn hạn',
+                name: 'Tiền và các khoản tương đương tiền/Tài sản ngắn hạn (%)',
                 data: []
             },
             {
-                name: 'Đầu tư tài chính ngắn hạn/Tài sản ngắn hạn',
+                name: 'Đầu tư tài chính ngắn hạn/Tài sản ngắn hạn (%)',
                 data: []
             },
             {
-                name: 'Phải thu ngắn hạn/Tài sản ngắn hạn',
+                name: 'Phải thu ngắn hạn/Tài sản ngắn hạn (%)',
                 data: []
             },
             {
-                name: 'Hàng tồn kho/Tài sản ngắn hạn',
+                name: 'Hàng tồn kho/Tài sản ngắn hạn (%)',
                 data: []
             },
             {
-                name: 'Tài sản ngắn hạn khác/Tài sản ngắn hạn',
+                name: 'Tài sản ngắn hạn khác/Tài sản ngắn hạn (%)',
                 data: []
             },
         ]

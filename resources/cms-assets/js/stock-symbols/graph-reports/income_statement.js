@@ -34,12 +34,12 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Doanh thu thuần',
+                name: 'Doanh thu thuần (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Giá vốn bán hàng',
+                name: 'Giá vốn bán hàng (Tỷ VND)',
                 yAxis: 0,
                 color: '#26823e',
                 data: []
@@ -50,81 +50,81 @@ $(document).ready(function () {
                 data: []
             },
             {
-                name: 'Doanh thu tài chính',
+                name: 'Doanh thu tài chính (Tỷ VND)',
                 yAxis: 0,
                 color: '#77aab5',
                 data: []
             },
             {
-                name: 'Chi phí tài chính (bao gồm chi phí lãi vay)',
+                name: 'Chi phí tài chính (bao gồm chi phí lãi vay - Tỷ VND)',
                 yAxis: 0,
                 color: '#811d8c',
                 data: []
             },
             {
-                name: 'Chi phí lãi vay',
+                name: 'Chi phí lãi vay (Tỷ VND)',
                 yAxis: 0,
                 color: '#BF00FF',
                 data: []
             },
             {
-                name: 'Chi phí bán hàng',
+                name: 'Chi phí bán hàng (Tỷ VND)',
                 yAxis: 0,
                 color: '#a38d0f',
                 data: []
             },
             {
-                name: 'Chi phí quản lý doanh nghiệp',
+                name: 'Chi phí quản lý doanh nghiệp (Tỷ VND)',
                 yAxis: 0,
                 color: '#cf650e',
                 data: []
             },
             {
-                name: 'Lợi nhuận trước thuế',
+                name: 'Lợi nhuận trước thuế (Tỷ VND)',
                 yAxis: 0,
                 color: '#1b4cd1',
                 data: []
             },
             {
-                name: 'LNST của cổ đông công ty mẹ',
+                name: 'LNST của cổ đông công ty mẹ (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Biên lợi nhuận gộp (GPM)',
+                name: 'Biên lợi nhuận gộp (GPM - %)',
                 yAxis: 1,
                 color: '#154aeb',
                 type: 'spline',
                 data: []
             },
             {
-                name: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (ROS)',
+                name: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (ROS - %)',
                 yAxis: 1,
                 type: 'spline',
                 color: '#00f04c',
                 data: []
             },
             {
-                name: 'Lợi nhuận thuần từ HĐKD / LNTT',
+                name: 'Lợi nhuận thuần từ HĐKD / LNTT (%)',
                 yAxis: 1,
                 type: 'spline',
                 color: '#dca3e6',
                 data: []
             },
             {
-                name: 'Chi phí khác',
+                name: 'Chi phí khác (Tỷ VND)',
                 yAxis: 0,
                 color: '#99ccff',
                 data: []
             },
             {
-                name: 'Lợi nhuận khác (đã khấu trừ chi phí khác)',
+                name: 'Lợi nhuận khác (đã khấu trừ chi phí khác - Tỷ VND)',
                 yAxis: 0,
                 color: '#3333ff',
                 data: []
             },
             {
-                name: 'Chi phí thuế thu nhập doanh nghiệp',
+                name: 'Chi phí thuế thu nhập doanh nghiệp (Tỷ VND)',
                 yAxis: 0,
                 color: '#ffb3b3',
                 data: []
@@ -160,27 +160,27 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Giá vốn bán hàng / Doanh thu thuần',
+                name: 'Giá vốn bán hàng / Doanh thu thuần (%)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Chi phí bán hàng / Doanh thu thuần',
+                name: 'Chi phí bán hàng / Doanh thu thuần (%)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Chi phí quản lý doanh nghiệp / doanh thu thuần',
+                name: 'Chi phí quản lý doanh nghiệp / doanh thu thuần (%)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Chi phí lãi vay / doanh thu thuần',
+                name: 'Chi phí lãi vay / doanh thu thuần (%)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Chi phí bán hàng & Chi phí QLDN / Lợi nhuận gộp',
+                name: 'Chi phí bán hàng & Chi phí QLDN / Lợi nhuận gộp (%)',
                 yAxis: 0,
                 data: []
             }

@@ -27,27 +27,27 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Luu chuyển tiền thuần từ hoạt động kinh doanh',
+                name: 'Luu chuyển tiền thuần từ hoạt động kinh doanh (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Luu chuyển tiền thuần từ hoạt động đầu tư',
+                name: 'Luu chuyển tiền thuần từ hoạt động đầu tư (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Luu chuyển tiền thuần từ hoạt động tài chính',
+                name: 'Luu chuyển tiền thuần từ hoạt động tài chính (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Lưu chuyển tiền thuần trong kỳ',
+                name: 'Lưu chuyển tiền thuần trong kỳ (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tiền và tương đương tiền cuối kỳ',
+                name: 'Tiền và tương đương tiền cuối kỳ (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
@@ -82,42 +82,42 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Khấu hao tài sản cố định',
+                name: 'Khấu hao tài sản cố định (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: '(Lãi)/Lỗ chênh lệch tỷ giá hối đoái chưa thực hiện',
+                name: '(Lãi)/Lỗ chênh lệch tỷ giá hối đoái chưa thực hiện (Tỷ VND)',
                 yAxis: 0,
                 data: [],
             },
             {
-                name: '(Lãi)/Lỗ từ hoạt động đầu tư',
+                name: '(Lãi)/Lỗ từ hoạt động đầu tư (Tỷ VND)',
                 yAxis: 0,
                 data: [],
             },
             {
-                name: 'Thay đổi các khoản phải thu',
+                name: 'Thay đổi các khoản phải thu (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Thay đổi hàng tồn kho',
+                name: 'Thay đổi hàng tồn kho (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Thay đổi các khoản phải trả',
+                name: 'Thay đổi các khoản phải trả (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tiền lãi vay đã trả',
+                name: 'Tiền lãi vay đã trả (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Thuế thu nhập doanh nghiệp đã nộp',
+                name: 'Thuế thu nhập doanh nghiệp đã nộp (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
@@ -153,22 +153,22 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác',
+                name: 'Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác',
+                name: 'Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tiền chi cho vay, mua các công cụ nợ của đơn vị khác',
+                name: 'Tiền chi cho vay, mua các công cụ nợ của đơn vị khác (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác',
+                name: 'Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
@@ -203,12 +203,12 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'Tiền chi trả nợ gốc vay',
+                name: 'Tiền chi trả nợ gốc vay (Tỷ VND)',
                 yAxis: 0,
                 data: []
             },
             {
-                name: 'Tiền vay ngắn hạn, dài hạn nhận được',
+                name: 'Tiền vay ngắn hạn, dài hạn nhận được (Tỷ VND)',
                 yAxis: 0,
                 data: [],
             },

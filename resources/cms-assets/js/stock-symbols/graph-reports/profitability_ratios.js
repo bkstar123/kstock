@@ -25,11 +25,11 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tỷ suất lợi nhuận trên tổng tài sản bình quân (ROAA)',
+                name: 'Tỷ suất lợi nhuận trên tổng tài sản bình quân (ROAA - %)',
                 data: []
             },
             {
-                name: 'Tỷ suất lợi nhuận trên tổng tài sản (ROA)',
+                name: 'Tỷ suất lợi nhuận trên tổng tài sản (ROA - %)',
                 data: []
             }
         ]
@@ -60,11 +60,11 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (ROEA)',
+                name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu bình quân (ROEA - %)',
                 data: []
             },
             {
-                name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu (ROE)',
+                name: 'Tỷ suất lợi nhuận trên vốn chủ sở hữu (ROE - %)',
                 data: []
             }
         ]
@@ -95,11 +95,11 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (ROS)',
+                name: 'Tỷ suất lợi nhuận ròng của cổ đông công ty mẹ (ROS - %)',
                 data: []
             },
             {
-                name: 'Tỷ suất lợi nhuận sau thuế thu nhập doanh nghiệp',
+                name: 'Tỷ suất lợi nhuận sau thuế thu nhập doanh nghiệp (%)',
                 data: []
             }
         ]
@@ -130,7 +130,7 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Biên lợi nhuận gộp (GPM)',
+                name: 'Biên lợi nhuận gộp (GPM - %)',
                 data: []
             }
         ]
@@ -161,7 +161,7 @@ $(document).ready(function () {
          },
         series: [
             {
-                name: 'Tỷ suất lợi nhuận trước thuế và lãi vay trên tổng tài sản bình quân (ROTA)',
+                name: 'Tỷ suất lợi nhuận trước thuế và lãi vay trên tổng tài sản bình quân (ROTA - %)',
                 data: []
             }
         ]
@@ -192,7 +192,7 @@ $(document).ready(function () {
         },
         series: [
            {
-               name: 'Biên lợi nhuận trước thuế và lãi vay trên doanh thu thuần',
+               name: 'Biên lợi nhuận trước thuế và lãi vay trên doanh thu thuần (%)',
                data: []
            }
        ]
@@ -223,7 +223,7 @@ $(document).ready(function () {
         },
         series: [
            {
-               name: 'Tỷ suất lợi nhuận trên vốn dài hạn bình quân (ROCE)',
+               name: 'Tỷ suất lợi nhuận trên vốn dài hạn bình quân (ROCE - %)',
                data: []
            }
         ]
@@ -254,11 +254,11 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao (tính theo bảng CĐKT và báo cáo kết quả HĐKD)',
+                name: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao (tính theo bảng CĐKT và báo cáo kết quả HĐKD - %)',
                 data: []
             },
             {
-                name: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao (tính theo báo cáo lưu chuyển tiền tệ)',
+                name: 'Biên lợi nhuận trước thuế, lãi vay và khấu hao (tính theo báo cáo lưu chuyển tiền tệ - %)',
                 data: []
             }
         ]

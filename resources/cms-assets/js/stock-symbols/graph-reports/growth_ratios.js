@@ -25,63 +25,63 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tăng trưởng doanh thu thuần QoQ',
+                name: 'Tăng trưởng doanh thu thuần QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng hàng tồn kho QoQ',
+                name: 'Tăng trưởng hàng tồn kho QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng giá vốn bán hàng QoQ',
+                name: 'Tăng trưởng giá vốn bán hàng QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng lợi nhuận gộp QoQ',
+                name: 'Tăng trưởng lợi nhuận gộp QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng chi phí hoạt động QoQ',
+                name: 'Tăng trưởng chi phí hoạt động QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng chi phí lãi vay QoQ',
+                name: 'Tăng trưởng chi phí lãi vay QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng lợi nhuận trước thuế QoQ',
+                name: 'Tăng trưởng lợi nhuận trước thuế QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ QoQ',
+                name: 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng tổng tài sản QoQ',
+                name: 'Tăng trưởng tổng tài sản QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng nợ dài hạn QoQ',
+                name: 'Tăng trưởng nợ dài hạn QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng nợ phải trả QoQ',
+                name: 'Tăng trưởng nợ phải trả QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng nợ vay QoQ',
+                name: 'Tăng trưởng nợ vay QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng vốn điều lệ QoQ',
+                name: 'Tăng trưởng vốn điều lệ QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng VCSH QoQ',
+                name: 'Tăng trưởng VCSH QoQ (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng dòng tiền tự do (FCF) QoQ',
+                name: 'Tăng trưởng dòng tiền tự do (FCF) QoQ (%)',
                 data: []
             },
         ]
@@ -128,63 +128,63 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tăng trưởng doanh thu thuần YoY',
+                name: 'Tăng trưởng doanh thu thuần YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng hàng tồn kho YoY',
+                name: 'Tăng trưởng hàng tồn kho YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng giá vốn bán hàng YoY',
+                name: 'Tăng trưởng giá vốn bán hàng YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng lợi nhuận gộp YoY',
+                name: 'Tăng trưởng lợi nhuận gộp YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng chi phí hoạt động YoY',
+                name: 'Tăng trưởng chi phí hoạt động YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng chi phí lãi vay YoY',
+                name: 'Tăng trưởng chi phí lãi vay YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng lợi nhuận trước thuế YoY',
+                name: 'Tăng trưởng lợi nhuận trước thuế YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ YoY',
+                name: 'Tăng trưởng lợi nhuận sau thuế của cổ đông công ty mẹ YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng tổng tài sản YoY',
+                name: 'Tăng trưởng tổng tài sản YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng nợ dài hạn YoY',
+                name: 'Tăng trưởng nợ dài hạn YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng nợ phải trả YoY',
+                name: 'Tăng trưởng nợ phải trả YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng nợ vay YoY',
+                name: 'Tăng trưởng nợ vay YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng vốn điều lệ YoY',
+                name: 'Tăng trưởng vốn điều lệ YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng VCSH YoY',
+                name: 'Tăng trưởng VCSH YoY (%)',
                 data: []
             },
             {
-                name: 'Tăng trưởng dòng tiền tự do (FCF) YoY',
+                name: 'Tăng trưởng dòng tiền tự do (FCF) YoY (%)',
                 data: []
             },
         ]

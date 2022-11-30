@@ -25,7 +25,7 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'CFO/CAPEX',
+                name: 'CFO/CAPEX (Lần)',
                 data: [],
                 zones: [
                     {
@@ -62,7 +62,7 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'CAPEX/Lợi nhuận ròng',
+                name: 'CAPEX/Lợi nhuận ròng (%)',
                 data: []
             },
         ]

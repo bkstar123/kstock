@@ -25,7 +25,7 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Hệ số thanh toán tổng quát',
+                name: 'Hệ số thanh toán tổng quát (Lần)',
                 data: [],
                 zones: [
                     {
@@ -35,7 +35,7 @@ $(document).ready(function () {
                 ]
             },
             {
-                name: 'Hệ số thanh toán hiện hành',
+                name: 'Hệ số thanh toán hiện hành (Lần)',
                 data: [],
                 zones: [
                     {
@@ -45,7 +45,7 @@ $(document).ready(function () {
                 ]
             },
             {
-                name: 'Hệ số thanh toán nhanh (giảm trừ hàng tồn kho)',
+                name: 'Hệ số thanh toán nhanh (giảm trừ hàng tồn kho - Lần)',
                 data: [],
                 zones: [
                     {
@@ -55,7 +55,7 @@ $(document).ready(function () {
                 ]
             },
             {
-                name: 'Hệ số thanh toán nhanh (giảm trừ hàng tồn kho và các khoản phải thu)',
+                name: 'Hệ số thanh toán nhanh (giảm trừ hàng tồn kho và các khoản phải thu - Lần)',
                 data: [],
                 zones: [
                     {
@@ -65,7 +65,7 @@ $(document).ready(function () {
                 ]
             },
             {
-                name: 'Hệ số thanh toán tiền mặt',
+                name: 'Hệ số thanh toán tiền mặt (Lần)',
                 data: [],
                 zones: [
                     {
@@ -103,7 +103,7 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Hệ số chi trả lãi vay',
+                name: 'Hệ số chi trả lãi vay (Lần)',
                 data: [],
                 zones: [
                     {

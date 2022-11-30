@@ -34,7 +34,7 @@ $(document).ready(function () {
         ],
         series: [
             {
-                name: 'CFO/Doanh thu thuần',
+                name: 'CFO/Doanh thu thuần (%)',
                 data: [],
                 yAxis: 0,
                 zones: [
@@ -45,7 +45,7 @@ $(document).ready(function () {
                 ]
             },
             {
-                name: 'FCF/Doanh thu thuần',
+                name: 'FCF/Doanh thu thuần (%)',
                 data: [],
                 yAxis: 0,
                 zones: [
@@ -56,7 +56,7 @@ $(document).ready(function () {
                 ]
             },
             {
-                name: 'FCF/CFO',
+                name: 'FCF/CFO (%)',
                 data: [],
                 yAxis: 1,
                 type: 'spline',
