@@ -77,15 +77,15 @@ $(document).ready(function () {
         },
         series: [
             {
-                name: 'Tài sản cố định hữu hình/Tài sản cố định',
+                name: 'Tài sản cố định hữu hình/Tài sản cố định (%)',
                 data: []
             },
             {
-                name: 'Tài sản cố định cho thuê tài chính/Tài sản cố định',
+                name: 'Tài sản cố định cho thuê tài chính/Tài sản cố định (%)',
                 data: []
             },
             {
-                name: 'Tài sản cố định vô hình/Tài sản cố định',
+                name: 'Tài sản cố định vô hình/Tài sản cố định (%)',
                 data: []
             },
         ]
